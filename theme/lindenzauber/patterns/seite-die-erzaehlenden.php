@@ -34,8 +34,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Brigitta Wortmann</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Brigitta Wortmann</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
@@ -64,8 +64,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Brigitte Sackmaier</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Brigitte Sackmaier</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
@@ -92,8 +92,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Hans-Jörg Hubmann</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Hans-Jörg Hubmann</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
@@ -118,8 +118,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Bea Tilanus</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Bea Tilanus</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
@@ -148,8 +148,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Renate Friese</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Renate Friese</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
@@ -172,8 +172,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"66%"} -->
-<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Die sechste Stimme</h3>
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading -->
+<h2 class="wp-block-heading">Die sechste Stimme</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"className":"is-style-lz-rolle"} -->

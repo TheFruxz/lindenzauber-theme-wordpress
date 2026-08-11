@@ -79,4 +79,9 @@ $WP widget add block lz-foerderband --content="$(cat "$REPO/inhalte/09-foerderba
 echo "== Auszüge für die Metadaten =="
 $WP post update "$START" --post_excerpt="Das große Märchenfest in Bassum: Märchenabend für Erwachsene am Samstag, 26. September 2026, und Märchentag für Familien am Sonntag, 27. September 2026, im Kindergarten KinderReich. Eintritt frei, keine Anmeldung nötig." > /dev/null
 
+# Zum Schluss die Adressregeln erneuern. Beim Aufsetzen passiert das, bevor
+# es die Seiten gibt – ohne diesen Aufruf antworten alle Unterseiten beim
+# ersten Durchlauf mit 404, und man muss das Skript zweimal starten.
+$WP rewrite flush --hard > /dev/null 2>&1 || true
+
 echo "== fertig =="

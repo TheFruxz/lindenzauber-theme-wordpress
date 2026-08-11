@@ -1,10 +1,10 @@
 /*
 Theme Name: Lindenzauber
 Theme URI: https://lindenzauber.de/
-Author: Mütter-Kinder-Zentrum Bassum e. V.
-Author URI: https://www.muekize-bassum.de/
-Description: Theme für das Märchenfest Lindenzauber in Bassum. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen.
-Version: 3.3.0
+Author: Fruxz
+Author URI: https://fruxz.dev/
+Description: Theme für das Märchenfest Lindenzauber in Bassum, veranstaltet vom Mütter-Kinder-Zentrum Bassum e. V. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen.
+Version: 3.4.0
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -842,6 +842,29 @@ body.lz-fest {
    Dachlinie keine Kante entsteht. */
 .wp-block-group.is-style-lz-hero {
 	background: linear-gradient(180deg, rgba(8, 15, 30, 0) 62%, var(--lz-grund) 100%);
+}
+
+/* Der Boden, auf dem die Häuser stehen. Eine Haarlinie, die zu beiden Seiten
+   ausläuft – sie fängt den Blick am Ende des Kopfbereichs ab, statt ihn in
+   den nächsten Abschnitt fallen zu lassen. */
+.wp-block-group.is-style-lz-hero::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 100vw;
+	max-width: none;
+	transform: translateX(-50%);
+	height: 1px;
+	z-index: 3;
+	pointer-events: none;
+	background: linear-gradient(
+		90deg,
+		rgba(240, 200, 104, 0) 0%,
+		rgba(240, 200, 104, 0.4) 20%,
+		rgba(240, 200, 104, 0.4) 80%,
+		rgba(240, 200, 104, 0) 100%
+	);
 }
 
 /* ===============================================================

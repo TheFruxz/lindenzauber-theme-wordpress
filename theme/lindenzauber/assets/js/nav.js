@@ -37,15 +37,30 @@
 	/* ------------------------------------------- 1. Höhe bereitstellen */
 
 	var zuletzt = -1;
+	var zuletztVoll = -1;
 
 	function kopfhoehe() {
 		var hoch = Math.round( kopf.getBoundingClientRect().height );
 
+		if ( hoch < 1 ) {
+			return;
+		}
+
 		// Nur schreiben, wenn sich wirklich etwas geändert hat – während
 		// des Übergangs meldet der Beobachter sonst jeden Zwischenschritt.
-		if ( hoch !== zuletzt && hoch > 0 ) {
+		if ( hoch !== zuletzt ) {
 			zuletzt = hoch;
 			wurzel.style.setProperty( '--lz-kopf', hoch + 'px' );
+		}
+
+		// Die Höhe im ausgefahrenen Zustand wird getrennt gemerkt. Daraus
+		// rechnet der Kopfbereich der Startseite seine Höhe, damit die
+		// Häuserreihe genau am Bildschirmrand steht. Nähme er --lz-kopf,
+		// würde die Seite beim ersten Scrollen einen Satz machen, sobald
+		// der Kopfbereich flacher wird.
+		if ( ! kopf.classList.contains( 'is-kompakt' ) && hoch !== zuletztVoll ) {
+			zuletztVoll = hoch;
+			wurzel.style.setProperty( '--lz-kopf-voll', hoch + 'px' );
 		}
 	}
 

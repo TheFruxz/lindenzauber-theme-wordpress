@@ -72,6 +72,7 @@ Die Website lädt beim Aufruf nichts von fremden Servern:
   vom fremden Server. Der Knopf „Route planen“ öffnet OpenStreetMap erst, wenn
   jemand ihn anklickt.
 * Keine Analysewerkzeuge, keine Einbettungen, keine Cookies vom Theme.
+* Das Symbol im Browser-Tab liegt im Theme, solange keins eingestellt ist.
 
 ---
 
@@ -94,6 +95,7 @@ node tools/block-check.mjs    <url> <benutzer> <passwort> inhalte/*.html # gült
 node tools/editor-check.mjs   <url> <benutzer> <passwort> <seiten-id...> # Warnungen im Editor?
 node tools/layout-check.mjs   <url>                                     # Abstände, Klickflächen, Kontrast
 node tools/vorschau-check.mjs <ordner>                                  # das Vorschau-Paket
+node tools/meta-check.mjs     <url>                                     # Metadaten, strukturierte Daten, llms.txt
 node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
@@ -124,3 +126,20 @@ python3 tools/make-karte.py     # fragt OpenStreetMap ab und zeichnet das SVG
   `theme/lindenzauber/assets/fonts/LIZENZ.md`.
 * Kartenausschnitt: © OpenStreetMap-Mitwirkende, ODbL.
 * Logos der Förderer und Porträtfotos: bei den jeweiligen Rechteinhabern.
+
+---
+
+## Für Suchmaschinen und Sprachmodelle
+
+Jede Seite trägt einen zusammenhängenden Datensatz nach schema.org: das Fest
+mit beiden Tagen als Unterterminen, der Ort mit Koordinaten und Kartenverweis,
+der Veranstalter mit Kontakt, dazu Zielgruppe, Sprache und der freie Eintritt.
+Unterseiten bringen zusätzlich sich selbst und ihren Weg von der Startseite
+mit. Alles kommt aus den Eckdaten im Customizer – es steht nichts davon im
+Quelltext fest.
+
+Dazu liegt unter `/llms.txt` eine Kurzfassung in reinem Text: worum es geht,
+beide Tage, Ort, Anfahrt, Eintritt, Kontakt und alle Seiten mit je einem Satz.
+Auch sie entsteht aus den Eckdaten und kann deshalb nicht veralten.
+
+`tools/meta-check.mjs` hält beides nach.

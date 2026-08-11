@@ -27,6 +27,7 @@ function lz_eckdaten_felder() {
 		'tag1_ende'    => array( '2026-09-26 21:30', 'Samstag: Ende (JJJJ-MM-TT SS:MM)' ),
 		'tag1_zeile'   => array( 'Samstag, 26. September 2026, 19 Uhr', 'Samstag: Zeile für die Fußzeile' ),
 		'tag1_text'    => array( 'Märchenabend für Erwachsene und Jugendliche. Frei erzählte Märchen, Eintritt frei.', 'Samstag: kurze Beschreibung' ),
+		'tag1_fuerwen' => array( 'Erwachsene und Jugendliche', 'Samstag: für wen' ),
 
 		// Sonntag.
 		'tag2_titel'   => array( 'Märchentag für Familien', 'Sonntag: Überschrift' ),
@@ -34,12 +35,16 @@ function lz_eckdaten_felder() {
 		'tag2_ende'    => array( '2026-09-27 17:00', 'Sonntag: Ende (JJJJ-MM-TT SS:MM)' ),
 		'tag2_zeile'   => array( 'Sonntag, 27. September 2026, 13–17 Uhr', 'Sonntag: Zeile für die Fußzeile' ),
 		'tag2_text'    => array( 'Märchentag für Familien mit Kindern ab 3 Jahren. Erzählungen um 13.30, 14.30, 15.30 und 16.30 Uhr, dazu Kaffee und Kuchen. Eintritt frei.', 'Sonntag: kurze Beschreibung' ),
+		'tag2_fuerwen' => array( 'Familien mit Kindern ab 3 Jahren', 'Sonntag: für wen' ),
+		'tag2_alter'   => array( '3-', 'Sonntag: Mindestalter für Suchmaschinen (z. B. „3-“)' ),
 
 		// Ort.
 		'ort_name'     => array( 'Kindergarten KinderReich', 'Ort: Name' ),
 		'ort_strasse'  => array( 'Bürgermeister-Lienhop-Straße 1A', 'Ort: Straße und Hausnummer' ),
 		'ort_plz'      => array( '27211', 'Ort: Postleitzahl' ),
 		'ort_stadt'    => array( 'Bassum', 'Ort: Stadt' ),
+		'ort_breite'   => array( '52.8517566', 'Ort: Breitengrad (für Karten und Suchmaschinen)' ),
+		'ort_laenge'   => array( '8.7355695', 'Ort: Längengrad' ),
 
 		// Eintritt und Kontakt.
 		'eintritt'     => array( 'Eintritt frei · keine Anmeldung nötig', 'Hinweis zum Eintritt' ),
@@ -91,6 +96,26 @@ function lz_adresse( $trenner = ', ' ) {
 	);
 
 	return implode( $trenner, $teile );
+}
+
+/**
+ * Der Verweis auf die Karte, aus den Koordinaten gebaut.
+ *
+ * @return string Leerer String, wenn keine Koordinaten hinterlegt sind.
+ */
+function lz_kartenlink() {
+	$breite = lz_eckdaten( 'ort_breite' );
+	$laenge = lz_eckdaten( 'ort_laenge' );
+
+	if ( ! is_numeric( $breite ) || ! is_numeric( $laenge ) ) {
+		return '';
+	}
+
+	return sprintf(
+		'https://www.openstreetmap.org/?mlat=%1$s&mlon=%2$s#map=17/%1$s/%2$s',
+		rawurlencode( $breite ),
+		rawurlencode( $laenge )
+	);
 }
 
 /**

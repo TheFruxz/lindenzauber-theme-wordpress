@@ -132,6 +132,12 @@ weitere ans Ende der letzten Zeile klicken und `Enter` drücken. Der Zeitstrahl 
 den goldenen Punkten rechnet sich selbst neu aus – egal ob drei, vier oder sechs
 Zeiten dort stehen. Genauso funktionieren die vier Räume darüber.
 
+### Das Symbol im Browser-Tab ändern
+
+*Design → Customizer → Website-Informationen → Website-Icon.* Ein quadratisches
+Bild ab 512 × 512 Pixel. Solange dort nichts steht, zeigt die Website ein
+goldenes Lindenblatt aus dem Theme.
+
 ### Was bei Google unter einer Seite steht
 
 *Seite bearbeiten* → rechte Leiste → Reiter **Seite** → Feld **Auszug**

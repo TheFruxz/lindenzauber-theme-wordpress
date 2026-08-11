@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Lindenzauber">
+  <!--
+    Für 16 Pixel gezeichnet, nicht das große Signet verkleinert: dort
+    verschwindet die feine Baumkrone zu einem Fleck. Hier trägt eine einzige
+    geschlossene Form – ein Lindenblatt – die ganze Marke.
+  -->
+  <defs>
+    <linearGradient id="blatt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7dfa0"/>
+      <stop offset="1" stop-color="#e0b45c"/>
+    </linearGradient>
+    <radialGradient id="schein" cx="0.5" cy="0.32" r="0.62">
+      <stop offset="0" stop-color="#2a4270"/>
+      <stop offset="1" stop-color="#0b1428"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="13" fill="url(#schein)"/>
+
+  <!-- Stiel -->
+  <path d="M32 40v14" stroke="#c89a34" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- Blatt: Spitze oben, Kerbe unten, wie beim Lindenblatt -->
+  <path d="M32 8c-5.5 8.5-18 12-19 22-.8 7.6 6 14 13.4 13 3-.4 5-1.6 5.6-3.4.6 1.8 2.6 3 5.6 3.4 7.4 1 14.2-5.4 13.4-13-1-10-13.5-13.5-19-22Z" fill="url(#blatt)"/>
+
+  <!-- Mittelrippe, nur als feine Aussparung -->
+  <path d="M32 15.5v24" stroke="#0b1428" stroke-opacity="0.32" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

@@ -27,4 +27,5 @@ require_once LZ_DIR . '/inc/eckdaten.php';
 require_once LZ_DIR . '/inc/block-styles.php';
 require_once LZ_DIR . '/inc/patterns.php';
 require_once LZ_DIR . '/inc/meta.php';
+require_once LZ_DIR . '/inc/llms.php';
 require_once LZ_DIR . '/inc/menus.php';

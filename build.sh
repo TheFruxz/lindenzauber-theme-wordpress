@@ -21,6 +21,7 @@ mkdir -p dist
 
 echo "== Grafiken und Muster erzeugen =="
 python3 tools/make-svg.py > /dev/null
+node tools/make-icon.mjs > /dev/null
 php tools/make-patterns.php > /dev/null
 
 echo "== PHP prüfen =="
@@ -51,6 +52,15 @@ LZ_REPO="$REPO" bash tools/wp-test-medien.sh > /dev/null
 
 echo "== Vorschau erzeugen =="
 php tools/make-vorschau.php > /dev/null
+
+# Titel, Beschreibungen, strukturierte Daten, llms.txt – und die Trennung
+# zwischen dem, was über das Fest ausgesagt wird, und dem Hinweis auf die
+# Werkstatt, der nur im Quelltext stehen darf.
+echo "== Metadaten prüfen =="
+if ! node tools/meta-check.mjs "http://127.0.0.1:8321"; then
+	echo "  Die Metadaten haben Befunde."
+	exit 1
+fi
 
 # Die Vorschau entsteht durch Umschreiben der WordPress-Seiten. Dabei kann
 # etwas kaputtgehen, das auf der WordPress-Seite selbst läuft – einmal war

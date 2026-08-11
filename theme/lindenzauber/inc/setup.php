@@ -144,3 +144,38 @@ function lz_ohne_emoji() {
 	remove_action( 'admin_print_styles', 'print_emoji_styles' );
 }
 add_action( 'init', 'lz_ohne_emoji' );
+
+/**
+ * Ein Symbol für den Browser-Tab, solange keines eingestellt ist.
+ *
+ * WordPress verwaltet das Website-Icon selbst (Customizer → Website-
+ * Informationen → Website-Icon) und gibt dann eigene Verweise aus. Ein Theme
+ * kann das nicht übernehmen – wohl aber einspringen, solange dort nichts
+ * hinterlegt ist. Sobald Brigitta ein eigenes Icon setzt, gilt ihres.
+ */
+function lz_favicon() {
+	if ( has_site_icon() ) {
+		return;
+	}
+
+	printf(
+		'<link rel="icon" href="%s" type="image/svg+xml">' . "\n",
+		esc_url( LZ_URI . '/assets/img/favicon.svg' )
+	);
+	printf(
+		'<link rel="apple-touch-icon" href="%s">' . "\n",
+		esc_url( LZ_URI . '/assets/img/apple-touch-icon.png' )
+	);
+}
+add_action( 'wp_head', 'lz_favicon', 3 );
+
+/**
+ * Beim Aktivieren des Themes die Adressregeln erneuern.
+ *
+ * Sonst wäre /llms.txt bis zum nächsten Speichern der Permalink-Einstellungen
+ * nicht erreichbar – und niemand käme von allein darauf, dort nachzusehen.
+ */
+function lz_regeln_erneuern() {
+	flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'lz_regeln_erneuern' );

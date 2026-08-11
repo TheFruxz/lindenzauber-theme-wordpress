@@ -73,6 +73,36 @@ wird nur neu gestaltet – da ist nichts zu tun.
 „Muster wählen“ an. Dort liegen dieselben Seiten unter *Lindenzauber* bereit
 („Seite: Startseite“, „Seite: Programm“ …). Ein Klick genügt.
 
+## 5a. Kurzbeschreibungen eintragen
+
+Diese Texte erscheinen bei Google unter dem Seitentitel und in der Vorschau,
+wenn jemand einen Link teilt. Ohne sie nimmt die Website die ersten Sätze der
+Seite – die enden dann mitten im Satz.
+
+Je Seite: *Bearbeiten* → rechte Leiste → Reiter **Seite** → Feld **Auszug**.
+
+| Seite | Auszug |
+|---|---|
+| Startseite | Märchenfest in Bassum am 26. und 27. September 2026: Märchenabend für Erwachsene, Märchentag für Familien. Eintritt frei, keine Anmeldung nötig. |
+| Programm | Samstagabend für Erwachsene, Sonntagnachmittag für Familien – alle Zeiten, der Ablauf mit den vier Erzählräumen und die Anfahrt zum Kindergarten KinderReich. |
+| Die Erzählenden | Sechs Erzählerinnen und Erzähler, sechs Geschichtenwelten: wer beim Lindenzauber erzählt, wie sie erzählen und wann Sie wen hören. |
+| Über Lindenzauber | Wie aus einer Idee ein Märchenfest wurde: die Menschen dahinter, die beiden Festtage und alles Wichtige in Kürze. |
+| Förderer | Vier Förderer machen den Lindenzauber möglich – deshalb ist der Eintritt an beiden Tagen frei. |
+| Kontakt | Fragen zum Lindenzauber? Brigitta Wortmann ist per E-Mail, Telefon und WhatsApp erreichbar. |
+| Impressum | Pflichtangaben nach § 5 DDG für lindenzauber.de. |
+
+## 5b. Symbol für den Browser-Tab
+
+*Design → Customizer → Website-Informationen → Website-Icon*
+
+Ein quadratisches Bild ab 512 × 512 Pixel – am besten das Lindenblatt-Signet.
+Es erscheint im Browser-Tab und als Symbol, wenn jemand die Seite auf den
+Startbildschirm legt.
+
+> Solange dort nichts hinterlegt ist, zeigt das Theme ein eigenes Blatt in
+> Gold auf Nachtblau. Es sieht nicht kaputt aus – aber Brigittas eigenes
+> Signet ist schöner.
+
 ## 6. Plakat einsetzen
 
 Auf der Startseite steht im Abschnitt „Das Plakat zum Lindenzauber“ zunächst ein
@@ -135,8 +165,13 @@ veröffentlichen → im Menü verlinken.
 - [ ] Kontakt zeigt Kontaktdaten (nicht das Impressum)
 - [ ] Impressum zeigt die Pflichtangaben
 - [ ] Fußzeile: Kontakt, Impressum, Datenschutz vorhanden
-- [ ] Auf dem Handy prüfen: nichts lässt sich seitlich verschieben
+- [ ] Auf dem Handy prüfen: nichts lässt sich seitlich verschieben, das Menü öffnet sich
 - [ ] Einen Link in WhatsApp einfügen: Vorschaubild und Text stimmen
+- [ ] Symbol im Browser-Tab ist da
+- [ ] `lindenzauber.de/llms.txt` im Browser aufrufen – es muss eine Textseite
+      mit Terminen, Ort und Kontakt erscheinen. Kommt stattdessen „Seite nicht
+      gefunden", einmal *Einstellungen → Permalinks → Änderungen speichern*
+      klicken; das erneuert die Adressregeln.
 
 ---
 

@@ -262,3 +262,77 @@ Drei Dinge dagegen:
   verwarf die Vorgaben komplett. Die Texte werden jetzt ergänzt statt ersetzt.
 * **Die Testinstanz ließ sich nicht zweimal aufsetzen**, weil eine Erfolgsmeldung
   in die Seiten-ID rutschte und `LZ_REPO` im Förderer-Band nicht ankam.
+
+---
+
+# Fünfte Runde – Cedrics Durchsicht
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 58 | „Die Häuserreihe sollte darunter vielleicht noch einen Trennstrich haben, dass man nicht so in den folgenden Content hineinfällt“ | **Erledigt.** Eine goldene Haarlinie am unteren Rand des Kopfbereichs, an beiden Enden auslaufend. Sie liest sich als Boden, auf dem die Häuser stehen. |
+| 59 | „Es sieht so aus, als ob die Häuserreihe dort starten sollte, wo der Bildschirm zu Ende ist – auf anderen Größen liegt sie mittendrin“ | **Erledigt.** Genau so war es: der Kopfbereich wuchs mit dem Inhalt, nicht mit dem Bildschirm. Nachgemessen lag die Dachlinie zwischen 269 px **über** und 389 px **unter** dem Rand – auf dem iPhone 15 zufällig fast genau. Jetzt reicht der Kopfbereich bis `100svh` minus Kopfzeilenhöhe. Ergebnis über elf Fenstergrößen: **sieben sitzen genau**, der Rest liegt knapp darunter (iPhone SE +100 px, kleiner Laptop +50 px, Handy quer +258 px) – dort passt der Inhalt schlicht nicht in die Bildschirmhöhe. Über dem Rand, also mit Leere darunter, liegt sie **nirgends mehr**. |
+| 60 | „Überprüf nochmal alle Metadaten. Alles aktuell? Kann man noch mehr ergänzen?“ | **Erledigt.** Siehe unten. |
+| 61 | „Kann man für KI-Modelle unsichtbare Daten hinzufügen?“ | **Erledigt – auf dem sauberen Weg.** Strukturierte Daten stark ausgebaut, dazu eine `llms.txt`. Was ich **nicht** gemacht habe: versteckten Text mit Schlagwörtern. Das ist Cloaking, verstößt gegen die Richtlinien aller Suchmaschinen und kann die Seite aus dem Index werfen. Strukturierte Daten sind für Maschinen gedacht, unsichtbar für Besucher und ausdrücklich erwünscht – sie leisten dasselbe, ohne das Risiko. |
+| 62 | „Ein Developer-Watermark, aber so, dass keine KI sagt: die Website ist von Fruxz“ | **Erledigt, an drei Stellen** – und die Trennung wird geprüft. Siehe unten. |
+| 63 | „Favicon nicht vergessen (wenn das bei WordPress überhaupt vom Theme festgelegt werden muss)“ | **Erledigt.** Kurze Antwort: WordPress verwaltet das Website-Icon selbst über den Customizer, ein Theme kann es nicht setzen – wohl aber einspringen, solange keins hinterlegt ist. Vorher waren auf allen neun Seiten **null** Icon-Verweise. Jetzt liegt ein eigenes `favicon.svg` im Theme, für 16 px gezeichnet statt das große Signet verkleinert, dazu ein `apple-touch-icon.png`. Sobald Brigitta ein eigenes Icon setzt, gilt ihres. Der Schritt steht in SETUP.md. |
+
+## Was die Metadaten jetzt können
+
+Vorher: zwei lose `Event`-Objekte, nur auf der Startseite. Jetzt ein
+zusammenhängender Graph auf **jeder** Seite:
+
+* das Fest als `Festival` mit beiden Tagen als Unterterminen – der
+  Zusammenhang, den vorher nur der Fließtext hergab
+* der Ort mit **Koordinaten** und Kartenverweis (die Koordinaten standen
+  bisher nur im Kartenskript)
+* der Veranstalter mit E-Mail und Telefon
+* Zielgruppe und Mindestalter je Tag, Sprache, freier Eintritt
+* auf Unterseiten zusätzlich die Seite selbst und ihr Weg von der Startseite
+
+Alles aus den Eckdaten im Customizer – vier neue Felder dafür: Breitengrad,
+Längengrad, „für wen“ Samstag und Sonntag.
+
+Dazu `og:image` mit Maßen und Alternativtext und ein `generator`-Feld.
+
+**`/llms.txt`** fasst die Website in reinem Text zusammen: beide Tage, Ort mit
+Koordinaten, Anfahrt, Eintritt, Kontakt und alle Seiten mit je einem Satz.
+Ebenfalls aus den Eckdaten, kann also nicht veralten.
+
+**Seitenbeschreibungen:** Die automatische Fassung schneidet mitten im Satz ab.
+In SETUP.md steht jetzt für jede Seite ein fertiger Auszug zum Einfügen.
+
+## Die Signatur – und was sie nicht darf
+
+Der Hinweis auf die Werkstatt steht an drei Stellen:
+
+1. als Kommentarblock ganz oben im Quelltext jeder Seite
+2. als `Author` im Kopf der `style.css` (in WordPress unter *Design → Themes*)
+3. als `<meta name="generator">`, knapp und werkzeughaft wie bei WordPress selbst
+
+Er steht **nicht** in den strukturierten Daten, **nicht** in `meta name="author"`,
+**nicht** in der `llms.txt` und **nicht** im sichtbaren Text. Dort steht überall
+der Verein als Veranstalter.
+
+`tools/meta-check.mjs` prüft genau diese Trennung bei jedem Durchlauf: der
+Hinweis muss im Quelltext stehen und darf in keiner maschinenlesbaren Angabe
+über das Fest vorkommen. **Gegenprobe:** ein `creator: "Fruxz"` im Graphen und
+ein Satz in der llms.txt werden beide sofort gemeldet.
+
+## In dieser Runde zusätzlich gefunden
+
+* **Zwei Überschriftensprünge:** „Die Erzählenden“ und „Kontakt“ begannen ihren
+  Inhalt mit `h3` direkt unter der `h1`. Auf `h2` gehoben; damit die Namen der
+  Erzählenden dabei nicht plötzlich riesig werden, behalten sie im Porträt ihre
+  kleinere Größe.
+* **Der Zierstrich im Kopfbereich verschwand**, als der Kopfbereich zur
+  Flex-Spalte wurde: WordPress zentriert Blöcke über automatische Ränder, und
+  die verhindern in einer Flex-Spalte, dass sich ein Block auf die Breite zieht.
+  Der Strich besteht nur aus einer Maske – ohne Breite war er 0 px und damit
+  unsichtbar. Neue Prüfung „Gestaltetes Element ohne Fläche“ fängt diese Sorte
+  Fehler künftig ab.
+* **Die Testinstanz antwortete nach dem Aufsetzen mit 404 auf alle Unterseiten**,
+  weil die Adressregeln erneuert werden, bevor es die Seiten gibt. Man musste das
+  Skript zweimal starten.
+* **`/llms.txt` wurde auf `/llms.txt/` umgeleitet** – WordPress hängt an Adressen
+  ohne Endung einen Schrägstrich an. Für diese eine Adresse bleibt die Umleitung
+  jetzt aus.

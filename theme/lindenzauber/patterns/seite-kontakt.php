@@ -38,8 +38,8 @@
 <!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-karte"} -->
-<div class="wp-block-column is-style-lz-karte"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Ansprechpartnerin</h3>
+<div class="wp-block-column is-style-lz-karte"><!-- wp:heading -->
+<h2 class="wp-block-heading">Ansprechpartnerin</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"gross"} -->
@@ -52,8 +52,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"className":"is-style-lz-karte"} -->
-<div class="wp-block-column is-style-lz-karte"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">E-Mail</h3>
+<div class="wp-block-column is-style-lz-karte"><!-- wp:heading -->
+<h2 class="wp-block-heading">E-Mail</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"gross"} -->
@@ -66,8 +66,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"className":"is-style-lz-karte"} -->
-<div class="wp-block-column is-style-lz-karte"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Telefon und WhatsApp</h3>
+<div class="wp-block-column is-style-lz-karte"><!-- wp:heading -->
+<h2 class="wp-block-heading">Telefon und WhatsApp</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"gross"} -->
@@ -84,8 +84,8 @@
 <!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-lz-band"><!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Veranstalter</h3>
+<div class="wp-block-column"><!-- wp:heading -->
+<h2 class="wp-block-heading">Veranstalter</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -94,8 +94,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Presse und Aushang</h3>
+<div class="wp-block-column"><!-- wp:heading -->
+<h2 class="wp-block-heading">Presse und Aushang</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->

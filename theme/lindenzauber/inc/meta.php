@@ -15,6 +15,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Der Satz, der das Fest beschreibt – aus den Eckdaten gebaut.
+ *
+ * Wird für die Startseite gebraucht und für die llms.txt, die außerhalb
+ * jeder Seite ausgeliefert wird und deshalb keinen Beitrag zum Kürzen hat.
+ *
+ * @return string
+ */
+function lz_beschreibung_fest() {
+	$standard = sprintf(
+		/* translators: 1: Titel Samstag, 2: Zeile Samstag, 3: Titel Sonntag, 4: Zeile Sonntag, 5: Ort, 6: Hinweis zum Eintritt */
+		__( '%1$s am %2$s und %3$s am %4$s – %5$s. %6$s', 'lindenzauber' ),
+		lz_eckdaten( 'tag1_titel' ),
+		lz_eckdaten( 'tag1_zeile' ),
+		lz_eckdaten( 'tag2_titel' ),
+		lz_eckdaten( 'tag2_zeile' ),
+		lz_adresse(),
+		lz_eckdaten( 'eintritt' )
+	);
+
+	$beschreibung = get_bloginfo( 'description' );
+
+	return lz_kuerzen( $beschreibung ? $beschreibung . ' ' . $standard : $standard );
+}
+
+/**
  * Beschreibung der aktuell angezeigten Seite.
  *
  * @return string
@@ -27,20 +52,7 @@ function lz_beschreibung() {
 			return lz_kuerzen( get_the_excerpt( $objekt ) );
 		}
 
-		$standard = sprintf(
-			/* translators: 1: Titel Samstag, 2: Zeile Samstag, 3: Titel Sonntag, 4: Zeile Sonntag, 5: Ort, 6: Hinweis zum Eintritt */
-			__( '%1$s am %2$s und %3$s am %4$s – %5$s. %6$s', 'lindenzauber' ),
-			lz_eckdaten( 'tag1_titel' ),
-			lz_eckdaten( 'tag1_zeile' ),
-			lz_eckdaten( 'tag2_titel' ),
-			lz_eckdaten( 'tag2_zeile' ),
-			lz_adresse(),
-			lz_eckdaten( 'eintritt' )
-		);
-
-		$beschreibung = get_bloginfo( 'description' );
-
-		return lz_kuerzen( $beschreibung ? $beschreibung . ' ' . $standard : $standard );
+		return lz_beschreibung_fest();
 	}
 
 	if ( is_singular() ) {
@@ -156,21 +168,65 @@ function lz_meta_tags() {
 
 	printf( '<meta name="twitter:title" content="%s">' . "\n", esc_attr( $titel ) );
 	echo '<meta name="theme-color" content="#0b1224">' . "\n";
+
+	// Werkzeug-Angabe, wie WordPress sie für sich selbst ausgibt.
+	printf(
+		'<meta name="generator" content="%s">' . "\n",
+		esc_attr( sprintf( 'Lindenzauber-Theme %s · fruxz.dev', LZ_VERSION ) )
+	);
 }
 add_action( 'wp_head', 'lz_meta_tags', 1 );
 
 /**
- * Strukturierte Daten: die beiden Veranstaltungen.
+ * Maße und Alternativtext des Vorschaubildes.
  *
- * Die Angaben stammen aus den Eckdaten im Customizer, nicht aus dem Quelltext.
+ * Steht getrennt, weil dafür der Anhang nachgeschlagen werden muss – das
+ * lohnt nur, wenn es überhaupt ein Bild gibt.
  */
-function lz_event_schema() {
-	if ( ! is_front_page() ) {
+function lz_teilen_bild_details() {
+	$bild = lz_teilen_bild();
+
+	if ( '' === $bild ) {
 		return;
 	}
 
+	$id = attachment_url_to_postid( $bild );
+
+	if ( $id > 0 ) {
+		$daten = wp_get_attachment_image_src( $id, 'full' );
+
+		if ( is_array( $daten ) && ! empty( $daten[1] ) && ! empty( $daten[2] ) ) {
+			printf( '<meta property="og:image:width" content="%d">' . "\n", (int) $daten[1] );
+			printf( '<meta property="og:image:height" content="%d">' . "\n", (int) $daten[2] );
+		}
+
+		$alt = trim( (string) get_post_meta( $id, '_wp_attachment_image_alt', true ) );
+	} else {
+		$alt = '';
+	}
+
+	if ( '' === $alt ) {
+		$alt = sprintf(
+			/* translators: %s: Name der Website */
+			__( 'Plakat zum %s', 'lindenzauber' ),
+			get_bloginfo( 'name' )
+		);
+	}
+
+	printf( '<meta property="og:image:alt" content="%s">' . "\n", esc_attr( $alt ) );
+	printf( '<meta name="twitter:image:alt" content="%s">' . "\n", esc_attr( $alt ) );
+}
+add_action( 'wp_head', 'lz_teilen_bild_details', 2 );
+
+/**
+ * Der Ort als strukturierte Angabe, mit Koordinaten und Kartenverweis.
+ *
+ * @return array
+ */
+function lz_schema_ort() {
 	$ort = array(
 		'@type'   => 'Place',
+		'@id'     => home_url( '/#ort' ),
 		'name'    => lz_eckdaten( 'ort_name' ),
 		'address' => array(
 			'@type'           => 'PostalAddress',
@@ -181,11 +237,134 @@ function lz_event_schema() {
 		),
 	);
 
-	$veranstalter = array(
+	$breite = lz_eckdaten( 'ort_breite' );
+	$laenge = lz_eckdaten( 'ort_laenge' );
+
+	if ( is_numeric( $breite ) && is_numeric( $laenge ) ) {
+		$ort['geo'] = array(
+			'@type'     => 'GeoCoordinates',
+			'latitude'  => (float) $breite,
+			'longitude' => (float) $laenge,
+		);
+	}
+
+	$karte = lz_kartenlink();
+
+	if ( '' !== $karte ) {
+		$ort['hasMap'] = $karte;
+	}
+
+	return $ort;
+}
+
+/**
+ * Der Veranstalter als strukturierte Angabe.
+ *
+ * @return array
+ */
+function lz_schema_veranstalter() {
+	$organisation = array(
 		'@type' => 'Organization',
+		'@id'   => home_url( '/#veranstalter' ),
 		'name'  => lz_eckdaten( 'veranstalter' ),
-		'url'   => lz_eckdaten( 'veranstalter_url' ),
 	);
+
+	$url = lz_eckdaten( 'veranstalter_url' );
+
+	if ( '' !== $url ) {
+		$organisation['url'] = $url;
+	}
+
+	$kontakt = array_filter(
+		array(
+			'@type'       => 'ContactPoint',
+			'contactType' => __( 'Auskunft zum Fest', 'lindenzauber' ),
+			'name'        => lz_eckdaten( 'kontakt_name' ),
+			'email'       => lz_eckdaten( 'kontakt_mail' ),
+			'telephone'   => lz_eckdaten( 'kontakt_tel_link' ),
+		)
+	);
+
+	if ( count( $kontakt ) > 2 ) {
+		$organisation['contactPoint'] = $kontakt;
+	}
+
+	return $organisation;
+}
+
+/**
+ * Ein einzelner Festtag als Untertermin.
+ *
+ * @param string $nummer      "tag1" oder "tag2".
+ * @param array  $gemeinsames Ort, Veranstalter, Angebot, Bild.
+ * @return array Leeres Array, wenn kein brauchbares Datum hinterlegt ist.
+ */
+function lz_schema_tag( $nummer, $gemeinsames ) {
+	$start = lz_iso_datum( lz_eckdaten( $nummer . '_start' ) );
+
+	// Ohne verwertbares Startdatum lieber gar keine Angabe machen.
+	if ( '' === $start ) {
+		return array();
+	}
+
+	$event = array(
+		'@type'               => 'Event',
+		'@id'                 => home_url( '/#' . $nummer ),
+		'name'                => lz_eckdaten( $nummer . '_titel' ),
+		'startDate'           => $start,
+		'description'         => lz_eckdaten( $nummer . '_text' ),
+		'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+		'eventStatus'         => 'https://schema.org/EventScheduled',
+		'inLanguage'          => 'de',
+		'isAccessibleForFree' => true,
+		'location'            => array( '@id' => $gemeinsames['ort']['@id'] ),
+		'organizer'           => array( '@id' => $gemeinsames['veranstalter']['@id'] ),
+		'offers'              => $gemeinsames['angebot'],
+	);
+
+	$ende = lz_iso_datum( lz_eckdaten( $nummer . '_ende' ) );
+
+	if ( '' !== $ende ) {
+		$event['endDate'] = $ende;
+	}
+
+	$fuerwen = lz_eckdaten( $nummer . '_fuerwen' );
+
+	if ( '' !== $fuerwen ) {
+		$event['audience'] = array(
+			'@type'        => 'Audience',
+			'audienceType' => $fuerwen,
+		);
+	}
+
+	$alter = lz_eckdaten( $nummer . '_alter' );
+
+	if ( '' !== $alter ) {
+		$event['typicalAgeRange'] = $alter;
+	}
+
+	if ( '' !== $gemeinsames['bild'] ) {
+		$event['image'] = $gemeinsames['bild'];
+	}
+
+	return $event;
+}
+
+/**
+ * Strukturierte Daten für die ganze Website.
+ *
+ * Ein zusammenhängender Graph statt loser Einzelangaben: das Fest mit beiden
+ * Tagen als Unterterminen, der Ort mit Koordinaten, der Veranstalter mit
+ * Kontakt, dazu die Website und – auf Unterseiten – die Seite selbst mit
+ * ihrem Weg dorthin. Alles kommt aus den Eckdaten im Customizer.
+ *
+ * Hier steht bewusst nichts über die Herkunft des Themes. Diese Angaben sind
+ * die Beschreibung des Festes, nicht die der Website-Werkstatt.
+ */
+function lz_schema() {
+	$ort          = lz_schema_ort();
+	$veranstalter = lz_schema_veranstalter();
+	$bild         = lz_teilen_bild();
 
 	$angebot = array(
 		'@type'         => 'Offer',
@@ -195,49 +374,118 @@ function lz_event_schema() {
 		'url'           => home_url( '/' ),
 	);
 
-	$bild = lz_teilen_bild();
+	$gemeinsames = compact( 'ort', 'veranstalter', 'angebot', 'bild' );
 
-	$termine = array(
-		array( 'tag1_titel', 'tag1_start', 'tag1_ende', 'tag1_text' ),
-		array( 'tag2_titel', 'tag2_start', 'tag2_ende', 'tag2_text' ),
+	$tage = array_filter(
+		array(
+			lz_schema_tag( 'tag1', $gemeinsames ),
+			lz_schema_tag( 'tag2', $gemeinsames ),
+		)
 	);
 
-	foreach ( $termine as $termin ) {
-		$start = lz_iso_datum( lz_eckdaten( $termin[1] ) );
+	$graph = array(
+		array(
+			'@type'      => 'WebSite',
+			'@id'        => home_url( '/#website' ),
+			'url'        => home_url( '/' ),
+			'name'       => get_bloginfo( 'name' ),
+			'inLanguage' => 'de',
+			'publisher'  => array( '@id' => $veranstalter['@id'] ),
+		),
+		$veranstalter,
+		$ort,
+	);
 
-		// Ohne verwertbares Startdatum lieber gar keine Angabe machen.
-		if ( '' === $start ) {
-			continue;
-		}
+	if ( $tage ) {
+		$starts = array_column( $tage, 'startDate' );
+		$enden  = array_column( $tage, 'endDate' );
 
-		$event = array(
-			'@context'            => 'https://schema.org',
-			'@type'               => 'Event',
-			'name'                => get_bloginfo( 'name' ) . ' – ' . lz_eckdaten( $termin[0] ),
-			'startDate'           => $start,
+		$fest = array(
+			'@type'               => 'Festival',
+			'@id'                 => home_url( '/#fest' ),
+			'name'                => get_bloginfo( 'name' ),
+			'alternateName'       => __( 'Märchenfest in Bassum', 'lindenzauber' ),
+			'description'         => lz_beschreibung(),
+			'url'                 => home_url( '/' ),
+			'startDate'           => min( $starts ),
 			'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
 			'eventStatus'         => 'https://schema.org/EventScheduled',
-			'description'         => lz_eckdaten( $termin[3] ),
-			'location'            => $ort,
-			'organizer'           => $veranstalter,
-			'offers'              => $angebot,
+			'inLanguage'          => 'de',
 			'isAccessibleForFree' => true,
+			'location'            => array( '@id' => $ort['@id'] ),
+			'organizer'           => array( '@id' => $veranstalter['@id'] ),
+			'offers'              => $angebot,
+			'subEvent'            => $tage,
+			'keywords'            => __( 'Märchen, Erzählkunst, Familienfest, Bassum, Lindenzauber', 'lindenzauber' ),
 		);
 
-		$ende = lz_iso_datum( lz_eckdaten( $termin[2] ) );
-
-		if ( '' !== $ende ) {
-			$event['endDate'] = $ende;
+		if ( $enden ) {
+			$fest['endDate'] = max( $enden );
 		}
 
 		if ( '' !== $bild ) {
-			$event['image'] = $bild;
+			$fest['image'] = $bild;
 		}
 
-		printf(
-			'<script type="application/ld+json">%s</script>' . "\n",
-			wp_json_encode( $event, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
+		$graph[] = $fest;
+	}
+
+	// Auf Unterseiten zusätzlich die Seite selbst und der Weg dorthin.
+	if ( is_singular() && ! is_front_page() ) {
+		$graph[] = array(
+			'@type'      => 'WebPage',
+			'@id'        => get_permalink(),
+			'url'        => get_permalink(),
+			'name'       => get_the_title(),
+			'description' => lz_beschreibung(),
+			'inLanguage' => 'de',
+			'isPartOf'   => array( '@id' => home_url( '/#website' ) ),
+			'about'      => array( '@id' => home_url( '/#fest' ) ),
+		);
+
+		$graph[] = array(
+			'@type'           => 'BreadcrumbList',
+			'itemListElement' => array(
+				array(
+					'@type'    => 'ListItem',
+					'position' => 1,
+					'name'     => get_bloginfo( 'name' ),
+					'item'     => home_url( '/' ),
+				),
+				array(
+					'@type'    => 'ListItem',
+					'position' => 2,
+					'name'     => get_the_title(),
+				),
+			),
 		);
 	}
+
+	printf(
+		'<script type="application/ld+json">%s</script>' . "\n",
+		wp_json_encode(
+			array(
+				'@context' => 'https://schema.org',
+				'@graph'   => array_values( $graph ),
+			),
+			JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+		)
+	);
 }
-add_action( 'wp_head', 'lz_event_schema', 5 );
+add_action( 'wp_head', 'lz_schema', 5 );
+
+/**
+ * Die Herkunft des Themes – als Kommentar im Quelltext.
+ *
+ * Bewusst nur hier und nicht in den strukturierten Daten: dort steht, worum
+ * es auf der Website geht, und das ist das Fest und sein Veranstalter.
+ */
+function lz_signatur() {
+	printf(
+		"\n<!--\n  %s\n  %s\n  %s\n-->\n",
+		'Lindenzauber – Theme ' . LZ_VERSION,
+		'Entwickelt von Fruxz · https://fruxz.dev/',
+		'Inhalte und Veranstaltung: ' . lz_eckdaten( 'veranstalter' )
+	);
+}
+add_action( 'wp_head', 'lz_signatur', 0 );

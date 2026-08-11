@@ -268,7 +268,73 @@ const pruefung = () => {
 		});
 	}
 
-	/* ------------------------------------------------- 8. Tippflächen */
+	/* ------------------------------------------------ 8. Gliederung */
+	// Überschriften sind das Inhaltsverzeichnis der Seite. Springt die Ebene,
+	// steht in Vorlesehilfen und bei Suchmaschinen eine Lücke.
+	const ueberschriften = [...document.querySelectorAll('main :is(h1,h2,h3,h4,h5,h6)')].filter(sichtbar);
+	const einsen = ueberschriften.filter((el) => el.tagName === 'H1');
+
+	if (einsen.length > 1) {
+		befunde.push({
+			art: 'Mehr als eine Hauptüberschrift',
+			wo: einsen.map((el) => beschreibe(el)).join('  ·  '),
+			mass: `${einsen.length} × h1`,
+		});
+	}
+
+	for (let i = 1; i < ueberschriften.length; i++) {
+		const vor = +ueberschriften[i - 1].tagName[1];
+		const jetzt = +ueberschriften[i].tagName[1];
+
+		if (jetzt - vor > 1) {
+			befunde.push({
+				art: 'Überschrift überspringt eine Ebene',
+				wo: beschreibe(ueberschriften[i]),
+				mass: `h${vor} → h${jetzt}`,
+			});
+		}
+	}
+
+	/* --------------------------------------------- 9. Alternativtexte */
+	document.querySelectorAll('img').forEach((bild) => {
+		if (!sichtbar(bild)) return;
+
+		// Ein leeres alt ist eine Aussage: "rein dekorativ". Ein fehlendes
+		// alt ist ein Versehen – dann liest die Vorlesehilfe den Dateinamen.
+		if (!bild.hasAttribute('alt')) {
+			befunde.push({
+				art: 'Bild ohne Alternativtext',
+				wo: (bild.currentSrc || bild.src).split('/').pop(),
+				mass: 'alt-Attribut fehlt ganz',
+			});
+		}
+	});
+
+	/* ------------------------------- 10. Gestaltetes ohne Fläche */
+	// Ein Element, das eine Maske oder ein Hintergrundbild trägt, aber keine
+	// Breite hat, ist unsichtbar – und niemandem fällt auf, dass es fehlt.
+	document.querySelectorAll('hr, .wp-block-separator, [class*="is-style-lz-"]').forEach((el) => {
+		const s = getComputedStyle(el);
+		const traegtBild =
+			(s.maskImage && s.maskImage !== 'none') ||
+			(s.webkitMaskImage && s.webkitMaskImage !== 'none') ||
+			(s.backgroundImage && s.backgroundImage !== 'none');
+
+		if (!traegtBild) return;
+		if (s.display === 'none' || s.visibility === 'hidden') return;
+
+		const r = el.getBoundingClientRect();
+
+		if (r.width < 1 || r.height < 1) {
+			befunde.push({
+				art: 'Gestaltetes Element ohne Fläche',
+				wo: beschreibe(el),
+				mass: `${px(r.width)} × ${px(r.height)} px`,
+			});
+		}
+	});
+
+	/* ------------------------------------------------- 11. Tippflächen */
 	// Nur auf dem Handy und nur für Bedienelemente. Einzelne Links im
 	// Fließtext bleiben außen vor – die aufzublasen zerreißt den Zeilenfall,
 	// und die Prüfung würde für immer dasselbe melden.
