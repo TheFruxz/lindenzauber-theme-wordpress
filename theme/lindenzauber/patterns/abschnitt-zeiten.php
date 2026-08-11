@@ -1,18 +1,23 @@
 <?php
 /**
- * Title: Abschnitt: Räume und Erzählzeiten
+ * Title: Abschnitt: Ablauf-Tafel (Räume und Erzählzeiten)
  * Slug: lindenzauber/abschnitt-zeiten
  * Categories: lindenzauber
- * Description: Die Erzählräume als Kacheln und die Uhrzeiten als goldene Chips.
- * Keywords: räume, zeiten, uhrzeit, erzählzeiten, programm
+ * Description: Die Erzählräume als Kacheln und die Uhrzeiten als Zeitstrahl, zusammengefasst auf einer gerahmten Tafel.
+ * Keywords: räume, zeiten, uhrzeit, erzählzeiten, ablauf, programm
  * Inserter: yes
  *
  * @package Lindenzauber
  */
 
 ?>
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Die vier Erzählräume</h3>
+<!-- wp:group {"align":"wide","className":"is-style-lz-tafel","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide is-style-lz-tafel"><!-- wp:heading {"textAlign":"center","level":3,"className":"is-style-lz-zeichen-zeit"} -->
+<h3 class="wp-block-heading has-text-align-center is-style-lz-zeichen-zeit">Der Ablauf am Sonntag</h3>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Vier Erzählräume</h4>
 <!-- /wp:heading -->
 
 <!-- wp:list {"className":"is-style-lz-kacheln"} -->
@@ -33,12 +38,16 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-zeit"} -->
-<h3 class="wp-block-heading is-style-lz-zeichen-zeit">Erzählzeiten</h3>
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading">Vier Erzählzeiten</h4>
 <!-- /wp:heading -->
 
-<!-- wp:list {"className":"is-style-lz-chips"} -->
-<ul class="wp-block-list is-style-lz-chips"><!-- wp:list-item -->
+<!-- wp:paragraph -->
+<p>In jedem Raum beginnt zu jeder Erzählzeit ein neues Programm von rund 20 Minuten. Die Erzählerinnen und Erzähler wechseln dabei durch die Räume – wer bleibt, hört jedes Mal etwas Neues.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"className":"is-style-lz-zeitstrahl"} -->
+<ul class="wp-block-list is-style-lz-zeitstrahl"><!-- wp:list-item -->
 <li>13.30 Uhr</li>
 <!-- /wp:list-item -->
 
@@ -53,4 +62,5 @@
 <!-- wp:list-item -->
 <li>16.30 Uhr</li>
 <!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+<!-- /wp:list --></div>
+<!-- /wp:group -->

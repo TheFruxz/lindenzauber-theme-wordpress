@@ -16,7 +16,7 @@ WordPress-Editor bearbeitbar** – ohne Code, ohne Plugins, ohne Umwege.
 | `dist/lindenzauber.zip` | **Das Theme.** In WordPress unter *Design → Themes → Theme hochladen* installieren. |
 | `dist/lindenzauber-vorschau.zip` | **Die Vorschau.** Entpacken, `index.html` doppelklicken – die ganze Website ohne WordPress anschauen. |
 | `inhalte/` | Der Blockcode für jede Seite, zum einmaligen Einfügen. Siehe [SETUP.md](SETUP.md). |
-| `medien/` | Das Kartenbild für die Anfahrt (liegt auch schon im Theme). |
+| `medien/` | Die Anfahrtskarte als SVG (liegt auch schon im Theme). |
 | `theme/lindenzauber/` | Der Quellcode des Themes. |
 | `tools/` | Hilfsskripte zum Bauen und Prüfen. Werden für den Betrieb nicht gebraucht. |
 | [SETUP.md](SETUP.md) | Einrichtung, Schritt für Schritt. Für Cedric. |
@@ -67,9 +67,10 @@ die Angaben für Google. Im nächsten Jahr genügt es, dort die Daten zu ändern
 Die Website lädt beim Aufruf nichts von fremden Servern:
 
 * Schriften liegen im Theme.
-* Das Kartenbild der Anfahrt ist eine gewöhnliche Bilddatei, erzeugt aus
-  OpenStreetMap-Daten (© OpenStreetMap-Mitwirkende, ODbL). Der Knopf
-  „Route planen“ öffnet OpenStreetMap erst, wenn jemand ihn anklickt.
+* Die Anfahrtskarte ist eine Zeichnung im Theme, einmalig aus OpenStreetMap-Daten
+  erzeugt (© OpenStreetMap-Mitwirkende, ODbL) – kein Kartendienst, keine Kacheln
+  vom fremden Server. Der Knopf „Route planen“ öffnet OpenStreetMap erst, wenn
+  jemand ihn anklickt.
 * Keine Analysewerkzeuge, keine Einbettungen, keine Cookies vom Theme.
 
 ---
@@ -97,8 +98,16 @@ node tools/shot.mjs         <url> <ziel.png> [breite] [full]             # Scree
 
 `layout-check.mjs` geht alle Seiten in 390 px, 768 px und 1440 px durch und meldet
 fehlende Abstände zwischen Blöcken, außermittige Abschnitte, Flächen die klickbar
-aussehen aber keine sind, seitlichen Überlauf und zu schwachen Kontrast. Nach jeder
+aussehen aber keine sind, seitlichen Überlauf, zu schwachen Kontrast, Leerraum
+hinter dem Fußbereich und Bilder, deren eigener Grund nicht zur Kachel darunter
+passt (Eckpixel gegen die tatsächlich sichtbare Hintergrundfarbe). Nach jeder
 Änderung an der Gestaltung einmal laufen lassen – es muss „Keine Befunde“ herauskommen.
+
+Die Karte wird nur neu erzeugt, wenn sich der Ausschnitt ändern soll:
+
+```bash
+python3 tools/make-karte.py     # fragt OpenStreetMap ab und zeichnet das SVG
+```
 
 ---
 

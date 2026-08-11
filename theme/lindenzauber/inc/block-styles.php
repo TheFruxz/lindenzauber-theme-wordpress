@@ -26,6 +26,7 @@ function lz_block_stile() {
 			'lz-band'   => __( 'Abschnitt', 'lindenzauber' ),
 			'lz-panel'  => __( 'Abschnitt abgesetzt', 'lindenzauber' ),
 			'lz-rahmen' => __( 'Kasten mit Goldrahmen', 'lindenzauber' ),
+			'lz-tafel'  => __( 'Ablauf-Tafel', 'lindenzauber' ),
 		),
 
 		// Überschriften.
@@ -63,10 +64,11 @@ function lz_block_stile() {
 
 		// Listen.
 		'core/list' => array(
-			'lz-chips'   => __( 'Zeiten als Chips', 'lindenzauber' ),
-			'lz-kacheln' => __( 'Kacheln', 'lindenzauber' ),
-			'lz-punkte'  => __( 'Punkte mit Lindenblatt', 'lindenzauber' ),
-			'lz-fakten'  => __( 'Fakten (Stichwort + Text)', 'lindenzauber' ),
+			'lz-chips'      => __( 'Zeiten als Chips', 'lindenzauber' ),
+			'lz-zeitstrahl' => __( 'Zeiten als Zeitstrahl', 'lindenzauber' ),
+			'lz-kacheln'    => __( 'Kacheln', 'lindenzauber' ),
+			'lz-punkte'     => __( 'Punkte mit Lindenblatt', 'lindenzauber' ),
+			'lz-fakten'     => __( 'Fakten (Stichwort + Text)', 'lindenzauber' ),
 		),
 
 		// Bilder und Zubehör.

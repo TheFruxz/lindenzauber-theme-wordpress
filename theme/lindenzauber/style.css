@@ -4,7 +4,7 @@ Theme URI: https://lindenzauber.de/
 Author: Mütter-Kinder-Zentrum Bassum e. V.
 Author URI: https://www.muekize-bassum.de/
 Description: Theme für das Märchenfest Lindenzauber in Bassum. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen.
-Version: 3.1.0
+Version: 3.2.0
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -248,10 +248,12 @@ img {
 	flex-direction: column;
 	min-height: 100vh;
 	isolation: isolate;
-	/* Baum und randlose Abschnitte ragen bewusst über die Seitenbreite hinaus.
-	   "clip" schneidet sie ab, ohne einen Scrollbereich zu erzeugen – sonst
-	   ließe sich die Seite auf dem Handy seitlich verschieben. */
-	overflow-x: clip;
+	/* Baum, Sternenfeld und randlose Abschnitte ragen bewusst über die Kanten
+	   hinaus. "clip" schneidet sie ab, ohne einen Scrollbereich zu erzeugen –
+	   sonst ließe sich die Seite seitlich verschieben, und der Überstand des
+	   Sternenfeldes hinge als leerer Streifen unter dem Fußbereich.
+	   Beide Achsen: "overflow-x" allein lässt senkrecht alles stehen. */
+	overflow: clip;
 }
 
 .site-main {
@@ -697,19 +699,20 @@ img {
 	height: 100%;
 	min-height: 6rem;
 	padding: 0.8rem 0.9rem;
-	background: rgba(255, 255, 255, 0.94);
+	/* Deckendes Weiß, nicht 94 %: die Logodateien bringen selbst einen weißen
+	   Grund mit. Schon ein Hauch Durchsicht macht die Kachel grauer als das
+	   Logo darauf – man sieht dann ein helleres Rechteck im Rahmen stehen. */
+	background: #ffffff;
 	border: 1px solid transparent;
 	border-radius: 6px;
 	transition:
 		transform var(--lz-dauer) var(--lz-kurve),
-		background var(--lz-dauer) var(--lz-kurve),
 		border-color var(--lz-dauer) var(--lz-kurve),
 		box-shadow var(--lz-dauer) var(--lz-kurve);
 }
 
 .site-footer__foerderer a:hover,
 .site-footer__foerderer a:focus-visible {
-	background: #ffffff;
 	border-color: var(--lz-gold);
 	transform: translateY(-3px);
 	box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.9);

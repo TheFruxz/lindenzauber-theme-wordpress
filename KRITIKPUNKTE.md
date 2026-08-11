@@ -150,3 +150,47 @@ vorgesehenen 56–88 px. `defaultSpacingSizes: false` in der `theme.json` behebt
   dadurch versehentlich. Jetzt mittig wie die übrigen.
 * **Der Festtitel hatte keinen Schattenwurf** – einzelne Sterne standen mitten in den
   Buchstaben. Jetzt hebt sich der Text sauber ab.
+
+---
+
+# Dritte Runde – Cedrics Durchsicht
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 51 | „Startseite: Unter dem Footer ist plötzlich ganz viel Luft“ | **Erledigt.** Die Sternenebene ist bewusst 4 % höher als die Seite, damit beim Scroll-Nachlauf unten nichts frei liegt. `.site` schnitt aber nur **waagerecht** ab (`overflow-x: clip`) – senkrecht verlängerte der Überstand die Seite um 200–280 px. Jetzt `overflow: clip` auf beiden Achsen. Nachgemessen: Unterkante Fußbereich = Dokumentende, exakt 0 px, in 390/768/1440 px und nach vollem Durchscrollen. |
+| 52 | „Bild 1: Hintergrund von Box und Bild sind ungleich“ | **Erledigt.** Die Kacheln im Fußbereich hatten `rgba(255,255,255,0.94)`; über dem dunklen Grund ergab das rgb(240,240,241). Die Logodateien bringen aber deckendes Weiß mit – man sah ein helleres Rechteck im Rahmen stehen. Kacheln jetzt reines `#ffffff`; die Rückmeldung beim Überfahren macht seither der Goldrahmen, nicht mehr ein Farbwechsel. |
+| 53 | „Das Kartenbild wäre super von Apple Maps, das sieht wertiger aus“ | **Anders gelöst – bewusst.** Apple-Karten dürfen nur innerhalb von Apples eigenen Frameworks verwendet werden; ein eingebettetes MapKit würde außerdem bei **jedem** Seitenaufruf Daten an Apple senden. Stattdessen ist die Karte jetzt **selbst gezeichnet**: `tools/make-karte.py` fragt einmal beim Bauen OpenStreetMap ab und erzeugt ein SVG im Farbklang der Seite – Nachthimmel, Straßen in abgestuftem Gold nach Wichtigkeit mit weichem Schein darunter, Häuser als ruhige Blöcke, Grünflächen, Bahnlinie gestrichelt, Straßennamen in der Theme-Schrift und der Kindergarten als leuchtende Goldmarke. Gestochen scharf auf jedem Bildschirm, 88 KB statt 455 KB, und es wird weiterhin nichts nachgeladen. |
+| 54 | „Bild 2: Dieser Bereich wirkt eng, zu dicht, wie hineingequetscht“ | **Erledigt.** Räume und Zeiten standen als zwei kleine Listen mitten im Fließtext der schmalen Spalte. Sie sind jetzt eine eigene **Ablauf-Tafel**: ein gerahmter Block, der aus der Textspalte heraustritt, mit Titel und Uhrzeichen. Die vier Räume sind große Kacheln mit goldener Oberkante geworden – vier Türen statt vier Stichpunkte –, die Erzählzeiten ein **Zeitstrahl** mit goldenen Punkten auf einer Linie. Zwischen den beiden Hälften steht die größte Pause der Seite. Auf dem Handy wird aus dem Strahl eine Leiter und aus den vier Kacheln ein 2 × 2-Feld. |
+| 55 | „Schaue nochmal, wo es noch Fehler gab“ | **Erledigt und abgesichert.** `tools/layout-check.mjs` hat drei neue Prüfungen bekommen (siehe unten) und meldet über alle sieben Seiten in drei Breiten **keine Befunde**. Dazu ein Durchgang von Hand. |
+
+## Das Prüfwerkzeug prüft jetzt auch das
+
+Die Fehler 51 und 52 waren beide messbar – das alte Werkzeug hat nur nicht danach
+gesucht. Neu dazugekommen:
+
+1. **Leerraum hinter dem Fußbereich** – Abstand zwischen Unterkante Fußbereich und
+   Dokumentende.
+2. **Element ragt unter den Fußbereich** – und zwar gemessen an dem, was man
+   *sieht*: was ein Vorfahre abschneidet, zählt nicht. Sonst hätte die Prüfung
+   nach der Behebung weiter gemeldet, obwohl nichts mehr zu sehen ist.
+3. **Farbbruch Bild ⟷ Kachel** – die Eckpixel jedes Bildes werden über ein Canvas
+   ausgelesen und mit der *tatsächlich sichtbaren* Hintergrundfarbe verglichen
+   (alle durchsichtigen Ebenen übereinandergelegt, nicht nur die oberste). Bilder
+   mit durchsichtigen Ecken und Bilder mit sichtbarer Umrandung bleiben außen vor –
+   dort ist der Wechsel gewollt.
+
+**Gegenprobe:** Mit dem alten Stylesheet und dem neuen Werkzeug kommen beide Fehler
+zurück (18 Befunde auf zwei Seiten), mit dem neuen Stylesheet keiner. Das Werkzeug
+misst also wirklich das, was gemeldet wurde.
+
+## In dieser Runde zusätzlich gefunden
+
+* **Die Testinstanz baute die Menüs bei jedem Lauf doppelt auf** – `wp menu item
+  list` kennt nur `--fields` (Mehrzahl); mit `--field` brach der Aufruf still ab und
+  die Aufräumschleife lief ins Leere. Im Fußbereich standen dadurch zwölf statt drei
+  Links. Kein Fehler des Themes, aber einer, der jede Sichtprüfung verfälscht hat.
+* **Ein Fehler in der Kartenzeichnung, der still blieb:** eine `path { fill: none }`-Regel
+  im Stylesheet des SVG schlug die `fill`-Attribute – Häuser, Grünflächen und Wasser
+  waren gezeichnet, aber unsichtbar. Die Datei war korrekt, das Bild leer.
+* **Der Kartenausschnitt war zu weit** (1,7 km) und brachte tausende Häuser mit,
+  ohne beim Finden zu helfen. Jetzt gut 1 km – die Straßennamen ringsum sind lesbar.

@@ -100,6 +100,41 @@
 	margin-block-start: var(--lz-takt);
 }
 
+/* Die Ablauf-Tafel steht als eigener Baustein im Abschnitt und braucht
+   ringsum spürbar mehr Luft als ein Absatz. */
+:root * + .wp-block-group.is-style-lz-tafel,
+:root .wp-block-group.is-style-lz-tafel + * {
+	margin-block-start: clamp(2.75rem, 5vw, 4.25rem);
+}
+
+/* Und innen einen eigenen, ruhigeren Takt: der Titel steht für sich, die
+   beiden Hälften – Räume und Zeiten – sind deutlich voneinander abgesetzt,
+   damit man sie nacheinander liest und nicht als einen Klumpen.
+   Die Klassennamen stehen mit dem Elementnamen zusammen, weil sonst die
+   allgemeine Überschriftenregel eine Zeile höher gewinnen würde. */
+:root .is-style-lz-tafel > .wp-block-heading + * {
+	margin-block-start: var(--lz-takt);
+}
+
+/* Nach dem Titel folgt gleich die erste Marke – die beiden gehören zusammen. */
+:root .is-style-lz-tafel > h3.wp-block-heading + h4.wp-block-heading {
+	margin-block-start: clamp(2rem, 3.6vw, 2.75rem);
+}
+
+/* Zwischen den beiden Hälften der Tafel die größte Pause. */
+:root .is-style-lz-tafel > * + h4.wp-block-heading {
+	margin-block-start: clamp(2.75rem, 5.2vw, 4.25rem);
+}
+
+/* Eine Marke steht dicht über dem, was sie benennt. */
+:root .is-style-lz-tafel > h4.wp-block-heading + * {
+	margin-block-start: clamp(1.3rem, 2.2vw, 1.85rem);
+}
+
+:root .is-style-lz-tafel > p + .wp-block-list {
+	margin-block-start: clamp(1.75rem, 3vw, 2.5rem);
+}
+
 /* ===============================================================
    2. Abschnitte (Gruppe)
    =============================================================== */
@@ -136,6 +171,54 @@
 	border: 1px solid var(--lzb-hair);
 	border-radius: var(--lzb-radius);
 	background: rgba(22, 35, 62, 0.55);
+}
+
+/* ---------------------------------------------------------------
+   Ablauf-Tafel – ein eigener Baustein, kein Absatz im Fließtext
+
+   Räume und Zeiten mitten in die Textspalte zu setzen war der Fehler:
+   sie lasen sich wie zwei nachträglich eingeschobene Listen. Als
+   gerahmte Tafel, die aus der Textspalte heraustritt, ist sofort zu
+   sehen, dass hier der Nachmittag beschrieben wird.
+   --------------------------------------------------------------- */
+.wp-block-group.is-style-lz-tafel {
+	position: relative;
+	padding: clamp(2.25rem, 4.6vw, 3.75rem) clamp(1.35rem, 3.6vw, 3.25rem);
+	border: 1px solid var(--lzb-hair);
+	border-radius: var(--lzb-radius);
+	background:
+		radial-gradient(40rem 22rem at 50% -16%, rgba(240, 200, 104, 0.1) 0%, rgba(240, 200, 104, 0) 66%),
+		linear-gradient(168deg, rgba(28, 43, 78, 0.72) 0%, rgba(11, 19, 38, 0.88) 100%);
+	box-shadow: 0 34px 72px -48px rgba(0, 0, 0, 0.95);
+	overflow: hidden;
+}
+
+/* Der Titel der Tafel. Mittig, damit die Tafel von der Achse her
+   symmetrisch bleibt – sie steht ja auch symmetrisch im Abschnitt. */
+.wp-block-group.is-style-lz-tafel > h3 {
+	text-align: center;
+	font-size: clamp(1.45rem, 2.8vw, 2rem);
+}
+
+/* Die beiden Hälften bekommen kein eigenes Gewicht als Überschrift,
+   sondern nur eine ruhige Marke – so bleibt der Titel oben der Kopf
+   der Tafel und die Tafel liest sich als ein Stück. */
+.wp-block-group.is-style-lz-tafel > h4 {
+	text-align: center;
+	font-family: var(--lzb-ui);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-deep);
+}
+
+.wp-block-group.is-style-lz-tafel > p {
+	max-width: 46ch;
+	margin-inline: auto;
+	text-align: center;
+	text-wrap: balance;
+	color: var(--lzb-muted);
 }
 
 /* ===============================================================
@@ -738,29 +821,164 @@ p.is-style-lz-hinweis::before {
 
 .wp-block-list.is-style-lz-chips > li::marker { content: ""; }
 
-/* Erzählräume als Kacheln */
+/* Erzählräume als Kacheln – vier Türen mit goldenem Sturz.
+   Sie sind bewusst hoch und großzügig gepolstert: es sind Räume, keine
+   Stichpunkte. Sie sind nicht anklickbar, deshalb gibt es beim Überfahren
+   auch keinen Anheber – nur ein wenig mehr Licht. */
 .wp-block-list.is-style-lz-kacheln {
 	list-style: none;
 	padding-inline-start: 0;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-	gap: 1rem;
+	/* 8.5rem ist die Umbruchgrenze, nicht die Breite: bei vier Kacheln und
+	   "1fr" ziehen sie sich auf jede vorhandene Breite auseinander. Klein
+	   genug gewählt, damit auf dem Handy zwei nebeneinander stehen – vier
+	   Räume untereinander wären eine lange Liste statt einem Grundriss. */
+	grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+	gap: clamp(0.85rem, 1.8vw, 1.35rem);
 }
 
 .wp-block-list.is-style-lz-kacheln > li {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: clamp(6.5rem, 11vw, 8.5rem);
 	margin: 0;
-	padding: 1.5rem 1rem;
+	padding: clamp(1.6rem, 3vw, 2.2rem) 1.1rem;
 	border: 1px solid var(--lzb-hair-soft);
 	border-radius: var(--lzb-radius);
-	background: rgba(22, 35, 62, 0.5);
+	background:
+		radial-gradient(12rem 7rem at 50% -30%, rgba(240, 200, 104, 0.13) 0%, rgba(240, 200, 104, 0) 70%),
+		linear-gradient(170deg, rgba(30, 46, 82, 0.6) 0%, rgba(14, 24, 46, 0.66) 100%);
+	overflow: hidden;
 	text-align: center;
+	text-wrap: balance;
 	font-size: var(--wp--preset--font-size--gross, 1.3125rem);
 	font-weight: 300;
 	line-height: 1.35;
 	color: #ffffff;
+	transition:
+		border-color var(--lz-dauer) var(--lz-kurve),
+		background var(--lz-dauer) var(--lz-kurve);
+}
+
+/* Der goldene Sturz über jeder Tür */
+.wp-block-list.is-style-lz-kacheln > li::before {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: 0;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--lzb-gold) 32%, var(--lzb-gold) 68%, transparent);
+	opacity: 0.62;
+}
+
+.wp-block-list.is-style-lz-kacheln > li:hover {
+	border-color: var(--lzb-hair);
+	background:
+		radial-gradient(12rem 7rem at 50% -30%, rgba(240, 200, 104, 0.2) 0%, rgba(240, 200, 104, 0) 70%),
+		linear-gradient(170deg, rgba(34, 52, 92, 0.66) 0%, rgba(16, 27, 52, 0.7) 100%);
 }
 
 .wp-block-list.is-style-lz-kacheln > li::marker { content: ""; }
+
+/* Erzählzeiten als Zeitstrahl – vier Punkte auf einer Linie.
+   Als Pillenstreifen sahen die Uhrzeiten aus wie Schlagworte; als Strahl
+   sieht man auf einen Blick, dass es ein Nachmittag mit festem Takt ist. */
+.wp-block-list.is-style-lz-zeitstrahl {
+	position: relative;
+	list-style: none;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	gap: 0;
+	padding-inline-start: 0;
+	padding-block-start: 1.8rem;
+}
+
+/* Die Linie. Sie läuft über die volle Breite und verliert sich an beiden
+   Enden – so stimmt sie bei vier Zeiten genauso wie bei drei oder fünf. */
+.wp-block-list.is-style-lz-zeitstrahl::before {
+	content: "";
+	position: absolute;
+	inset-block-start: 0.5rem;
+	inset-inline: 0;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		rgba(240, 200, 104, 0) 0%,
+		rgba(240, 200, 104, 0.5) 18%,
+		rgba(240, 200, 104, 0.5) 82%,
+		rgba(240, 200, 104, 0) 100%
+	);
+}
+
+.wp-block-list.is-style-lz-zeitstrahl > li {
+	position: relative;
+	margin: 0;
+	text-align: center;
+	font-family: var(--lzb-ui);
+	font-size: clamp(1.05rem, 1.9vw, 1.35rem);
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	line-height: 1.3;
+	color: var(--lzb-gold);
+}
+
+/* Der Punkt auf der Linie, mit einem weichen Schein wie ein Laternchen */
+.wp-block-list.is-style-lz-zeitstrahl > li::before {
+	content: "";
+	position: absolute;
+	inset-block-start: -1.6rem;
+	inset-inline-start: 50%;
+	width: 0.6rem;
+	height: 0.6rem;
+	margin-inline-start: -0.3rem;
+	border-radius: 50%;
+	background: var(--lzb-gold);
+	box-shadow:
+		0 0 0 4px rgba(240, 200, 104, 0.12),
+		0 0 14px 2px rgba(240, 200, 104, 0.45);
+}
+
+.wp-block-list.is-style-lz-zeitstrahl > li::marker { content: ""; }
+
+/* Schmal wird aus dem Strahl eine Leiter – vier Zeiten nebeneinander
+   würden auf dem Handy zu Zahlenstummeln zusammenschrumpfen. */
+@media (max-width: 600px) {
+	.wp-block-list.is-style-lz-zeitstrahl {
+		grid-auto-flow: row;
+		grid-auto-columns: auto;
+		gap: 1.35rem;
+		padding-block-start: 0;
+		padding-inline-start: 1.9rem;
+	}
+
+	.wp-block-list.is-style-lz-zeitstrahl::before {
+		inset-block: 0.55rem;
+		inset-inline: 0.5rem auto;
+		width: 1px;
+		height: auto;
+		background: linear-gradient(
+			180deg,
+			rgba(240, 200, 104, 0) 0%,
+			rgba(240, 200, 104, 0.5) 14%,
+			rgba(240, 200, 104, 0.5) 86%,
+			rgba(240, 200, 104, 0) 100%
+		);
+	}
+
+	.wp-block-list.is-style-lz-zeitstrahl > li {
+		text-align: start;
+	}
+
+	.wp-block-list.is-style-lz-zeitstrahl > li::before {
+		inset-block-start: 0.65em;
+		inset-inline-start: -1.7rem;
+		margin-block-start: -0.3rem;
+		margin-inline-start: 0;
+	}
+}
 
 /* Die guten Gründe – Punkte mit Funkelzeichen */
 .wp-block-list.is-style-lz-punkte {

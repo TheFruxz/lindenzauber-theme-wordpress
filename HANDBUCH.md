@@ -57,7 +57,7 @@ in jeder Überschrift.
    * *Abschnitt: Die beiden Festtage*
    * *Abschnitt: Erzähler-Porträt*
    * *Abschnitt: Drei Schnellinfo-Karten*
-   * *Abschnitt: Räume und Erzählzeiten*
+   * *Abschnitt: Ablauf-Tafel (Räume und Erzählzeiten)*
    * *Abschnitt: Ort und Anfahrt*
    * *Abschnitt: Förderer-Kacheln*
    * *Abschnitt: Banderole „Eintritt frei“*
@@ -112,6 +112,15 @@ zusätzlich anpassen – die stehen ja im Fließtext.
 2. Die drei Platzhalterbilder ersetzen oder über **+** weitere Fotos hinzufügen
 3. Oben rechts auf *Veröffentlichen*
 4. Unter *Design → Menüs* die Seite ins Menü aufnehmen
+
+### Eine Erzählzeit ändern oder eine fünfte hinzufügen
+
+Seite *Programm* → Abschnitt „Der Ablauf am Sonntag“ → die Zeile mit den Uhrzeiten.
+
+Es ist eine ganz normale Liste. In eine Uhrzeit klicken und überschreiben; für eine
+weitere ans Ende der letzten Zeile klicken und `Enter` drücken. Der Zeitstrahl mit
+den goldenen Punkten rechnet sich selbst neu aus – egal ob drei, vier oder sechs
+Zeiten dort stehen. Genauso funktionieren die vier Räume darüber.
 
 ### Was bei Google unter einer Seite steht
 

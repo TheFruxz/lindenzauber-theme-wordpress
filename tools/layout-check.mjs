@@ -1,7 +1,8 @@
 // Findet die Sorte Fehler, die man beim Durchscrollen spürt, aber schlecht
 // beschreiben kann: fehlende Abstände, doppelte Abstände, Flächen die
 // klickbar aussehen aber keine sind, Text der in seinem Abschnitt nach oben
-// rutscht, seitlicher Überlauf und zu schwacher Kontrast.
+// rutscht, seitlicher Überlauf, zu schwacher Kontrast, Leerraum hinter dem
+// Fußbereich und Bilder, deren eigener Grund nicht zur Kachel darunter passt.
 //
 //   node tools/layout-check.mjs <basis-url> [pfad...]
 //
@@ -198,6 +199,186 @@ const pruefung = () => {
 				art: 'Kontrast zu schwach',
 				wo: beschreibe(el),
 				mass: `${verhaeltnis.toFixed(2)} : 1 (nötig ${noetig})`,
+			});
+		}
+	});
+
+	/* ------------------------------------------- 6. Hinter dem Fußbereich */
+	// Der Fußbereich ist das Ende der Seite. Was danach noch Höhe hat – eine
+	// Deko-Ebene, ein überstehender Verlauf – erscheint als unerklärlicher
+	// leerer Streifen unter der Website.
+	const fuss = document.querySelector('.site-footer');
+
+	if (fuss) {
+		const oben = window.scrollY;
+		const fussUnten = fuss.getBoundingClientRect().bottom + oben;
+		const ende = document.documentElement.scrollHeight;
+
+		// Nur sinnvoll, wenn die Seite überhaupt länger als das Fenster ist.
+		if (ende > window.innerHeight + 4 && ende - fussUnten > 4) {
+			befunde.push({
+				art: 'Leerraum hinter dem Fußbereich',
+				wo: 'Seite',
+				mass: `${px(ende - fussUnten)} px über das Seitenende hinaus`,
+			});
+		}
+
+		// Und wer verursacht ihn? Gemessen wird, was man sieht: ein Element,
+		// das ein Vorfahre abschneidet, ragt zwar im Layout hinaus, ist aber
+		// nirgends sichtbar – das ist kein Befund, sondern der Sinn von
+		// "overflow: clip".
+		const sichtbaresEnde = (el) => {
+			let unten = el.getBoundingClientRect().bottom;
+			let k = el.parentElement;
+
+			while (k && k !== document.documentElement) {
+				const s = getComputedStyle(k);
+
+				if (s.overflowY !== 'visible') {
+					unten = Math.min(unten, k.getBoundingClientRect().bottom);
+				}
+
+				k = k.parentElement;
+			}
+
+			return unten;
+		};
+
+		const taeter = new Set();
+
+		document.querySelectorAll('.site, .site *').forEach((el) => {
+			if (el === fuss || el.contains(fuss) || fuss.contains(el)) return;
+			if (!sichtbar(el)) return;
+			if (getComputedStyle(el).position === 'fixed') return;
+
+			const unten = sichtbaresEnde(el) + oben;
+
+			if (unten > fussUnten + 2) {
+				const name = beschreibe(el).split(' „')[0];
+
+				if (!taeter.has(name)) {
+					taeter.add(name);
+					befunde.push({
+						art: 'Element ragt unter den Fußbereich',
+						wo: name,
+						mass: `${px(unten - fussUnten)} px zu tief`,
+					});
+				}
+			}
+		});
+	}
+
+	/* ------------------------------------------ 7. Farbbruch Bild ⟷ Kachel */
+	// Logos bringen oft einen eigenen deckenden Grund mit. Stimmt der nicht
+	// haargenau mit der Kachel darunter überein, sieht man ein helleres
+	// Rechteck im Rahmen – der Eindruck ist sofort unsauber.
+	const grundVoll = (el) => {
+		const stapel = [];
+		let k = el;
+
+		while (k && k !== document.documentElement) {
+			const f = zahl(getComputedStyle(k).backgroundColor);
+			const a = f.length >= 4 ? f[3] : 1;
+
+			if (f.length >= 3 && a > 0.001) stapel.push([f[0], f[1], f[2], a]);
+			if (f.length >= 3 && a >= 0.999) break;
+
+			k = k.parentElement;
+		}
+
+		// Von hinten nach vorn übereinanderlegen, Grundfarbe der Seite zuerst.
+		let r = 8;
+		let g = 15;
+		let b = 30;
+
+		for (let i = stapel.length - 1; i >= 0; i--) {
+			const [fr, fg, fb, fa] = stapel[i];
+			r = fr * fa + r * (1 - fa);
+			g = fg * fa + g * (1 - fa);
+			b = fb * fa + b * (1 - fa);
+		}
+
+		return [r, g, b];
+	};
+
+	const eckfarben = (bild) => {
+		const w = bild.naturalWidth;
+		const h = bild.naturalHeight;
+
+		if (!bild.complete || w < 6 || h < 6) return null;
+
+		const flaeche = document.createElement('canvas');
+		flaeche.width = 1;
+		flaeche.height = 1;
+		const stift = flaeche.getContext('2d', { willReadFrequently: true });
+		const punkte = [
+			[1, 1],
+			[w - 2, 1],
+			[1, h - 2],
+			[w - 2, h - 2],
+		];
+		const werte = [];
+
+		for (const [sx, sy] of punkte) {
+			stift.clearRect(0, 0, 1, 1);
+
+			try {
+				stift.drawImage(bild, sx, sy, 1, 1, 0, 0, 1, 1);
+				const d = stift.getImageData(0, 0, 1, 1).data;
+				werte.push([d[0], d[1], d[2], d[3] / 255]);
+			} catch (fehler) {
+				return null; // fremde Herkunft – nicht auslesbar
+			}
+		}
+
+		return werte;
+	};
+
+	const abstandRGB = (a, b) =>
+		Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1]), Math.abs(a[2] - b[2]));
+
+	// Eine sichtbare Umrandung ist eine bewusst gesetzte Kante. Dann ist der
+	// Wechsel zur Umgebung gewollt und kein Versehen – anders als bei einem
+	// Logo, das ohne Kante auf einer Kachel liegt.
+	const hatRand = (el) => {
+		const s = getComputedStyle(el);
+		const stark = parseFloat(s.borderTopWidth || 0) >= 1;
+		const farbe = zahl(s.borderTopColor);
+		const sichtbarerRand = farbe.length >= 3 && (farbe[3] === undefined || farbe[3] > 0.05);
+
+		return stark && s.borderTopStyle !== 'none' && sichtbarerRand;
+	};
+
+	document.querySelectorAll('img').forEach((bild) => {
+		if (!sichtbar(bild)) return;
+		if (hatRand(bild)) return;
+		if (bild.parentElement && hatRand(bild.parentElement)) return;
+
+		const e = eckfarben(bild);
+		if (!e) return;
+
+		// Durchsichtige Ecken sind gewollt – freigestellte Logos, Ornamente.
+		if (e.some((f) => f[3] < 0.95)) return;
+
+		// Nur flächige Ränder prüfen. Ein Foto hat in jeder Ecke etwas
+		// anderes; dort ist ein Unterschied zur Kachel selbstverständlich.
+		if (e.some((f) => abstandRGB(f, e[0]) > 4)) return;
+
+		const kachel = grundVoll(bild.parentElement || bild);
+		const unterschied = abstandRGB(e[0], kachel);
+
+		if (unterschied > 6) {
+			const rahmen = bild.closest('figure, li, .wp-block-column') || bild;
+
+			befunde.push({
+				art: 'Farbbruch Bild ⟷ Kachel',
+				wo:
+					beschreibe(rahmen).split(' „')[0] +
+					' ← ' +
+					(bild.currentSrc || bild.src).split('/').pop(),
+				mass:
+					`Bild rgb(${e[0].slice(0, 3).map(px).join(',')}) ` +
+					`vs. Grund rgb(${kachel.map(px).join(',')})`,
 			});
 		}
 	});

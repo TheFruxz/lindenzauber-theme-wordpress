@@ -14,7 +14,9 @@ seite() { # slug titel datei status
 	id=$($WP post list --post_type=page --name="$slug" --field=ID --format=ids 2>/dev/null || true)
 
 	if [ -n "$id" ]; then
-		$WP post update "$id" --post_title="$titel" --post_status="$status" "$datei"
+		# Die Erfolgsmeldung darf nicht mit in die ID rutschen – beim zweiten
+		# Lauf steht sonst "Success: …" statt einer Zahl in $START.
+		$WP post update "$id" --post_title="$titel" --post_status="$status" "$datei" > /dev/null
 	else
 		id=$($WP post create --post_type=page --post_title="$titel" --post_name="$slug" \
 			--post_status="$status" --porcelain "$datei")
@@ -48,8 +50,10 @@ $WP menu create "Hauptmenü" 2>/dev/null || true
 $WP menu create "Rechtliches" 2>/dev/null || true
 
 # Vorhandene Einträge entfernen, damit ein erneuter Lauf nichts verdoppelt.
+# "wp menu item list" kennt nur --fields (Mehrzahl); mit --field brach der
+# Aufruf still ab und die Menüs wuchsen bei jedem Lauf weiter an.
 for m in hauptmenue rechtliches; do
-	for item in $($WP menu item list "$m" --field=db_id --format=ids 2>/dev/null || true); do
+	for item in $($WP menu item list "$m" --format=ids 2>/dev/null || true); do
 		$WP menu item delete "$item" > /dev/null 2>&1 || true
 	done
 done
@@ -69,14 +73,8 @@ $WP menu location assign hauptmenue primary
 $WP menu location assign rechtliches legal
 
 echo "== Förderer-Band =="
-php -r '
-$work = getenv("LZ_WORK");
-$repo = getenv("LZ_REPO");
-$inhalt = file_get_contents($repo . "/inhalte/09-foerderband-widget.html");
-file_put_contents($work . "/foerderband.txt", $inhalt);
-'
 $WP widget reset --all > /dev/null 2>&1 || true
-$WP widget add block lz-foerderband --content="$(cat "$WORK/foerderband.txt")" > /dev/null
+$WP widget add block lz-foerderband --content="$(cat "$REPO/inhalte/09-foerderband-widget.html")" > /dev/null
 
 echo "== Auszüge für die Metadaten =="
 $WP post update "$START" --post_excerpt="Das große Märchenfest in Bassum: Märchenabend für Erwachsene am Samstag, 26. September 2026, und Märchentag für Familien am Sonntag, 27. September 2026, im Kindergarten KinderReich. Eintritt frei, keine Anmeldung nötig." > /dev/null

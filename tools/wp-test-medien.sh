@@ -23,7 +23,7 @@ grep -ho 'https://lindenzauber\.de/wp-content/uploads/[^"]*' "$REPO"/inhalte/*.h
 		fi
 	done
 
-cp "$REPO/medien/anfahrt-kinderreich.png" "$ZIEL/anfahrt-kinderreich.png"
+cp "$REPO/medien/anfahrt-kinderreich.svg" "$ZIEL/anfahrt-kinderreich.svg"
 
 echo "== Inhalte auf lokale Bilder umschreiben =="
 for datei in "$REPO"/inhalte/*.html; do

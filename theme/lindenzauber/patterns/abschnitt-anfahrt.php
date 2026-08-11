@@ -23,7 +23,7 @@
 <!-- wp:columns {"align":"wide","verticalAlignment":"center"} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none","className":"is-style-lz-rahmen"} -->
-<figure class="wp-block-image size-large is-style-lz-rahmen"><img src="/wp-content/themes/lindenzauber/assets/img/anfahrt-kinderreich.png" alt="Lageplan: Der Kindergarten KinderReich an der Bürgermeister-Lienhop-Straße 1A in Bassum"/><figcaption class="wp-element-caption">Kartenausschnitt © OpenStreetMap-Mitwirkende</figcaption></figure>
+<figure class="wp-block-image size-large is-style-lz-rahmen"><img src="/wp-content/themes/lindenzauber/assets/img/anfahrt-kinderreich.svg" alt="Lageplan: Der Kindergarten KinderReich an der Bürgermeister-Lienhop-Straße 1A in Bassum"/><figcaption class="wp-element-caption">Kartenausschnitt © OpenStreetMap-Mitwirkende</figcaption></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 

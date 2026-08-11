@@ -12,7 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LZ_VERSION', '3.0.0' );
+// Die Version steht nur an einer Stelle: im Kopf der style.css. Von dort holt
+// sie sich das Theme, damit sie beim Aktualisieren nicht auseinanderlaufen kann –
+// sie hängt an den Adressen von CSS und JavaScript und sorgt dafür, dass Browser
+// nach einer Änderung nicht die alte Fassung aus dem Zwischenspeicher zeigen.
+define( 'LZ_VERSION', wp_get_theme( get_template() )->get( 'Version' ) );
 define( 'LZ_DIR', get_template_directory() );
 define( 'LZ_URI', get_template_directory_uri() );
 
