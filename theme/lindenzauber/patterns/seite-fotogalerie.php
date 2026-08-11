@@ -1,0 +1,58 @@
+<?php
+/**
+ * Title: Seite: Fotogalerie
+ * Slug: lindenzauber/seite-fotogalerie
+ * Categories: lindenzauber
+ * Description: Vorbereitete Rückblick-Seite mit Bildergalerie im Nachtlook.
+ * Block Types: core/post-content
+ * Post Types: page
+ * Inserter: yes
+ *
+ * Diese Datei wird von tools/make-patterns.php erzeugt.
+ * Quelle: inhalte/08-fotogalerie.html
+ *
+ * @package Lindenzauber
+ */
+
+?>
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:paragraph {"align":"center","className":"is-style-lz-lead"} -->
+<p class="has-text-align-center is-style-lz-lead">Bilder vom Lindenzauber – Momente zwischen Laternenlicht, Lauschen und Lachen.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Eine kleine Auswahl an Eindrücken vom Märchenfest. Wer sich auf einem Foto wiederfindet und es lieber nicht auf der Seite sehen möchte, sagt uns bitte kurz Bescheid – wir nehmen es dann sofort heraus.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:gallery {"columns":3,"linkTo":"none","align":"wide","className":"is-style-lz-nachtraster"} -->
+<figure class="wp-block-gallery alignwide has-nested-images columns-3 is-cropped is-style-lz-nachtraster"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="/wp-content/themes/lindenzauber/assets/img/platzhalter-bild.svg" alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="/wp-content/themes/lindenzauber/assets/img/platzhalter-bild.svg" alt=""/></figure>
+<!-- /wp:image -->
+
+<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="/wp-content/themes/lindenzauber/assets/img/platzhalter-bild.svg" alt=""/></figure>
+<!-- /wp:image --></figure>
+<!-- /wp:gallery --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:heading {"textAlign":"center","className":"is-style-lz-zeichen-blatt"} -->
+<h2 class="wp-block-heading has-text-align-center is-style-lz-zeichen-blatt">Bis zum nächsten Mal</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Wann der nächste Lindenzauber stattfindet, steht rechtzeitig auf der Startseite.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/">Zur Startseite</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->

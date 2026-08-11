@@ -1,0 +1,252 @@
+<?php
+/**
+ * Title: Seite: Startseite
+ * Slug: lindenzauber/seite-startseite
+ * Categories: lindenzauber
+ * Description: Die komplette Startseite: Kopfbereich mit Sternenhimmel, die beiden Festtage, Plakat, gute Gründe, Erzählende und Förderer.
+ * Block Types: core/post-content
+ * Post Types: page
+ * Inserter: yes
+ *
+ * Diese Datei wird von tools/make-patterns.php erzeugt.
+ * Quelle: inhalte/01-startseite.html
+ *
+ * @package Lindenzauber
+ */
+
+?>
+<!-- wp:group {"align":"full","className":"is-style-lz-hero","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-hero"><!-- wp:image {"width":"124px","sizeSlug":"full","align":"center","linkDestination":"none"} -->
+<figure class="wp-block-image aligncenter size-full is-resized"><img src="https://lindenzauber.de/wp-content/uploads/2026/03/cropped-cropped-Logo-freigestellt.png" alt="Signet des Lindenzaubers: eine Linde in einem Lindenblatt" style="width:124px"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading {"textAlign":"center","level":1,"className":"is-style-lz-festtitel","fontSize":"titel"} -->
+<h1 class="wp-block-heading has-text-align-center is-style-lz-festtitel has-titel-font-size">Lindenzauber</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","className":"is-style-lz-untertitel"} -->
+<p class="has-text-align-center is-style-lz-untertitel">Märchenfest in Bassum</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator {"className":"is-style-lz-ornament"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-lz-ornament"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph {"align":"center","className":"is-style-lz-zeitangabe"} -->
+<p class="has-text-align-center is-style-lz-zeitangabe">26. &amp; 27. September 2026 · Kindergarten KinderReich, Bassum</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center","className":"is-style-lz-banderole"} -->
+<p class="has-text-align-center is-style-lz-banderole">Eintritt frei</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center","className":"is-style-lz-hinweis"} -->
+<p class="has-text-align-center is-style-lz-hinweis">Keine Anmeldung nötig – einfach kommen</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/programm/">Zum Programm</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/die-erzaehlenden/">Die Erzählenden</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:paragraph {"align":"center","className":"is-style-lz-lead"} -->
+<p class="has-text-align-center is-style-lz-lead">Wenn sich der Duft der Linden mit Geschichten verbindet, entsteht ein besonderer Ort: der Lindenzauber.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Am letzten Septemberwochenende laden wir Groß und Klein ein, in die Welt der Märchen einzutauchen – mal still lauschend, mal lebendig und gemeinschaftlich. Unter dem Zeichen der Linde entstehen Augenblicke voller Fantasie, Wärme und Zauber.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:paragraph {"align":"center","className":"is-style-lz-ueberzeile"} -->
+<p class="has-text-align-center is-style-lz-ueberzeile">Zwei Tage, zwei Stimmungen</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Erst der Abend, dann der Nachmittag</h2>
+<!-- /wp:heading -->
+
+<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
+<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-festtag"} -->
+<div class="wp-block-column is-style-lz-festtag"><!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-mond"} -->
+<h3 class="wp-block-heading is-style-lz-zeichen-mond">Ein Abend voller <em>Märchen</em></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-zeitangabe"} -->
+<p class="is-style-lz-zeitangabe">Samstag, 26. September 2026 · 19 Uhr</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Wenn es Abend wird, gehört der Lindenzauber den Erwachsenen. Sechs Erzählerinnen und Erzähler laden zum Lauschen, Staunen und Träumen ein – frei erzählt, ganz ohne Buch.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-lz-leise"} -->
+<div class="wp-block-button is-style-lz-leise"><a class="wp-block-button__link wp-element-button" href="/programm/#samstag">Der Abend im Detail</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"is-style-lz-festtag"} -->
+<div class="wp-block-column is-style-lz-festtag"><!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-familie"} -->
+<h3 class="wp-block-heading is-style-lz-zeichen-familie">Märchentag für <em>Familien</em></h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-zeitangabe"} -->
+<p class="is-style-lz-zeitangabe">Sonntag, 27. September 2026 · 13–17 Uhr</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Vier Erzählräume öffnen um 13.30, 14.30, 15.30 und 16.30 Uhr ihre Türen, jeweils rund 20 Minuten lang. Dazwischen locken Bastelstationen, Kaffee und Kuchen. Für Kinder ab 3 Jahren.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-lz-leise"} -->
+<div class="wp-block-button is-style-lz-leise"><a class="wp-block-button__link wp-element-button" href="/programm/#sonntag">Der Sonntag im Detail</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:paragraph {"align":"center","className":"is-style-lz-ueberzeile"} -->
+<p class="has-text-align-center is-style-lz-ueberzeile">Zum Aushängen und Weitergeben</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Das Plakat zum Lindenzauber</h2>
+<!-- /wp:heading -->
+
+<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
+<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:image {"sizeSlug":"large","align":"center","linkDestination":"none","className":"is-style-lz-plakat"} -->
+<figure class="wp-block-image aligncenter size-large is-style-lz-plakat"><img src="/wp-content/themes/lindenzauber/assets/img/platzhalter-plakat.svg" alt="Plakat zum Lindenzauber – Märchenfest in Bassum am 26. und 27. September 2026"/><figcaption class="wp-element-caption">Gern ausdrucken und weitergeben – in Schulen, Kitas, Büchereien und Geschäften.</figcaption></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:paragraph {"className":"is-style-lz-ueberzeile"} -->
+<p class="is-style-lz-ueberzeile">Gut zu wissen</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Was Sie vor Ort erwartet</h2>
+<!-- /wp:heading -->
+
+<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
+<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:list {"className":"is-style-lz-punkte"} -->
+<ul class="wp-block-list is-style-lz-punkte"><!-- wp:list-item -->
+<li>Keine Anmeldung nötig – kommen Sie einfach vorbei</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Bei jedem Wetter: Wir feiern drinnen</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Am Sonntag: selbst gemachter Kuchen und Kaffee</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Alle Räume sind ebenerdig zu erreichen</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:paragraph {"align":"center","className":"is-style-lz-ueberzeile"} -->
+<p class="has-text-align-center is-style-lz-ueberzeile">Die Erzählenden</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Sechs Stimmen, sechs Geschichtenwelten</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center","className":"is-style-lz-lead"} -->
+<p class="has-text-align-center is-style-lz-lead">Märchen leben von der Stimme der Menschen, die sie erzählen. Beim Lindenzauber begegnen sich unterschiedliche Erzählstile, Temperamente und Geschichtenwelten.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/die-erzaehlenden/">Alle Erzählenden ansehen</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:paragraph {"align":"center","className":"is-style-lz-ueberzeile"} -->
+<p class="has-text-align-center is-style-lz-ueberzeile">Mit freundlicher Unterstützung von</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Unsere Förderer</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Weil diese vier gemeinsam tragen, was hier entsteht, ist der Eintritt an beiden Tagen frei.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
+<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-foerderer"} -->
+<div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Avacon-1024x640.png" alt="Logo von Avacon"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><a href="https://www.avacon.de/de.html" rel="noopener">Avacon</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"is-style-lz-foerderer"} -->
+<div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Bassum-1024x640.png" alt="Logo der Stadt Bassum"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><a href="https://www.bassum.de/" rel="noopener">Stadt Bassum</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"is-style-lz-foerderer"} -->
+<div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Weser-Hunte1-1024x640.png" alt="Logo des Landschaftsverbands Weser-Hunte e. V."/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><a href="https://www.weser-hunte.de/" rel="noopener">Landschaftsverband Weser-Hunte e. V.</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"className":"is-style-lz-foerderer"} -->
+<div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Volksbank-1024x640.png" alt="Logo der Volksbank Bassum-Syke"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center"><a href="https://www.volksbank-niedersachsen-mitte.de/startseite.html" rel="noopener">Volksbank Bassum-Syke</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->

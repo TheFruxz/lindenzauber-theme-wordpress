@@ -1,0 +1,879 @@
+/**
+ * Lindenzauber – Gestaltung der Blöcke.
+ *
+ * Diese Datei wird sowohl auf der Website als auch im Editor geladen.
+ * Deshalb hängen alle Regeln an den Block-Klassen selbst und nicht an
+ * Eltern-Containern wie ".entry-content". Nur so sieht die Vorschau im
+ * Editor genauso aus wie die fertige Seite – und nur so kann keine
+ * Regel eine andere unbeabsichtigt überschreiben.
+ */
+
+/* ===============================================================
+   0. Kurzformen (auch im Editor verfügbar)
+   =============================================================== */
+:root,
+.editor-styles-wrapper {
+	--lzb-night: var(--wp--preset--color--nacht, #0e1830);
+	--lzb-night-deep: var(--wp--preset--color--nacht-tief, #060b18);
+	--lzb-panel: var(--wp--preset--color--nacht-panel, #16233e);
+	--lzb-gold: var(--wp--preset--color--gold, #f0c868);
+	--lzb-gold-light: var(--wp--preset--color--gold-hell, #f7dfa0);
+	--lzb-gold-deep: var(--wp--preset--color--gold-tief, #c89a34);
+	--lzb-cream: var(--wp--preset--color--creme, #f1ecdf);
+	--lzb-muted: var(--wp--preset--color--blaugrau, #a9b8d2);
+	--lzb-hair: rgba(240, 200, 104, 0.22);
+	--lzb-hair-soft: rgba(240, 200, 104, 0.12);
+	--lzb-radius: 3px;
+	--lzb-ui: var(--wp--preset--font-family--sans, Lato, system-ui, sans-serif);
+	--lzb-script: var(--wp--preset--font-family--schwung, "Great Vibes", cursive);
+}
+
+/* ===============================================================
+   1. Abschnitte (Gruppe)
+   =============================================================== */
+
+/* Standard-Abschnitt: nur Luft nach oben und unten */
+.wp-block-group.is-style-lz-band {
+	padding-block: var(--wp--preset--spacing--60, clamp(3.5rem, 6vw, 5.5rem));
+}
+
+/* Abgesetzter Abschnitt mit eigenem Grund */
+.wp-block-group.is-style-lz-panel {
+	position: relative;
+	padding-block: var(--wp--preset--spacing--60, clamp(3.5rem, 6vw, 5.5rem));
+	background: linear-gradient(180deg, rgba(22, 35, 62, 0.72) 0%, rgba(16, 26, 48, 0.82) 100%);
+	border-block: 1px solid var(--lzb-hair-soft);
+}
+
+/* Kopfbereich der Startseite */
+.wp-block-group.is-style-lz-hero {
+	position: relative;
+	padding-block: clamp(3.5rem, 9vw, 7rem) clamp(6rem, 12vw, 10rem);
+	text-align: center;
+}
+
+/* Dorfsilhouette am unteren Rand des Kopfbereichs, wie auf dem Plakat */
+.wp-block-group.is-style-lz-hero::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 100vw;
+	max-width: none;
+	transform: translateX(-50%);
+	height: clamp(90px, 12vw, 190px);
+	background: url("../img/dorf.svg") repeat-x bottom center / auto 100%;
+	opacity: 0.75;
+	pointer-events: none;
+	-webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+	mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.wp-block-group.is-style-lz-hero > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* Ruhiger Kasten mit goldenem Rahmen */
+.wp-block-group.is-style-lz-rahmen {
+	padding: clamp(1.75rem, 4vw, 3rem);
+	border: 1px solid var(--lzb-hair);
+	border-radius: var(--lzb-radius);
+	background: rgba(22, 35, 62, 0.55);
+}
+
+/* ===============================================================
+   2. Überschriften
+   =============================================================== */
+
+/* Kursiv in einer Überschrift = Schwungschrift wie auf dem Plakat.
+   Brigitta markiert einfach ein Wort und drückt auf "kursiv". */
+h1 em, h2 em, h3 em, h4 em,
+h1 i, h2 i, h3 i, h4 i,
+.wp-block-heading em,
+.wp-block-heading i {
+	display: inline-block;
+	font-family: var(--lzb-script);
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1.34em;
+	line-height: 0.92;
+	letter-spacing: 0.01em;
+	color: var(--lzb-gold-light);
+	padding-inline: 0.04em;
+	transform: translateY(0.06em);
+}
+
+/* Festtitel: die große Schwungschrift des Plakats */
+.wp-block-heading.is-style-lz-festtitel {
+	font-family: var(--lzb-script);
+	font-weight: 400;
+	font-size: var(--wp--preset--font-size--titel, 5.5rem);
+	line-height: 0.98;
+	letter-spacing: 0.005em;
+	color: var(--lzb-gold-light);
+	margin-block-end: 0.1em;
+	text-shadow: 0 0 44px rgba(240, 200, 104, 0.28);
+}
+
+.wp-block-heading.is-style-lz-festtitel em,
+.wp-block-heading.is-style-lz-festtitel i {
+	font-size: 1em;
+	transform: none;
+}
+
+/* Untertitel unter dem Festtitel: gesperrte Versalien wie auf dem Plakat */
+.wp-block-paragraph.is-style-lz-untertitel,
+p.is-style-lz-untertitel {
+	font-family: var(--lzb-ui);
+	font-size: clamp(1rem, 2.6vw, 1.75rem);
+	font-weight: 400;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	line-height: 1.3;
+	color: #ffffff;
+	margin-block: 0 0.4rem;
+}
+
+/* Überschriften mit Gold-Zeichen (Mond, Familie, Ort, Zeit, Blatt) */
+.wp-block-heading[class*="is-style-lz-zeichen-"]::before {
+	content: "";
+	display: block;
+	width: clamp(2.1rem, 3.4vw, 2.9rem);
+	height: clamp(2.1rem, 3.4vw, 2.9rem);
+	margin-block-end: 0.75rem;
+	background-color: var(--lzb-gold);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+.wp-block-heading.is-style-lz-zeichen-mond::before    { -webkit-mask-image: url("../img/icon-mond.svg");    mask-image: url("../img/icon-mond.svg"); }
+.wp-block-heading.is-style-lz-zeichen-familie::before { -webkit-mask-image: url("../img/icon-familie.svg"); mask-image: url("../img/icon-familie.svg"); }
+.wp-block-heading.is-style-lz-zeichen-ort::before     { -webkit-mask-image: url("../img/icon-ort.svg");     mask-image: url("../img/icon-ort.svg"); }
+.wp-block-heading.is-style-lz-zeichen-zeit::before    { -webkit-mask-image: url("../img/icon-zeit.svg");    mask-image: url("../img/icon-zeit.svg"); }
+.wp-block-heading.is-style-lz-zeichen-blatt::before   { -webkit-mask-image: url("../img/icon-blatt.svg");   mask-image: url("../img/icon-blatt.svg"); }
+
+.wp-block-heading[class*="is-style-lz-zeichen-"].has-text-align-center::before {
+	margin-inline: auto;
+}
+
+/* ===============================================================
+   3. Absätze
+   =============================================================== */
+
+/* Überzeile über einer Überschrift */
+.wp-block-paragraph.is-style-lz-ueberzeile,
+p.is-style-lz-ueberzeile {
+	margin-block-end: 0.8rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.26em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-deep);
+}
+
+/* Einleitungssatz */
+.wp-block-paragraph.is-style-lz-lead,
+p.is-style-lz-lead {
+	font-size: var(--wp--preset--font-size--gross, 1.3125rem);
+	font-weight: 300;
+	line-height: 1.62;
+	color: #ffffff;
+}
+
+/* Zeitangabe unter einer Überschrift */
+.wp-block-paragraph.is-style-lz-zeitangabe,
+p.is-style-lz-zeitangabe {
+	margin-block: 0 1.1rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--lzb-gold);
+}
+
+/* Die Banderole "Eintritt frei" mit Laub an den Enden */
+.wp-block-paragraph.is-style-lz-banderole,
+p.is-style-lz-banderole {
+	position: relative;
+	z-index: 0;
+	width: fit-content;
+	max-width: 100%;
+	margin-inline: auto;
+	margin-block: 1.75rem;
+	padding: 0.9rem clamp(2.2rem, 5vw, 3.6rem);
+	font-family: var(--lzb-ui);
+	font-size: clamp(0.9rem, 1.7vw, 1.15rem);
+	font-weight: 700;
+	letter-spacing: 0.3em;
+	text-indent: 0.3em;
+	text-transform: uppercase;
+	line-height: 1.2;
+	color: #2c1f04;
+	text-align: center;
+}
+
+.wp-block-paragraph.is-style-lz-banderole::before,
+p.is-style-lz-banderole::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(180deg, #fdf3d2 0%, #f3d180 42%, #dcae4b 72%, #c08f2c 100%);
+	box-shadow: 0 16px 34px -18px rgba(0, 0, 0, 0.95);
+	clip-path: polygon(
+		0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%,
+		0 100%, 18px 50%
+	);
+}
+
+.wp-block-paragraph.is-style-lz-banderole::after,
+p.is-style-lz-banderole::after {
+	content: "";
+	position: absolute;
+	z-index: -2;
+	inset-block: -18px;
+	inset-inline: -38px;
+	background-image: url("../img/laub-links.svg"), url("../img/laub-rechts.svg");
+	background-repeat: no-repeat, no-repeat;
+	background-position: left center, right center;
+	background-size: auto 100%, auto 100%;
+	pointer-events: none;
+}
+
+/* Hinweiszeile mit Blatt davor */
+.wp-block-paragraph.is-style-lz-hinweis,
+p.is-style-lz-hinweis {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.82rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-light);
+}
+
+.wp-block-paragraph.is-style-lz-hinweis::before,
+p.is-style-lz-hinweis::before {
+	content: "";
+	width: 0.85rem;
+	height: 0.85rem;
+	flex: none;
+	background-color: currentColor;
+	-webkit-mask: url("../img/icon-funkel.svg") no-repeat center / contain;
+	mask: url("../img/icon-funkel.svg") no-repeat center / contain;
+}
+
+/* ===============================================================
+   4. Spalten
+   =============================================================== */
+
+/* Info-Karte */
+.wp-block-column.is-style-lz-karte {
+	padding: clamp(1.4rem, 2.6vw, 2rem);
+	border: 1px solid var(--lzb-hair-soft);
+	border-radius: var(--lzb-radius);
+	background: rgba(22, 35, 62, 0.55);
+}
+
+.wp-block-column.is-style-lz-karte > *:first-child { margin-block-start: 0; }
+.wp-block-column.is-style-lz-karte > *:last-child  { margin-block-end: 0; }
+
+.wp-block-column.is-style-lz-karte :is(h2, h3, h4) {
+	margin-block-end: 0.5rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-deep);
+}
+
+/* Festtag – die beiden gleichwertigen Karten (Samstag / Sonntag) */
+.wp-block-column.is-style-lz-festtag {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: clamp(1.8rem, 3.4vw, 2.75rem);
+	border: 1px solid var(--lzb-hair);
+	border-radius: var(--lzb-radius);
+	background:
+		radial-gradient(24rem 18rem at 82% -10%, rgba(240, 200, 104, 0.07) 0%, rgba(240, 200, 104, 0) 62%),
+		linear-gradient(162deg, rgba(30, 46, 82, 0.9) 0%, rgba(12, 20, 40, 0.92) 100%);
+	box-shadow: 0 28px 60px -40px rgba(0, 0, 0, 0.95);
+	overflow: hidden;
+}
+
+/* Goldene Kante oben – macht die Verwandtschaft der beiden Tage sichtbar */
+.wp-block-column.is-style-lz-festtag::before {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: 0;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--lzb-gold) 32%, var(--lzb-gold) 68%, transparent);
+	opacity: 0.75;
+}
+
+.wp-block-column.is-style-lz-festtag > *:last-child { margin-block-end: 0; }
+
+.wp-block-column.is-style-lz-festtag .wp-block-buttons {
+	margin-block-start: auto;
+	padding-block-start: 1.4rem;
+}
+
+/* Förderer-Kachel: weiß wie das Plakat-Fußband, komplett anklickbar */
+.wp-block-column.is-style-lz-foerderer {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	min-height: 13rem;
+	padding: clamp(1.4rem, 3vw, 2.1rem);
+	background: #ffffff;
+	border-radius: var(--lzb-radius);
+	text-align: center;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wp-block-column.is-style-lz-foerderer:hover,
+.wp-block-column.is-style-lz-foerderer:focus-within {
+	transform: translateY(-3px);
+	box-shadow: 0 22px 44px -26px rgba(0, 0, 0, 0.9);
+}
+
+.wp-block-column.is-style-lz-foerderer figure { margin: 0; }
+
+.wp-block-column.is-style-lz-foerderer img {
+	max-height: 96px;
+	width: auto;
+	margin-inline: auto;
+	object-fit: contain;
+}
+
+.wp-block-column.is-style-lz-foerderer p {
+	margin: 0;
+	font-family: var(--lzb-ui);
+	font-size: 0.82rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	color: #26304a;
+}
+
+.wp-block-column.is-style-lz-foerderer a {
+	color: #26304a;
+	text-decoration-color: rgba(38, 48, 74, 0.35);
+}
+
+.wp-block-column.is-style-lz-foerderer a:hover,
+.wp-block-column.is-style-lz-foerderer a:focus {
+	color: #000000;
+}
+
+/* Ein Klick auf die ganze Kachel folgt dem Link. */
+.wp-block-column.is-style-lz-foerderer a::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: var(--lzb-radius);
+}
+
+/* Auf dem Handy zwei Kacheln nebeneinander statt vier untereinander.
+   Die Auswahl ist bewusst eine Klasse spezifischer als die Kern-Regel
+   von WordPress, die dort sonst 100 % Breite erzwingt. */
+@media (max-width: 781px) {
+	.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column.is-style-lz-foerderer {
+		flex-basis: calc(50% - 0.6rem) !important;
+	}
+
+	.wp-block-column.is-style-lz-foerderer {
+		min-height: 9.5rem;
+		gap: 0.7rem;
+		padding: 1rem;
+	}
+
+	.wp-block-column.is-style-lz-foerderer img { max-height: 56px; }
+
+	.wp-block-column.is-style-lz-foerderer p { font-size: 0.72rem; }
+}
+
+/* ===============================================================
+   5. Porträts der Erzählenden
+   =============================================================== */
+.wp-block-columns.is-style-lz-portraet {
+	align-items: flex-start;
+	gap: clamp(1.5rem, 3.4vw, 3.25rem) !important;
+	padding-block-end: clamp(2rem, 4vw, 3.25rem);
+	margin-block-end: clamp(2rem, 4vw, 3.25rem);
+	border-block-end: 1px solid var(--lzb-hair-soft);
+}
+
+.wp-block-columns.is-style-lz-portraet:last-of-type {
+	border-block-end: 0;
+	padding-block-end: 0;
+	margin-block-end: 0;
+}
+
+/* Bild abwechselnd links und rechts – ohne dass jemand etwas einstellen muss.
+   Ohne JavaScript greift nth-of-type, mit JavaScript die Klasse (robuster). */
+.wp-block-columns.is-style-lz-portraet:nth-of-type(even),
+.wp-block-columns.is-style-lz-portraet.lz-bild-rechts {
+	flex-direction: row-reverse;
+}
+
+.wp-block-columns.is-style-lz-portraet.lz-bild-links {
+	flex-direction: row;
+}
+
+@media (max-width: 781px) {
+	.wp-block-columns.is-style-lz-portraet,
+	.wp-block-columns.is-style-lz-portraet:nth-of-type(even),
+	.wp-block-columns.is-style-lz-portraet.lz-bild-rechts {
+		flex-direction: column;
+	}
+}
+
+.wp-block-columns.is-style-lz-portraet figure { margin: 0; }
+
+/* Alle Porträts im gleichen Format – sonst wirkt die Seite unruhig,
+   weil die Fotos hoch, quer und quadratisch gemischt sind.
+   Die Höhenbegrenzung verhindert, dass ein Foto den Text erschlägt. */
+.wp-block-columns.is-style-lz-portraet img {
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	max-height: 26rem;
+	object-fit: cover;
+	object-position: center 28%;
+	border-radius: var(--lzb-radius);
+	border: 1px solid var(--lzb-hair);
+	box-shadow: 0 26px 50px -34px rgba(0, 0, 0, 0.95);
+}
+
+.wp-block-columns.is-style-lz-portraet :is(h2, h3) {
+	margin-block-start: 0;
+	color: var(--lzb-gold-light);
+}
+
+/* Zeilen nicht zu lang werden lassen – sonst liest sich der Text schwer. */
+.wp-block-columns.is-style-lz-portraet .wp-block-column > *,
+.wp-block-columns.is-style-lz-portraet .lz-mehr {
+	max-width: 42rem;
+}
+
+/* Rolle / Kurzbeschreibung unter dem Namen */
+.wp-block-paragraph.is-style-lz-rolle,
+p.is-style-lz-rolle {
+	margin-block: -0.3rem 1.1rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--lzb-muted);
+}
+
+/* Platzhalter statt Foto: das Lindenblatt */
+.wp-block-column.is-style-lz-blattfeld {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	aspect-ratio: 4 / 5;
+	max-height: 26rem;
+	border: 1px dashed var(--lzb-hair);
+	border-radius: var(--lzb-radius);
+	background: rgba(22, 35, 62, 0.5);
+}
+
+.wp-block-column.is-style-lz-blattfeld::before {
+	content: "";
+	width: 42%;
+	aspect-ratio: 1;
+	background-color: var(--lzb-gold-deep);
+	opacity: 0.55;
+	-webkit-mask: url("../img/icon-blatt.svg") no-repeat center / contain;
+	mask: url("../img/icon-blatt.svg") no-repeat center / contain;
+}
+
+/* „Mehr anzeigen“ – wird von assets/js/mehr-anzeigen.js gesetzt.
+   Ohne JavaScript steht der ganze Text da; es geht also nichts verloren. */
+.lz-mehr {
+	--lz-mehr-grund: var(--lzb-night);
+}
+
+/* Innerhalb eines abgesetzten Abschnitts ist der Grund etwas heller. */
+.wp-block-group.is-style-lz-panel .lz-mehr {
+	--lz-mehr-grund: #131f38;
+}
+
+.lz-mehr__inhalt {
+	position: relative;
+}
+
+.lz-mehr[data-lz-mehr="zu"] .lz-mehr__inhalt {
+	max-height: var(--lz-mehr-hoehe, 14rem);
+	overflow: hidden;
+}
+
+.lz-mehr[data-lz-mehr="zu"] .lz-mehr__inhalt::after {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	inset-block-end: 0;
+	height: 5.5rem;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--lz-mehr-grund) 92%);
+	pointer-events: none;
+}
+
+.lz-mehr[data-lz-mehr="auf"] .lz-mehr__inhalt > *:last-child {
+	margin-block-end: 0;
+}
+
+.lz-mehr__schalter {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-block-start: 0.9rem;
+	padding: 0.45rem 0;
+	background: none;
+	border: 0;
+	border-bottom: 1px solid var(--lzb-hair);
+	font-family: var(--lzb-ui);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--lzb-gold);
+	cursor: pointer;
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.lz-mehr__schalter:hover,
+.lz-mehr__schalter:focus-visible {
+	color: var(--lzb-gold-light);
+	border-bottom-color: var(--lzb-gold);
+}
+
+.lz-mehr__schalter::after {
+	content: "";
+	width: 0.6rem;
+	height: 0.6rem;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(45deg) translate(-2px, -2px);
+	transition: transform 0.2s ease;
+}
+
+.lz-mehr[data-lz-mehr="auf"] .lz-mehr__schalter::after {
+	transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+/* ===============================================================
+   6. Listen
+   =============================================================== */
+
+/* Erzählzeiten als goldene Chips */
+.wp-block-list.is-style-lz-chips {
+	list-style: none;
+	padding-inline-start: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.65rem;
+	margin-block: 0 1.5rem;
+}
+
+.wp-block-list.is-style-lz-chips > li {
+	margin: 0;
+	padding: 0.5rem 1.2rem;
+	border: 1px solid var(--lzb-hair);
+	border-radius: 999px;
+	background: rgba(240, 200, 104, 0.08);
+	font-family: var(--lzb-ui);
+	font-size: 0.9rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	color: var(--lzb-gold);
+}
+
+.wp-block-list.is-style-lz-chips > li::marker { content: ""; }
+
+/* Erzählräume als Kacheln */
+.wp-block-list.is-style-lz-kacheln {
+	list-style: none;
+	padding-inline-start: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	gap: 1rem;
+	margin-block: 0 2rem;
+}
+
+.wp-block-list.is-style-lz-kacheln > li {
+	margin: 0;
+	padding: 1.5rem 1rem;
+	border: 1px solid var(--lzb-hair-soft);
+	border-radius: var(--lzb-radius);
+	background: rgba(22, 35, 62, 0.5);
+	text-align: center;
+	font-size: var(--wp--preset--font-size--gross, 1.3125rem);
+	font-weight: 300;
+	color: #ffffff;
+}
+
+.wp-block-list.is-style-lz-kacheln > li::marker { content: ""; }
+
+/* Die guten Gründe – Punkte mit goldenem Blatt */
+.wp-block-list.is-style-lz-punkte {
+	list-style: none;
+	padding-inline-start: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 0.9rem 2rem;
+	margin-block: 0;
+}
+
+.wp-block-list.is-style-lz-punkte > li {
+	position: relative;
+	margin: 0;
+	padding-inline-start: 1.9rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.98rem;
+	line-height: 1.5;
+	color: var(--lzb-cream);
+}
+
+.wp-block-list.is-style-lz-punkte > li::marker { content: ""; }
+
+.wp-block-list.is-style-lz-punkte > li::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: 0.15em;
+	width: 0.95rem;
+	height: 0.95rem;
+	background-color: var(--lzb-gold);
+	-webkit-mask: url("../img/icon-funkel.svg") no-repeat center / contain;
+	mask: url("../img/icon-funkel.svg") no-repeat center / contain;
+}
+
+/* Kompakte Fakten-Liste (Ort, Eintritt, Anfahrt …) */
+.wp-block-list.is-style-lz-fakten {
+	list-style: none;
+	padding-inline-start: 0;
+	margin-block: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+	gap: 0;
+}
+
+.wp-block-list.is-style-lz-fakten > li {
+	margin: 0;
+	padding-block: 1rem;
+	border-block-end: 1px solid var(--lzb-hair-soft);
+	line-height: 1.6;
+}
+
+.wp-block-list.is-style-lz-fakten > li::marker { content: ""; }
+
+.wp-block-list.is-style-lz-fakten > li strong {
+	display: block;
+	margin-block-end: 0.25rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-deep);
+}
+
+/* ===============================================================
+   7. Trenner, Bilder, Galerie, Zitat
+   =============================================================== */
+.wp-block-separator.is-style-lz-ornament {
+	border: 0;
+	height: 34px;
+	max-width: 320px;
+	margin-inline: auto;
+	margin-block: clamp(1.5rem, 3vw, 2.5rem);
+	background-color: var(--lzb-gold-deep);
+	opacity: 1;
+	-webkit-mask: url("../img/ornament.svg") no-repeat center / contain;
+	mask: url("../img/ornament.svg") no-repeat center / contain;
+}
+
+.wp-block-separator:not(.is-style-lz-ornament) {
+	border: 0;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--lzb-hair), transparent);
+	opacity: 1;
+}
+
+/* Das Plakat */
+.wp-block-image.is-style-lz-plakat img {
+	margin-inline: auto;
+	max-width: 520px;
+	width: 100%;
+	border: 1px solid rgba(240, 200, 104, 0.35);
+	border-radius: var(--lzb-radius);
+	box-shadow:
+		0 40px 80px -40px rgba(0, 0, 0, 0.95),
+		0 0 60px -22px rgba(240, 200, 104, 0.28);
+}
+
+.wp-block-image.is-style-lz-plakat figcaption {
+	max-width: 34rem;
+	margin-inline: auto;
+	text-align: center;
+}
+
+/* Goldrahmen für beliebige Bilder (Karte, Rückblick …) */
+.wp-block-image.is-style-lz-rahmen img {
+	border: 1px solid var(--lzb-hair);
+	border-radius: var(--lzb-radius);
+	box-shadow: 0 30px 60px -38px rgba(0, 0, 0, 0.95);
+}
+
+/* Hinweis: Ein Bild-Block ohne ausgewähltes Bild wird von WordPress beim
+   Ausliefern vollständig entfernt – der ganze Abschnitt wäre dann leer.
+   Deshalb bringen die Seiteninhalte ein mitgeliefertes Platzhalterbild mit,
+   das im Editor einfach ersetzt wird. */
+
+/* Galerie im Nachtlook */
+.wp-block-gallery.is-style-lz-nachtraster img {
+	border-radius: var(--lzb-radius);
+	border: 1px solid var(--lzb-hair-soft);
+	transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.wp-block-gallery.is-style-lz-nachtraster .wp-block-image:hover img {
+	transform: scale(1.02);
+	border-color: var(--lzb-hair);
+}
+
+/* Märchenzitat */
+.wp-block-quote.is-style-lz-maerchen {
+	position: relative;
+	margin-inline: auto;
+	padding: 0 0 0 3.2rem;
+	border: 0;
+	font-size: var(--wp--preset--font-size--gross, 1.3125rem);
+	font-weight: 300;
+	font-style: normal;
+	line-height: 1.6;
+	color: #ffffff;
+}
+
+.wp-block-quote.is-style-lz-maerchen::before {
+	content: "„";
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: -0.35em;
+	font-family: var(--lzb-script);
+	font-size: 4.5rem;
+	line-height: 1;
+	color: var(--lzb-gold);
+	opacity: 0.85;
+}
+
+.wp-block-quote.is-style-lz-maerchen cite {
+	display: block;
+	margin-block-start: 1rem;
+	font-family: var(--lzb-ui);
+	font-size: 0.74rem;
+	font-style: normal;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--lzb-muted);
+}
+
+/* ===============================================================
+   8. Schaltflächen
+   =============================================================== */
+.wp-block-button__link {
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	background-color: transparent;
+	color: var(--lzb-gold);
+	border: 1px solid rgba(240, 200, 104, 0.45);
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link:hover,
+.wp-block-button.is-style-outline > .wp-block-button__link:focus {
+	background-color: rgba(240, 200, 104, 0.12);
+	border-color: var(--lzb-gold);
+	color: var(--lzb-gold-light);
+}
+
+/* Dezente Variante: wirkt wie ein Textlink mit Pfeil */
+.wp-block-button.is-style-lz-leise > .wp-block-button__link {
+	background: none;
+	border: 0;
+	border-bottom: 1px solid var(--lzb-hair);
+	border-radius: 0;
+	padding: 0.45rem 0;
+	color: var(--lzb-gold);
+}
+
+.wp-block-button.is-style-lz-leise > .wp-block-button__link::after {
+	content: " →";
+}
+
+.wp-block-button.is-style-lz-leise > .wp-block-button__link:hover,
+.wp-block-button.is-style-lz-leise > .wp-block-button__link:focus {
+	background: none;
+	color: var(--lzb-gold-light);
+	border-bottom-color: var(--lzb-gold);
+}
+
+/* ===============================================================
+   9. Tabellen
+   =============================================================== */
+.wp-block-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.wp-block-table :is(td, th) {
+	padding: 0.85rem 1rem 0.85rem 0;
+	border-block-end: 1px solid var(--lzb-hair-soft);
+	vertical-align: top;
+	text-align: start;
+}
+
+.wp-block-table th {
+	font-family: var(--lzb-ui);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--lzb-gold-deep);
+}
+
+/* ===============================================================
+   10. Kleinigkeiten
+   =============================================================== */
+.wp-block-list > li::marker {
+	color: var(--lzb-gold-deep);
+}
+
+figure.wp-block-image { margin-block: 0; }
+
+.wp-block-buttons {
+	gap: 0.85rem;
+}
+
+/* Sprungmarken sollen nicht unter dem Kopfbereich verschwinden */
+:target {
+	scroll-margin-top: 6rem;
+}

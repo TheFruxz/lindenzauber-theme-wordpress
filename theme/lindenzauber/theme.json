@@ -1,0 +1,396 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "46rem",
+			"wideSize": "76rem"
+		},
+		"background": {
+			"backgroundImage": true,
+			"backgroundSize": true
+		},
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		},
+		"color": {
+			"custom": true,
+			"customDuotone": false,
+			"customGradient": true,
+			"defaultDuotone": false,
+			"defaultGradients": false,
+			"defaultPalette": false,
+			"link": true,
+			"palette": [
+				{ "slug": "nacht", "color": "#0e1830", "name": "Nachtblau" },
+				{ "slug": "nacht-tief", "color": "#060b18", "name": "Nachtblau tief" },
+				{ "slug": "nacht-panel", "color": "#16233e", "name": "Nachtblau hell" },
+				{ "slug": "gold", "color": "#f0c868", "name": "Gold" },
+				{ "slug": "gold-hell", "color": "#f7dfa0", "name": "Gold hell" },
+				{ "slug": "gold-tief", "color": "#c89a34", "name": "Gold dunkel" },
+				{ "slug": "creme", "color": "#f1ecdf", "name": "Cremeweiß" },
+				{ "slug": "weiss", "color": "#ffffff", "name": "Weiß" },
+				{ "slug": "blaugrau", "color": "#a9b8d2", "name": "Blaugrau" },
+				{ "slug": "laub", "color": "#24512a", "name": "Laubgrün" }
+			],
+			"gradients": [
+				{
+					"slug": "nachthimmel",
+					"name": "Nachthimmel",
+					"gradient": "linear-gradient(180deg, #060b18 0%, #0e1830 45%, #16233e 100%)"
+				},
+				{
+					"slug": "goldband",
+					"name": "Goldband",
+					"gradient": "linear-gradient(180deg, #fbefc7 0%, #f0c868 48%, #c89a34 100%)"
+				},
+				{
+					"slug": "laternenschein",
+					"name": "Laternenschein",
+					"gradient": "radial-gradient(circle at 20% 70%, rgba(242,168,60,0.28) 0%, rgba(242,168,60,0) 62%)"
+				}
+			]
+		},
+		"spacing": {
+			"customSpacingSize": true,
+			"units": [ "px", "rem", "em", "%", "vw", "vh" ],
+			"spacingSizes": [
+				{ "slug": "20", "size": "0.75rem", "name": "1 – Sehr eng" },
+				{ "slug": "30", "size": "1.25rem", "name": "2 – Eng" },
+				{ "slug": "40", "size": "2rem", "name": "3 – Normal" },
+				{ "slug": "50", "size": "3rem", "name": "4 – Luftig" },
+				{ "slug": "60", "size": "clamp(3.5rem, 6vw, 5.5rem)", "name": "5 – Abschnitt" },
+				{ "slug": "70", "size": "clamp(5rem, 9vw, 8rem)", "name": "6 – Großer Abschnitt" }
+			]
+		},
+		"typography": {
+			"customFontSize": true,
+			"defaultFontSizes": false,
+			"dropCap": false,
+			"fluid": true,
+			"lineHeight": true,
+			"textDecoration": true,
+			"letterSpacing": true,
+			"writingMode": false,
+			"fontFamilies": [
+				{
+					"slug": "sans",
+					"name": "Fließtext (Lato)",
+					"fontFamily": "Lato, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "300",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+							"src": [ "file:./assets/fonts/lato-300-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "300",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/lato-300-latin-ext.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+							"src": [ "file:./assets/fonts/lato-400-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/lato-400-latin-ext.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+							"src": [ "file:./assets/fonts/lato-400-italic-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "italic",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/lato-400-italic-latin-ext.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+							"src": [ "file:./assets/fonts/lato-700-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/lato-700-latin-ext.woff2" ]
+						}
+					]
+				},
+				{
+					"slug": "schwung",
+					"name": "Schwungschrift (Great Vibes)",
+					"fontFamily": "\"Great Vibes\", \"Snell Roundhand\", \"Apple Chancery\", cursive",
+					"fontFace": [
+						{
+							"fontFamily": "Great Vibes",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+							"src": [ "file:./assets/fonts/great-vibes-400-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Great Vibes",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/fonts/great-vibes-400-latin-ext.woff2" ]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{
+					"slug": "winzig",
+					"name": "Winzig",
+					"size": "0.8125rem",
+					"fluid": false
+				},
+				{
+					"slug": "klein",
+					"name": "Klein",
+					"size": "0.9375rem",
+					"fluid": false
+				},
+				{
+					"slug": "normal",
+					"name": "Normal",
+					"size": "1.0625rem",
+					"fluid": { "min": "1.0625rem", "max": "1.125rem" }
+				},
+				{
+					"slug": "gross",
+					"name": "Groß",
+					"size": "1.3125rem",
+					"fluid": { "min": "1.1875rem", "max": "1.4375rem" }
+				},
+				{
+					"slug": "ueberschrift-klein",
+					"name": "Überschrift klein",
+					"size": "1.625rem",
+					"fluid": { "min": "1.375rem", "max": "1.75rem" }
+				},
+				{
+					"slug": "ueberschrift",
+					"name": "Überschrift",
+					"size": "2.25rem",
+					"fluid": { "min": "1.75rem", "max": "2.625rem" }
+				},
+				{
+					"slug": "ueberschrift-gross",
+					"name": "Überschrift groß",
+					"size": "3rem",
+					"fluid": { "min": "2.125rem", "max": "3.5rem" }
+				},
+				{
+					"slug": "titel",
+					"name": "Festtitel",
+					"size": "5.5rem",
+					"fluid": { "min": "3.25rem", "max": "7.5rem" }
+				}
+			]
+		},
+		"shadow": {
+			"defaultPresets": false,
+			"presets": [
+				{ "slug": "weich", "name": "Weich", "shadow": "0 24px 60px -32px rgba(0,0,0,0.85)" },
+				{ "slug": "gold", "name": "Goldschein", "shadow": "0 0 40px -8px rgba(240,200,104,0.35)" }
+			]
+		},
+		"dimensions": { "minHeight": true },
+		"position": { "sticky": true }
+	},
+
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--nacht)",
+			"text": "var(--wp--preset--color--creme)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--sans)",
+			"fontSize": "var(--wp--preset--font-size--normal)",
+			"fontWeight": "400",
+			"lineHeight": "1.75",
+			"letterSpacing": "0.005em"
+		},
+		"spacing": {
+			"padding": {
+				"left": "clamp(1.25rem, 5vw, 3rem)",
+				"right": "clamp(1.25rem, 5vw, 3rem)"
+			},
+			"blockGap": "1.5rem"
+		},
+		"elements": {
+			"link": {
+				"color": { "text": "var(--wp--preset--color--gold)" },
+				"typography": { "textDecoration": "underline" },
+				":hover": {
+					"color": { "text": "var(--wp--preset--color--gold-hell)" }
+				},
+				":focus": {
+					"color": { "text": "var(--wp--preset--color--gold-hell)" }
+				}
+			},
+			"heading": {
+				"color": { "text": "var(--wp--preset--color--weiss)" },
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--sans)",
+					"fontWeight": "300",
+					"lineHeight": "1.16",
+					"letterSpacing": "0.01em"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--ueberschrift-gross)"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--ueberschrift)"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--ueberschrift-klein)",
+					"fontWeight": "400"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--gross)",
+					"fontWeight": "700",
+					"letterSpacing": "0.08em",
+					"textTransform": "uppercase"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--klein)",
+					"fontWeight": "700",
+					"letterSpacing": "0.18em",
+					"textTransform": "uppercase"
+				},
+				"color": { "text": "var(--wp--preset--color--gold)" }
+			},
+			"h6": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--winzig)",
+					"fontWeight": "700",
+					"letterSpacing": "0.22em",
+					"textTransform": "uppercase"
+				},
+				"color": { "text": "var(--wp--preset--color--blaugrau)" }
+			},
+			"button": {
+				"color": {
+					"background": "var(--wp--preset--color--gold)",
+					"text": "var(--wp--preset--color--nacht-tief)"
+				},
+				"border": {
+					"radius": "2px",
+					"width": "1px",
+					"style": "solid",
+					"color": "var(--wp--preset--color--gold)"
+				},
+				"spacing": {
+					"padding": {
+						"top": "0.95rem",
+						"bottom": "0.95rem",
+						"left": "1.9rem",
+						"right": "1.9rem"
+					}
+				},
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--winzig)",
+					"fontWeight": "700",
+					"letterSpacing": "0.16em",
+					"textTransform": "uppercase",
+					"textDecoration": "none",
+					"lineHeight": "1.2"
+				},
+				":hover": {
+					"color": {
+						"background": "var(--wp--preset--color--gold-hell)",
+						"text": "var(--wp--preset--color--nacht-tief)"
+					},
+					"border": { "color": "var(--wp--preset--color--gold-hell)" }
+				},
+				":focus": {
+					"color": {
+						"background": "var(--wp--preset--color--gold-hell)",
+						"text": "var(--wp--preset--color--nacht-tief)"
+					}
+				}
+			},
+			"caption": {
+				"color": { "text": "var(--wp--preset--color--blaugrau)" },
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--klein)",
+					"lineHeight": "1.6"
+				}
+			}
+		},
+		"blocks": {
+			"core/paragraph": {
+				"typography": { "lineHeight": "1.75" }
+			},
+			"core/list": {
+				"spacing": { "padding": { "left": "1.15rem" } }
+			},
+			"core/quote": {
+				"color": { "text": "var(--wp--preset--color--creme)" },
+				"typography": { "fontSize": "var(--wp--preset--font-size--gross)" }
+			},
+			"core/separator": {
+				"color": { "text": "var(--wp--preset--color--gold-tief)" }
+			},
+			"core/table": {
+				"typography": { "fontSize": "var(--wp--preset--font-size--klein)" }
+			},
+			"core/code": {
+				"color": {
+					"background": "var(--wp--preset--color--nacht-tief)",
+					"text": "var(--wp--preset--color--creme)"
+				}
+			},
+			"core/pullquote": {
+				"color": { "text": "var(--wp--preset--color--gold-hell)" }
+			}
+		}
+	}
+}

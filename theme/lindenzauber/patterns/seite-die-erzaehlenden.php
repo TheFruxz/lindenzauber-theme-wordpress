@@ -1,0 +1,204 @@
+<?php
+/**
+ * Title: Seite: Die Erzählenden
+ * Slug: lindenzauber/seite-die-erzaehlenden
+ * Categories: lindenzauber
+ * Description: Sechs Porträts. Das Bild wechselt automatisch die Seite, lange Texte bekommen einen Schalter „Mehr anzeigen“.
+ * Block Types: core/post-content
+ * Post Types: page
+ * Inserter: yes
+ *
+ * Diese Datei wird von tools/make-patterns.php erzeugt.
+ * Quelle: inhalte/03-die-erzaehlenden.html
+ *
+ * @package Lindenzauber
+ */
+
+?>
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:paragraph {"align":"center","className":"is-style-lz-lead"} -->
+<p class="has-text-align-center is-style-lz-lead">Märchen leben von der Stimme der Menschen, die sie erzählen.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Beim Lindenzauber begegnen sich unterschiedliche Erzählstile, Temperamente und Geschichtenwelten. Unsere Erzählerinnen und Erzähler erzählen frei – ohne Buch – und laden dazu ein, für eine Weile den eigenen inneren Bildern zu folgen.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/01_DSCN4969-1024x768.jpg" alt="Brigitta Wortmann, Märchenerzählerin und Harfenspielerin"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Brigitta Wortmann</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Märchenerzählerin · Harfenspielerin · Initiatorin des Lindenzaubers</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Seit 1998 erzählt Brigitta Wortmann Märchen frei und begleitet ihre Geschichten mit der Harfe. In ihrem umfangreichen Repertoire finden sich Märchen vor allem aus Europa und dem orientalischen Raum – heiter und hintergründig, poetisch, weise oder wundersam. Dabei entstehen die Geschichten im unmittelbaren Zusammenspiel von Stimme, Gestik, Musik und Publikum.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Ihre Ausbildung zur Erzählerin absolvierte sie bei Jana Raile und der Europäischen Märchengesellschaft, der sie bis heute angehört. Seit 2007 begleitet sie ihre Programme mit der keltischen Harfe, seit elf Jahren auch mit der Konzertharfe.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>2025 wurde sie für ihre Erzählkunst mit dem Kulturpreis des Landkreises Diepholz ausgezeichnet. Mehr über ihre Arbeit steht auf ihrer eigenen Seite <a href="https://www.diemaerchentruhe.de/" rel="noopener">Die Märchentruhe</a>.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/P8283158-1024x683.jpg" alt="Brigitte Sackmaier, Märchenerzählerin aus Barnstorf"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Brigitte Sackmaier</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Märchenerzählerin · Natur- und Landschaftsführerin</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Brigitte Sackmaier ist staatlich anerkannte Erzieherin und im sozialen Bereich tätig. Seit letztem Jahr ist sie auch zertifizierte Natur- und Landschaftsführerin im Naturpark Dümmer und seit Kurzem Gästeführerin mit Stern in Barnstorf.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Sie unterstützt als Honorarkraft das Dümmer-Museum in Lembruch, gibt Führungen und bietet dort unter anderem Weben und die „Märchenhafte Schatzsuche“ für Kinder an.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Sie selbst fand vor mehr als 30 Jahren den Weg aus dem Unterallgäu über einen viereinhalbjährigen Aufenthalt in Nordafrika in die Norddeutsche Tiefebene und lebt seither in Barnstorf. Seit über zehn Jahren erzählt sie Märchen für Kinder und Erwachsene, am liebsten bei Spaziergängen oder märchenhaften Wanderungen zu bestimmten Themen in freier Natur.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%","className":"is-style-lz-blattfeld"} -->
+<div class="wp-block-column is-style-lz-blattfeld" style="flex-basis:34%"></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Hans-Jörg Hubmann</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Märchenerzähler · Zauberkünstler</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Hans-Jörg Hubmann aus Hannover erzählt Märchen, Sagen und Geschichten aus unterschiedlichen Ländern frei und ohne Buch. Mit Stimme, Mimik und Gestik lässt er Figuren und Situationen lebendig werden und nimmt sein Publikum mit auf Wege voller Rätsel, Verwandlungen und überraschender Wendungen.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Als Erzähler und Zauberkünstler verbindet er seit vielen Jahren Geschichten mit Elementen alter Varieté- und Zauberkunst – mal humorvoll, mal geheimnisvoll und immer mit großer Freude am unmittelbaren Kontakt zum Publikum.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-06-at-15.56.44-199x300.jpeg" alt="Bea Tilanus, Märchenerzählerin aus Bruchhausen-Vilsen"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Bea Tilanus</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Märchenerzählerin · Müllerin</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Bea Tilanus, geboren 1962 in Rotterdam, gehört zur vierten Generation von Geschichtenerzählerinnen – einer Tradition, die von Mutter zu Tochter weitergegeben wurde. Sie besuchte Kurse an der Vertelacademie in Utrecht, unter anderem bei Raymond den Boestert.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Außerdem studierte sie Kulturanthropologie in Leiden und wurde ehrenamtliche Müllerin. Regelmäßig organisierte sie in der Mühle Erzählabende, die in der Umgebung zu einer festen Institution wurden.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Nachdem sie Romke Schievink kennengelernt hatte, ging auch ein weiterer Traum in Erfüllung: eine eigene Mühle. Gemeinsam kauften sie 2020 die Bruchmühlen in Bruchhausen-Vilsen. Bea erzählt heute auf Deutsch – für sie immer noch eine Zweitsprache, aber eine sehr schöne, die ihr Freude bereitet.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/IMG_8690-225x300.jpeg" alt="Renate Friese, Märchenerzählerin und Gästeführerin"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Renate Friese</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Märchenerzählerin · Gästeführerin</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Renate Friese ist in der Region seit vielen Jahren als Erzählerin bekannt. Besonders verbunden ist sie mit Geschichten aus der Heimat und mit Mühlenmärchen, die sie auch im Rahmen ihrer Tätigkeit als Gästeführerin erzählt.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Mit ihrer Freude am Erzählen und ihrem Gespür für regionale Geschichten gehört sie seit vielen Jahren zu den Erzählerinnen, mit denen Brigitta Wortmann immer wieder gemeinsam Märchenveranstaltungen gestaltet.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
+<div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%","className":"is-style-lz-blattfeld"} -->
+<div class="wp-block-column is-style-lz-blattfeld" style="flex-basis:34%"></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Die sechste Stimme</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"is-style-lz-rolle"} -->
+<p class="is-style-lz-rolle">Wird noch bekannt gegeben</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Der sechste Platz im Erzählkreis ist vergeben, der Name folgt in Kürze. Sobald er feststeht, findet er hier seinen Platz – mit Foto und ein paar Sätzen zur Person.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","className":"is-style-lz-band","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-lz-band"><!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Wann Sie wen hören</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Am Samstagabend erzählen alle gemeinsam. Am Sonntag wechseln sie durch die vier Erzählräume, sodass in jedem Raum um 13.30, 14.30, 15.30 und 16.30 Uhr eine andere Geschichte beginnt.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/programm/">Zum Programm</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->

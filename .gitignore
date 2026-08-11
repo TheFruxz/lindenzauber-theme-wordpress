@@ -1,0 +1,12 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# Editoren
+.idea/
+.vscode/
+*.swp
+
+# Arbeitsordner der Testinstanz (wird von build.sh angelegt)
+/arbeit/
+/wp/

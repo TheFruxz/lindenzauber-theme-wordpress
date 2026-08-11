@@ -1,0 +1,60 @@
+/**
+ * Nur für den Bearbeiten-Bildschirm.
+ *
+ * Die Gestaltung selbst kommt aus blocks.css, damit die Vorschau im Editor
+ * genauso aussieht wie die fertige Seite. Hier stehen nur die Kleinigkeiten,
+ * die es auf der Website nicht gibt.
+ */
+
+/* Der Nachthimmel liegt auf der Website hinter allem. Im Editor genügt ein
+   ruhiger dunkler Grund, damit die Blöcke gut greifbar bleiben. */
+.editor-styles-wrapper {
+	background-color: #0e1830;
+	background-image: linear-gradient(180deg, #0a1122 0%, #121e38 60%, #0e1830 100%);
+}
+
+/* Platzhaltertexte ("Gib / ein …") auf dunklem Grund sichtbar machen */
+.editor-styles-wrapper .block-editor-rich-text__editable[data-is-placeholder-visible="true"],
+.editor-styles-wrapper .wp-block-paragraph.is-empty::before,
+.editor-styles-wrapper .block-editor-default-block-appender__content {
+	color: rgba(169, 184, 210, 0.75) !important;
+}
+
+/* Auswahlrahmen der Blöcke gut sichtbar auf dunklem Grund */
+.editor-styles-wrapper .block-editor-block-list__block.is-selected,
+.editor-styles-wrapper .block-editor-block-list__block.is-hovered {
+	outline-color: #f0c868 !important;
+}
+
+/* Abschnitte im Editor sichtbar abgrenzen, damit man sie greifen kann */
+.editor-styles-wrapper .wp-block-group.is-style-lz-band,
+.editor-styles-wrapper .wp-block-group.is-style-lz-panel,
+.editor-styles-wrapper .wp-block-group.is-style-lz-hero {
+	outline: 1px dashed rgba(240, 200, 104, 0.2);
+	outline-offset: 3px;
+}
+
+/* Die Dorfsilhouette im Editor weglassen – sie ragt sonst über den Rahmen */
+.editor-styles-wrapper .wp-block-group.is-style-lz-hero::after {
+	display: none;
+}
+
+/* Der Ausklapp-Schalter entsteht erst auf der Website. Im Editor steht der
+   vollständige Text, damit er bearbeitbar bleibt. */
+.editor-styles-wrapper .lz-mehr__inhalt {
+	max-height: none !important;
+}
+
+/* Hinweis an den Porträts, dass die Bildseite automatisch wechselt */
+.editor-styles-wrapper .wp-block-columns.is-style-lz-portraet::before {
+	content: "Porträt – auf der Website wechselt das Bild automatisch die Seite";
+	display: block;
+	width: 100%;
+	margin-block-end: 0.6rem;
+	font-family: Lato, system-ui, sans-serif;
+	font-size: 0.66rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgba(240, 200, 104, 0.5);
+}
