@@ -90,18 +90,24 @@ Vorschau und spätere Website nicht auseinanderlaufen.
 Prüfwerkzeuge:
 
 ```bash
-node tools/block-check.mjs  <url> <benutzer> <passwort> inhalte/*.html   # gültige Kernblöcke?
-node tools/editor-check.mjs <url> <benutzer> <passwort> <seiten-id...>   # Warnungen im Editor?
-node tools/layout-check.mjs <url>                                       # Abstände, Klickflächen, Kontrast
-node tools/shot.mjs         <url> <ziel.png> [breite] [full]             # Screenshot
+node tools/block-check.mjs    <url> <benutzer> <passwort> inhalte/*.html # gültige Kernblöcke?
+node tools/editor-check.mjs   <url> <benutzer> <passwort> <seiten-id...> # Warnungen im Editor?
+node tools/layout-check.mjs   <url>                                     # Abstände, Klickflächen, Kontrast
+node tools/vorschau-check.mjs <ordner>                                  # das Vorschau-Paket
+node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
 `layout-check.mjs` geht alle Seiten in 390 px, 768 px und 1440 px durch und meldet
 fehlende Abstände zwischen Blöcken, außermittige Abschnitte, Flächen die klickbar
 aussehen aber keine sind, seitlichen Überlauf, zu schwachen Kontrast, Leerraum
-hinter dem Fußbereich und Bilder, deren eigener Grund nicht zur Kachel darunter
-passt (Eckpixel gegen die tatsächlich sichtbare Hintergrundfarbe). Nach jeder
+hinter dem Fußbereich, Bilder deren eigener Grund nicht zur Kachel darunter passt
+(Eckpixel gegen die tatsächlich sichtbare Hintergrundfarbe), Sprungziele die unter
+dem festen Kopfbereich landen und Bedienelemente unter 44 × 44 px. Nach jeder
 Änderung an der Gestaltung einmal laufen lassen – es muss „Keine Befunde“ herauskommen.
+
+`vorschau-check.mjs` prüft das fertige Vorschau-Paket: jedes Skript genau einmal
+eingebunden, alle Dateien da, und – wichtig – der Menüknopf öffnet das Menü
+wirklich. Der Aufruf steckt in `build.sh`; bei Befunden wird kein Paket gebaut.
 
 Die Karte wird nur neu erzeugt, wenn sich der Ausschnitt ändern soll:
 

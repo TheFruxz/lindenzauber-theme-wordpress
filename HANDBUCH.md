@@ -113,6 +113,16 @@ zusätzlich anpassen – die stehen ja im Fließtext.
 3. Oben rechts auf *Veröffentlichen*
 4. Unter *Design → Menüs* die Seite ins Menü aufnehmen
 
+### Etwas am Menü ändern
+
+*Design → Menüs.* Die Kopfzeile bleibt beim Scrollen oben stehen und wird dabei
+etwas flacher, damit sie nicht im Weg ist.
+
+Auf dem Handy erscheint statt der Menüzeile ein Knopf: ein Tipp darauf legt das
+Menü als Sternenhimmel über die ganze Seite. Das passiert von selbst, dafür ist
+nichts einzustellen. Auch neue Menüpunkte fügen sich dort ein – bis etwa acht
+Einträge sieht das gut aus, danach wird es viel zum Lesen.
+
 ### Eine Erzählzeit ändern oder eine fünfte hinzufügen
 
 Seite *Programm* → Abschnitt „Der Ablauf am Sonntag“ → die Zeile mit den Uhrzeiten.

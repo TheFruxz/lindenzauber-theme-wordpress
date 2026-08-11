@@ -52,6 +52,16 @@ LZ_REPO="$REPO" bash tools/wp-test-medien.sh > /dev/null
 echo "== Vorschau erzeugen =="
 php tools/make-vorschau.php > /dev/null
 
+# Die Vorschau entsteht durch Umschreiben der WordPress-Seiten. Dabei kann
+# etwas kaputtgehen, das auf der WordPress-Seite selbst läuft – einmal war
+# nav.js doppelt eingebunden und das Handy-Menü damit tot. Deshalb wird das
+# Paket geprüft, bevor es eingepackt wird.
+echo "== Vorschau prüfen =="
+if ! node tools/vorschau-check.mjs "$LZ_WORK/vorschau"; then
+	echo "  Die Vorschau hat Befunde – nicht ausliefern."
+	exit 1
+fi
+
 echo "== Vorschau-Paket =="
 rm -f dist/lindenzauber-vorschau.zip
 ( cd "$LZ_WORK" && zip -q -r "$REPO/dist/lindenzauber-vorschau.zip" vorschau )

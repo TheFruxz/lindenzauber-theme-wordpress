@@ -194,3 +194,71 @@ misst also wirklich das, was gemeldet wurde.
   waren gezeichnet, aber unsichtbar. Die Datei war korrekt, das Bild leer.
 * **Der Kartenausschnitt war zu weit** (1,7 km) und brachte tausende Häuser mit,
   ohne beim Finden zu helfen. Jetzt gut 1 km – die Straßennamen ringsum sind lesbar.
+
+---
+
+# Vierte Runde – Cedrics Durchsicht
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 56 | „Kannst du noch die Navigation fixed machen?“ | **Erledigt.** `position: sticky` auf dem Kopfbereich, nicht `fixed` – so bleibt er im Fluss, liegt beim Laden über dem Kopfbild wie bisher, und es muss kein Platzhalter untergeschoben werden. Damit er auf dem Handy nicht dauerhaft ein Zehntel des Bildschirms kostet, **schrumpft er beim Scrollen**: kleineres Logo, kleinerer Schriftzug, die Unterzeile blendet aus – von 75 px auf 56 px. Umgeschaltet über einen Beobachter auf einen Merker am Seitenanfang, nicht über einen Scroll-Behandler; es ruckelt also nichts. |
+| 57 | „Wenn noch nicht gemacht: dass die Nav auch auf Mobile optimiert ist – aktuell funktioniert das Menü auf iOS gar nicht“ | **Erledigt, und die Ursache war eine andere als vermutet.** Siehe unten. Das Menü ist jetzt ein **Vollbild-Overlay**: Sternenhimmel mit zwei gegenläufig atmenden Ebenen, warmer Goldschein aus der Ecke, die Einträge steigen versetzt von unten ein. Die aktuelle Seite bekommt eine goldene Marke, nicht nur eine andere Farbe. |
+
+## Warum das Menü tot war
+
+Nicht iOS. **Im Vorschau-Paket war `nav.js` zweimal eingebunden** – auf jeder
+Seite. Zwei Kopien heißen zwei Klick-Behandler am Menüknopf, beide schalten den
+Zustand um: das Menü öffnete und schloss sich im selben Klick. Auf jedem Gerät,
+nicht nur auf iOS. Die WordPress-Seite war nie betroffen, dort lädt WordPress das
+Skript einmal – deshalb ist es bei den bisherigen Prüfungen nie aufgefallen.
+
+Die Ursache steckt in `tools/make-vorschau.php`: die Skript-Tags wurden über ihre
+**absolute** Adresse entfernt, die an dieser Stelle aber längst auf
+`dateien/theme/…` umgeschrieben war. Der Ausdruck griff ins Leere, die Tags
+blieben stehen, und danach wurden dieselben Skripte noch einmal angehängt.
+
+Drei Dinge dagegen:
+
+1. Der Ausdruck entfernt jetzt **jedes** Skript mit Quellangabe, unabhängig vom
+   Präfix.
+2. `nav.js` und `mehr-anzeigen.js` haben eine **Sperre gegen den zweiten
+   Durchlauf**. Ein doppelter Einbau kann damit nie wieder zum Totalausfall führen.
+3. **`tools/vorschau-check.mjs`** (neu) prüft das fertige Paket und tippt dabei
+   wirklich auf den Menüknopf. `build.sh` baut kein Paket mehr, wenn die Prüfung
+   etwas meldet.
+
+## iOS-Fallen, die dabei mitbehoben sind
+
+* **`100dvh` statt `100vh`** – sonst schneidet die ein- und ausfahrende
+  Adressleiste das Menüende ab.
+* **Seite sperren über `position: fixed`** mit gemerktem Scrollstand statt über
+  `overflow: hidden`, das iOS Safari übergeht. Der Stand wird beim Schließen auf
+  den Pixel genau wiederhergestellt – in 0, 300, 1400 und 3200 px nachgemessen.
+* **Kein Verlass mehr auf Klicks, die bis `document` durchblubbern** – auf iOS bei
+  nicht-interaktiven Elementen unzuverlässig. Das Overlay ist selbst die
+  Schließfläche.
+* `-webkit-backdrop-filter` überall dort mitgeführt.
+
+## In dieser Runde zusätzlich gefunden
+
+* **Tippflächen unter 44 px**, zehn Stück bei 390 px Breite: der Menüknopf (34 px),
+  die Sprungknöpfe „Samstagabend / Sonntagnachmittag / Ort und Anfahrt“ (33 px),
+  „Mehr anzeigen“ (30 px) und das Fußmenü (18 px). Alle vergrößert. Einzelne
+  Textlinks im Fließtext – E-Mail, Telefon, Vereinsname – bleiben unangetastet;
+  die aufzublasen zerreißt den Zeilenfall.
+* **Der Abstand für Sprungmarken war geraten** (`:target { scroll-margin-top: 6rem }`)
+  und hätte bei einem größeren Logo nicht mehr gepasst. Jetzt misst `nav.js` die
+  tatsächliche Höhe des Kopfbereichs, und `scroll-padding-top` am `html` rechnet
+  damit – das gilt für Ankerlinks, Tastaturfokus und Suchen auf der Seite
+  gleichermaßen.
+* **Das Menü überdeckte die eigene Marke und den Schließknopf.** Es liegt im
+  Kopfbereich, seine Ebenennummer gilt also nur dort – und war höher als die der
+  Marke. Aufgefallen erst beim Hinsehen, nicht bei der Messung.
+* **Die Markierung der aktuellen Seite erschien doppelt**, weil die Regel an
+  `:focus` hing und beim Öffnen des Menüs der Fokus auf den ersten Eintrag springt.
+  Jetzt `:focus-visible` – wer mit der Tastatur unterwegs ist, sieht sie weiterhin.
+* **Ein fehlender Text hätte den Knopf leer stehen lassen:** die Vorschau brachte
+  nur einen Teil der Beschriftungen mit, und `window.lzNavTexte || Vorgaben`
+  verwarf die Vorgaben komplett. Die Texte werden jetzt ergänzt statt ersetzt.
+* **Die Testinstanz ließ sich nicht zweimal aufsetzen**, weil eine Erfolgsmeldung
+  in die Seiten-ID rutschte und `LZ_REPO` im Förderer-Band nicht ankam.

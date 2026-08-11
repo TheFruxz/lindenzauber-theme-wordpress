@@ -18,6 +18,15 @@
 ( function () {
 	'use strict';
 
+	// Sperre gegen einen zweiten Durchlauf. Wird diese Datei versehentlich
+	// zweimal eingebunden, würde der zweite Lauf über bereits umgebaute
+	// Porträts stolpern. Einmal ist genug.
+	if ( window.lzMehrLaeuft ) {
+		return;
+	}
+
+	window.lzMehrLaeuft = true;
+
 	var TEXTE = window.lzMehrTexte || { mehr: 'Mehr anzeigen', weniger: 'Weniger anzeigen' };
 	var GRENZE = 19 * 16; // ab dieser Höhe in Pixeln wird eingeklappt
 	var HOEHE = 17 * 16;  // sichtbare Höhe im eingeklappten Zustand

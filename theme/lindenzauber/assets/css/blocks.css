@@ -756,7 +756,10 @@ p.is-style-lz-hinweis::before {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.55rem;
-	margin-block-start: 1.25rem;
+	/* 44 px hoch, sonst trifft man den Schalter auf dem Handy nicht
+	   zuverlässig. Die Linie darunter bleibt trotzdem am Text. */
+	min-height: 44px;
+	margin-block-start: 1.1rem;
 	padding: 0.5rem 0;
 	background: none;
 	border: 0;
@@ -1193,11 +1196,16 @@ p.is-style-lz-hinweis::before {
 
 /* Dezente Variante: wirkt wie ein Textlink mit Pfeil */
 .wp-block-button.is-style-lz-leise > .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	/* Auch ein leiser Knopf wird angetippt: 44 px, sonst trifft man daneben.
+	   Die Höhe kommt aus der Fläche, die Linie bleibt dicht am Text. */
+	min-height: 44px;
 	background: none;
 	border: 0;
 	border-bottom: 1px solid var(--lzb-hair);
 	border-radius: 0;
-	padding: 0.5rem 0;
+	padding: 0.6rem 0;
 	color: var(--lzb-gold);
 }
 
@@ -1255,10 +1263,10 @@ p.is-style-lz-hinweis::before {
 	color: var(--lzb-gold-deep);
 }
 
-/* Sprungmarken sollen nicht unter dem Kopfbereich verschwinden */
-:target {
-	scroll-margin-top: 6rem;
-}
+/* Der Abstand für Sprungmarken steht in der style.css als
+   scroll-padding-top am html-Element. Das gilt für Ankerlinks, Tastaturfokus
+   und Suchen auf der Seite gleichermaßen und rechnet mit der gemessenen Höhe
+   des Kopfbereichs – der feste Wert, der hier stand, war geraten. */
 
 @media (prefers-reduced-motion: reduce) {
 	.lz-mehr__inhalt,

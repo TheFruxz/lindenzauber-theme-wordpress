@@ -289,7 +289,17 @@ foreach ( $seiten as $adresse => $datei ) {
 	// 6. Restliche absolute Adressen (Skripte, Feeds) neutralisieren.
 	$html = str_replace( $basis . '/wp-includes/', 'dateien/wp/', $html );
 	$html = preg_replace( '#<link[^>]+rel=[\'"](?:alternate|EditURI|wlwmanifest|pingback|https://api\.w\.org/)[\'"][^>]*>#i', '', $html );
-	$html = preg_replace( '#<script[^>]*src="' . preg_quote( $basis, '#' ) . '[^"]*"[^>]*></script>#i', '', $html );
+	// Jedes Skript mit Quellangabe fliegt raus – unabhängig davon, wie die
+	// Adresse aussieht. Vorher wurde nur nach der absoluten Adresse gesucht;
+	// die war an dieser Stelle aber längst auf "dateien/theme/…" umgeschrieben,
+	// der Ausdruck griff ins Leere. Die beiden Theme-Skripte blieben stehen und
+	// wurden unten ein zweites Mal angehängt. Zwei Kopien von nav.js heißt: zwei
+	// Klick-Behandler am Menüknopf, das Menü öffnet und schließt sich im selben
+	// Klick – das Handy-Menü war in der Vorschau tot.
+	$html = preg_replace( '#<script[^>]*\ssrc=[\'"][^\'"]*[\'"][^>]*>\s*</script>#i', '', $html );
+
+	// Die Begleitskripte, die WordPress daneben ausgibt, gehören dann auch weg.
+	$html = preg_replace( '#<script[^>]*id=[\'"][^\'"]*-js-(?:extra|before|after)[\'"][^>]*>.*?</script>#is', '', $html );
 
 	// Schriften: Vorlade-Verweise entfernen und den Schriftblock ersetzen.
 	$html = preg_replace( '#<link rel="preload"[^>]*\.woff2[^>]*>\s*#i', '', $html );
@@ -322,7 +332,9 @@ foreach ( $seiten as $datei ) {
 	$html = file_get_contents( $pfad );
 	$html = str_replace(
 		'</body>',
-		"<script>window.lzMehrTexte={mehr:\"Mehr anzeigen\",weniger:\"Weniger anzeigen\"};</script>\n"
+		"<script>window.lzNavTexte={oeffnen:\"Menü öffnen\",schliessen:\"Menü schließen\","
+		. "knopfAuf:\"Menü\",knopfZu:\"Schließen\"};"
+		. "window.lzMehrTexte={mehr:\"Mehr anzeigen\",weniger:\"Weniger anzeigen\"};</script>\n"
 		. "<script src=\"dateien/theme/assets/js/nav.js\"></script>\n"
 		. "<script src=\"dateien/theme/assets/js/mehr-anzeigen.js\"></script>\n</body>",
 		$html

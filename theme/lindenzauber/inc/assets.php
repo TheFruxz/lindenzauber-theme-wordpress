@@ -57,6 +57,17 @@ function lz_assets() {
 	);
 
 	wp_localize_script(
+		'lindenzauber-nav',
+		'lzNavTexte',
+		array(
+			'oeffnen'    => __( 'Menü öffnen', 'lindenzauber' ),
+			'schliessen' => __( 'Menü schließen', 'lindenzauber' ),
+			'knopfAuf'   => __( 'Menü', 'lindenzauber' ),
+			'knopfZu'    => __( 'Schließen', 'lindenzauber' ),
+		)
+	);
+
+	wp_localize_script(
 		'lindenzauber-mehr',
 		'lzMehrTexte',
 		array(

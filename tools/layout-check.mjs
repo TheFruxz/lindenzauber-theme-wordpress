@@ -268,6 +268,30 @@ const pruefung = () => {
 		});
 	}
 
+	/* ------------------------------------------------- 8. Tippflächen */
+	// Nur auf dem Handy und nur für Bedienelemente. Einzelne Links im
+	// Fließtext bleiben außen vor – die aufzublasen zerreißt den Zeilenfall,
+	// und die Prüfung würde für immer dasselbe melden.
+	if (window.innerWidth <= 480) {
+		const bedienung =
+			'.nav-toggle, .main-nav a[href], .site-footer nav a[href], ' +
+			'.wp-block-button__link, .lz-mehr__schalter';
+
+		document.querySelectorAll(bedienung).forEach((el) => {
+			if (!sichtbar(el)) return;
+
+			const r = el.getBoundingClientRect();
+
+			if (r.height < 44 || r.width < 44) {
+				befunde.push({
+					art: 'Tippfläche zu klein',
+					wo: beschreibe(el),
+					mass: `${px(r.width)} × ${px(r.height)} px (nötig 44 × 44)`,
+				});
+			}
+		});
+	}
+
 	/* ------------------------------------------ 7. Farbbruch Bild ⟷ Kachel */
 	// Logos bringen oft einen eigenen deckenden Grund mit. Stimmt der nicht
 	// haargenau mit der Kachel darunter überein, sieht man ein helleres
@@ -405,6 +429,120 @@ for (const breite of breiten) {
 		await seite.waitForTimeout(400);
 
 		const befunde = await seite.evaluate(pruefung);
+
+		// Sprungmarken: landet das Ziel unter dem festen Kopfbereich?
+		// Das lässt sich nur durch echtes Anspringen feststellen, deshalb
+		// steht es hier und nicht in der Prüfung oben.
+		const marken = await seite.evaluate(() =>
+			[...document.querySelectorAll('a[href^="#"]')]
+				.map((a) => a.getAttribute('href'))
+				.filter((h) => h.length > 1 && document.querySelector(h))
+		);
+
+		for (const marke of [...new Set(marken)]) {
+			const lage = await seite.evaluate(async (ziel) => {
+				const wurzel = document.documentElement;
+				const vorher = wurzel.style.scrollBehavior;
+				wurzel.style.scrollBehavior = 'auto';
+				window.scrollTo(0, 0);
+
+				// Wie weit unten liegt das Ziel überhaupt? Was ohnehin im
+				// ersten Bildschirm steht, braucht keinen Sprung.
+				const entfernung = document.querySelector(ziel).getBoundingClientRect().top;
+
+				// Erst die Marke löschen, ohne zu scrollen – sonst passiert
+				// beim zweiten Mal nichts, weil sich die Adresse nicht ändert.
+				history.replaceState(null, '', location.pathname);
+				location.hash = ziel;
+
+				// Der Sprung selbst passiert erst nach dieser Aufgabe. Ohne
+				// das Warten misst man den Stand von vorher – die Prüfung
+				// wäre dann immer zufrieden.
+				await new Promise((r) => setTimeout(r, 250));
+				wurzel.style.scrollBehavior = vorher;
+
+				const el = document.querySelector(ziel);
+				const kopf = document.querySelector('.site-header');
+				const k = kopf ? kopf.getBoundingClientRect() : null;
+				const feststehend =
+					kopf && ['sticky', 'fixed'].includes(getComputedStyle(kopf).position);
+
+				return {
+					oben: Math.round(el.getBoundingClientRect().top),
+					kopfUnten: feststehend && k ? Math.round(k.bottom) : 0,
+					gescrollt: Math.round(window.pageYOffset),
+					weitUnten: entfernung > window.innerHeight,
+				};
+			}, marke);
+
+			if (lage.weitUnten && lage.gescrollt === 0) {
+				befunde.push({
+					art: 'Sprungmarke springt nicht',
+					wo: marke,
+					mass: 'Adresse gesetzt, Seite bewegt sich nicht',
+				});
+
+				continue;
+			}
+
+			if (lage.oben < lage.kopfUnten) {
+				befunde.push({
+					art: 'Sprungziel unter dem Kopfbereich',
+					wo: marke,
+					mass: `Ziel bei ${lage.oben} px, Kopfbereich reicht bis ${lage.kopfUnten} px`,
+				});
+			}
+		}
+
+		await seite.evaluate(() => {
+			history.replaceState(null, '', location.pathname);
+			window.scrollTo(0, 0);
+		});
+
+		// Auf dem Handy zusätzlich das geöffnete Menü ansehen: die Einträge
+		// sind sonst hinter "visibility: hidden" und werden nie gemessen.
+		if (breite <= 480) {
+			const menue = await seite.evaluate(async () => {
+				const schalter = document.querySelector('.nav-toggle');
+
+				if (!schalter || getComputedStyle(schalter).display === 'none') return null;
+
+				schalter.click();
+				await new Promise((r) => setTimeout(r, 600));
+
+				const nav = document.querySelector('.main-nav');
+				const r = nav.getBoundingClientRect();
+				const klein = [...nav.querySelectorAll('a[href]')]
+					.map((a) => a.getBoundingClientRect())
+					.filter((b) => b.height < 44 || b.width < 44).length;
+
+				return {
+					deckt: Math.round(r.width) >= window.innerWidth && Math.round(r.height) >= window.innerHeight - 1,
+					klein,
+					offen: nav.classList.contains('is-open'),
+				};
+			});
+
+			if (menue && !menue.offen) {
+				befunde.push({ art: 'Menü öffnet nicht', wo: '.nav-toggle', mass: 'Klick ohne Wirkung' });
+			} else if (menue) {
+				if (!menue.deckt) {
+					befunde.push({
+						art: 'Menü deckt den Bildschirm nicht',
+						wo: '.main-nav',
+						mass: 'Vollbild erwartet',
+					});
+				}
+
+				if (menue.klein) {
+					befunde.push({
+						art: 'Tippfläche zu klein',
+						wo: 'Menüeinträge',
+						mass: `${menue.klein} unter 44 px`,
+					});
+				}
+			}
+		}
 
 		// Gleiche Befunde nur einmal melden.
 		const gesehen = new Set();
