@@ -59,6 +59,9 @@ function lz_eckdaten_felder() {
 
 		// Verweise.
 		'link_maerchentruhe' => array( 'https://www.diemaerchentruhe.de/', 'Website „Die Märchentruhe“ von Brigitta Wortmann' ),
+
+		// Fußzeile.
+		'fusszeile_hinweis' => array( 'Diese Website lädt keine externen Schriften, Karten oder Skripte.', 'Fußzeile: Hinweis ganz unten (leer lassen = weglassen)' ),
 	);
 }
 
@@ -96,6 +99,23 @@ function lz_adresse( $trenner = ', ' ) {
 	);
 
 	return implode( $trenner, $teile );
+}
+
+/**
+ * Der Untertitel des Festes – „Märchenfest in Bassum“.
+ *
+ * Er steht dort, wo WordPress ihn ohnehin führt: unter *Einstellungen →
+ * Allgemein → Untertitel*. Von dort speist er den Schriftzug im Kopfbereich,
+ * den Titel im Browser-Tab und die Angaben für Suchmaschinen. Vorher stand
+ * derselbe Satz an vier Stellen im Quelltext – bei einer Änderung wäre die
+ * Website mit sich selbst uneins gewesen.
+ *
+ * @return string
+ */
+function lz_untertitel() {
+	$untertitel = trim( (string) get_bloginfo( 'description' ) );
+
+	return '' !== $untertitel ? $untertitel : __( 'Märchenfest in Bassum', 'lindenzauber' );
 }
 
 /**

@@ -12,24 +12,28 @@ WP="php $WORK/wp-cli.phar --path=$SITE --allow-root"
 
 mkdir -p "$ZIEL" "$WORK/inhalte-lokal"
 
+# Die Inhalte verweisen auf die eigene Website ("/wp-content/uploads/…"),
+# nicht auf eine feste Domain – sonst wären sie bei einem Umzug tot. Zum
+# Holen wird die Domain deshalb hier vorangestellt.
+QUELLE="${LZ_QUELLE:-https://lindenzauber.de}"
+
 echo "== Bilder holen =="
-grep -ho 'https://lindenzauber\.de/wp-content/uploads/[^"]*' "$REPO"/inhalte/*.html \
+grep -ho '/wp-content/uploads/[^"]*' "$REPO"/inhalte/*.html \
 	| sort -u \
-	| while read -r url; do
-		name="$(basename "$url")"
+	| while read -r pfad; do
+		name="$(basename "$pfad")"
 		if [ ! -f "$ZIEL/$name" ]; then
 			echo "  $name"
-			curl -sS --max-time 60 -o "$ZIEL/$name" "$url" || echo "  (nicht erreichbar: $url)"
+			curl -sSL --max-time 60 -o "$ZIEL/$name" "$QUELLE$pfad" \
+				|| echo "  (nicht erreichbar: $QUELLE$pfad)"
 		fi
 	done
 
-cp "$REPO/medien/anfahrt-kinderreich.svg" "$ZIEL/anfahrt-kinderreich.svg"
 
 echo "== Inhalte auf lokale Bilder umschreiben =="
 for datei in "$REPO"/inhalte/*.html; do
 	name="$(basename "$datei")"
-	sed -e 's#https://lindenzauber\.de/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
-		-e 's#https://lindenzauber\.de/wp-content/uploads/#/wp-content/uploads/lz/#g' \
+	sed -e 's#/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
 		"$datei" > "$WORK/inhalte-lokal/$name"
 done
 
@@ -52,7 +56,7 @@ akt impressum          07-impressum.html
 akt fotogalerie        08-fotogalerie.html
 
 echo "== Förderer-Band =="
-sed 's#https://lindenzauber\.de/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
+sed 's#/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
 	"$REPO/inhalte/09-foerderband-widget.html" > "$WORK/foerderband-lokal.txt"
 for w in $($WP widget list lz-foerderband --fields=id --format=csv 2>/dev/null | tail -n +2); do
 	$WP widget delete "$w" > /dev/null 2>&1 || true

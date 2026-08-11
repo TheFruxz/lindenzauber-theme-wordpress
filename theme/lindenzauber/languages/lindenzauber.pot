@@ -1,0 +1,930 @@
+# Copyright (C) 2026 Fruxz
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lindenzauber 3.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lindenzauber\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-11T21:19:34+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: lindenzauber\n"
+
+#. Theme Name of the theme
+#: style.css
+#: inc/eckdaten.php:173
+#: inc/einrichtung.php:255
+#: inc/einrichtung.php:383
+#: inc/patterns.php:27
+msgid "Lindenzauber"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://lindenzauber.de/"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Theme für das Märchenfest Lindenzauber in Bassum, veranstaltet vom Mütter-Kinder-Zentrum Bassum e. V. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Fruxz"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://fruxz.dev/"
+msgstr ""
+
+#: 404.php:12
+msgid "Seite nicht gefunden"
+msgstr ""
+
+#: 404.php:13
+msgid "Diese Seite hat sich im Zauberwald verlaufen"
+msgstr ""
+
+#: 404.php:19
+msgid "Die aufgerufene Adresse gibt es nicht (mehr). Diese Wege führen weiter:"
+msgstr ""
+
+#: 404.php:21
+msgid "Startseite"
+msgstr ""
+
+#: 404.php:22
+#: inc/menus.php:58
+msgid "Programm"
+msgstr ""
+
+#: 404.php:23
+#: inc/menus.php:59
+msgid "Die Erzählenden"
+msgstr ""
+
+#: 404.php:24
+#: footer.php:57
+#: inc/menus.php:72
+msgid "Kontakt"
+msgstr ""
+
+#: footer.php:25
+#: inc/menus.php:61
+msgid "Förderer"
+msgstr ""
+
+#: footer.php:26
+msgid "Mit freundlicher Unterstützung von"
+msgstr ""
+
+#: footer.php:48
+msgid "Veranstaltungsort"
+msgstr ""
+
+#: footer.php:73
+msgid "(auch WhatsApp)"
+msgstr ""
+
+#: footer.php:79
+msgid "Rechtliches"
+msgstr ""
+
+#: footer.php:80
+msgid "Fußmenü"
+msgstr ""
+
+#: footer.php:94
+msgid "Veranstalter:"
+msgstr ""
+
+#: header.php:19
+msgid "Zum Inhalt springen"
+msgstr ""
+
+#: header.php:54
+#: inc/assets.php:65
+msgid "Menü"
+msgstr ""
+
+#: header.php:57
+msgid "Hauptmenü"
+msgstr ""
+
+#: inc/assets.php:63
+msgid "Menü öffnen"
+msgstr ""
+
+#: inc/assets.php:64
+msgid "Menü schließen"
+msgstr ""
+
+#: inc/assets.php:66
+msgid "Schließen"
+msgstr ""
+
+#: inc/assets.php:74
+msgid "Mehr anzeigen"
+msgstr ""
+
+#: inc/assets.php:75
+msgid "Weniger anzeigen"
+msgstr ""
+
+#: inc/block-styles.php:25
+msgid "Kopfbereich (Sternenhimmel)"
+msgstr ""
+
+#: inc/block-styles.php:26
+msgid "Abschnitt"
+msgstr ""
+
+#: inc/block-styles.php:27
+msgid "Abschnitt abgesetzt"
+msgstr ""
+
+#: inc/block-styles.php:28
+msgid "Kasten mit Goldrahmen"
+msgstr ""
+
+#: inc/block-styles.php:29
+msgid "Ablauf-Tafel"
+msgstr ""
+
+#: inc/block-styles.php:34
+msgid "Festtitel (Schwungschrift)"
+msgstr ""
+
+#: inc/block-styles.php:35
+msgid "Zeichen: Mond & Sterne"
+msgstr ""
+
+#: inc/block-styles.php:36
+msgid "Zeichen: Familie"
+msgstr ""
+
+#: inc/block-styles.php:37
+msgid "Zeichen: Ortsmarke"
+msgstr ""
+
+#: inc/block-styles.php:38
+msgid "Zeichen: Uhr"
+msgstr ""
+
+#: inc/block-styles.php:39
+msgid "Zeichen: Lindenblatt"
+msgstr ""
+
+#: inc/block-styles.php:44
+msgid "Überzeile"
+msgstr ""
+
+#: inc/block-styles.php:45
+msgid "Einleitungssatz"
+msgstr ""
+
+#: inc/block-styles.php:46
+msgid "Untertitel (gesperrt)"
+msgstr ""
+
+#: inc/block-styles.php:47
+msgid "Zeitangabe"
+msgstr ""
+
+#: inc/block-styles.php:48
+msgid "Rolle / Kurzbeschreibung"
+msgstr ""
+
+#: inc/block-styles.php:49
+msgid "Banderole (Eintritt frei)"
+msgstr ""
+
+#: inc/block-styles.php:50
+msgid "Hinweis mit Lindenblatt"
+msgstr ""
+
+#: inc/block-styles.php:55
+msgid "Info-Karte"
+msgstr ""
+
+#: inc/block-styles.php:56
+msgid "Festtag-Karte"
+msgstr ""
+
+#: inc/block-styles.php:57
+msgid "Förderer-Kachel"
+msgstr ""
+
+#: inc/block-styles.php:58
+msgid "Platzhalter mit Lindenblatt"
+msgstr ""
+
+#: inc/block-styles.php:62
+msgid "Erzähler-Porträt (Bild wechselt die Seite)"
+msgstr ""
+
+#: inc/block-styles.php:67
+msgid "Zeiten als Chips"
+msgstr ""
+
+#: inc/block-styles.php:68
+msgid "Zeiten als Zeitstrahl"
+msgstr ""
+
+#: inc/block-styles.php:69
+msgid "Kacheln"
+msgstr ""
+
+#: inc/block-styles.php:70
+msgid "Punkte mit Lindenblatt"
+msgstr ""
+
+#: inc/block-styles.php:71
+msgid "Fakten (Stichwort + Text)"
+msgstr ""
+
+#: inc/block-styles.php:76
+msgid "Plakat"
+msgstr ""
+
+#: inc/block-styles.php:77
+msgid "Goldrahmen"
+msgstr ""
+
+#: inc/block-styles.php:81
+msgid "Nacht-Raster"
+msgstr ""
+
+#: inc/block-styles.php:85
+msgid "Ornament"
+msgstr ""
+
+#: inc/block-styles.php:89
+msgid "Märchenzitat"
+msgstr ""
+
+#: inc/block-styles.php:93
+msgid "Dezent (Textlink)"
+msgstr ""
+
+#: inc/eckdaten.php:118
+msgid "Märchenfest in Bassum"
+msgstr ""
+
+#: inc/eckdaten.php:174
+msgid "Termine, Ort und Kontakt. Diese Angaben erscheinen in der Fußzeile und werden an Suchmaschinen weitergegeben."
+msgstr ""
+
+#: inc/eckdaten.php:182
+msgid "Eckdaten des Festes"
+msgstr ""
+
+#: inc/eckdaten.php:213
+#: inc/einrichtung.php:63
+msgid "Vorschaubild beim Teilen"
+msgstr ""
+
+#: inc/eckdaten.php:214
+msgid "Dieses Bild erscheint, wenn jemand einen Link zur Website in WhatsApp, Facebook oder Signal einfügt. Am besten das Plakat."
+msgstr ""
+
+#: inc/eckdaten.php:232
+msgid "Bild auswählen"
+msgstr ""
+
+#: inc/einrichtung.php:30
+msgid "Logo im Kopfbereich"
+msgstr ""
+
+#: inc/einrichtung.php:31
+msgid "Das Lindenblatt-Signet erscheint links oben neben dem Schriftzug."
+msgstr ""
+
+#: inc/einrichtung.php:33
+msgid "Logo wählen"
+msgstr ""
+
+#: inc/einrichtung.php:39
+msgid "Symbol für den Browser-Tab"
+msgstr ""
+
+#: inc/einrichtung.php:40
+msgid "Ein quadratisches Bild ab 512 × 512 Pixel. Solange keines gesetzt ist, zeigt das Theme ein goldenes Lindenblatt – Ihr eigenes Signet ist schöner."
+msgstr ""
+
+#: inc/einrichtung.php:42
+msgid "Symbol wählen"
+msgstr ""
+
+#: inc/einrichtung.php:52
+msgid "Termine des Festes"
+msgstr ""
+
+#: inc/einrichtung.php:54
+msgid "Der hinterlegte Termin liegt in der Vergangenheit. Bitte die Eckdaten auf das nächste Fest umstellen – Fußzeile und die Angaben für Google hängen daran."
+msgstr ""
+
+#: inc/einrichtung.php:55
+msgid "Datum, Uhrzeit, Ort und Kontakt stehen an einer Stelle und versorgen von dort die Fußzeile und die Angaben für Google."
+msgstr ""
+
+#: inc/einrichtung.php:57
+msgid "Eckdaten durchsehen"
+msgstr ""
+
+#: inc/einrichtung.php:64
+msgid "Dieses Bild erscheint, wenn jemand einen Link in WhatsApp, Signal oder Facebook einfügt. Am besten das Plakat."
+msgstr ""
+
+#: inc/einrichtung.php:66
+msgid "Bild wählen"
+msgstr ""
+
+#: inc/einrichtung.php:72
+msgid "Startseite festgelegt"
+msgstr ""
+
+#: inc/einrichtung.php:73
+msgid "Die Website soll eine feste Startseite zeigen, nicht die Liste der Beiträge."
+msgstr ""
+
+#: inc/einrichtung.php:75
+msgid "Einstellen"
+msgstr ""
+
+#: inc/einrichtung.php:81
+msgid "Hauptmenü zugewiesen"
+msgstr ""
+
+#: inc/einrichtung.php:82
+msgid "Start · Programm · Die Erzählenden · Über Lindenzauber · Förderer. Ohne Zuweisung zeigt das Theme eine sinnvolle Ersatzliste – kaputt sieht es nie aus."
+msgstr ""
+
+#: inc/einrichtung.php:84
+#: inc/einrichtung.php:92
+msgid "Menü zuweisen"
+msgstr ""
+
+#: inc/einrichtung.php:89
+msgid "Fußmenü zugewiesen"
+msgstr ""
+
+#: inc/einrichtung.php:90
+msgid "Kontakt · Impressum · Datenschutz."
+msgstr ""
+
+#: inc/einrichtung.php:98
+msgid "Förderer im Fußbereich"
+msgstr ""
+
+#: inc/einrichtung.php:99
+msgid "Die Logos erscheinen als helle Kacheln im Fußbereich – auf allen Seiten außer der Startseite, wo sie weiter oben groß stehen. Ist der Bereich leer, wird nichts angezeigt."
+msgstr ""
+
+#: inc/einrichtung.php:101
+msgid "Logos einfügen"
+msgstr ""
+
+#: inc/einrichtung.php:115
+msgid "Plakat eingesetzt"
+msgstr ""
+
+#: inc/einrichtung.php:116
+msgid "Auf der Startseite steht im Abschnitt „Das Plakat zum Lindenzauber“ noch der goldene Rahmen als Platzhalter. Bild anklicken → Ersetzen."
+msgstr ""
+
+#: inc/einrichtung.php:118
+msgid "Startseite bearbeiten"
+msgstr ""
+
+#: inc/einrichtung.php:132
+msgid "Kurzbeschreibungen der Seiten"
+msgstr ""
+
+#: inc/einrichtung.php:134
+msgid "Jede Seite hat einen Auszug. Der erscheint bei Google unter dem Titel."
+msgstr ""
+
+#. translators: %s: Aufzählung der Seiten ohne Auszug
+#: inc/einrichtung.php:137
+#, php-format
+msgid "Ohne Auszug nimmt die Website die ersten Sätze der Seite – die enden dann mitten im Satz. Es fehlt bei: %s. Zu finden beim Bearbeiten rechts unter „Seite → Auszug“."
+msgstr ""
+
+#: inc/einrichtung.php:141
+msgid "Seiten öffnen"
+msgstr ""
+
+#: inc/einrichtung.php:149
+msgid "Adresse /llms.txt erreichbar"
+msgstr ""
+
+#: inc/einrichtung.php:150
+msgid "Die Kurzfassung der Website für Suchmaschinen und KI-Werkzeuge. Fehlt die Adresse, müssen die Adressregeln einmal erneuert werden."
+msgstr ""
+
+#: inc/einrichtung.php:152
+#: inc/einrichtung.php:343
+msgid "Adressregeln erneuern"
+msgstr ""
+
+#: inc/einrichtung.php:182
+msgid "Lindenzauber – Einrichtung"
+msgstr ""
+
+#: inc/einrichtung.php:205
+msgid "Der Text wird wieder automatisch aus den Eckdaten erzeugt."
+msgstr ""
+
+#: inc/einrichtung.php:212
+msgid "Die Adressregeln wurden erneuert."
+msgstr ""
+
+#: inc/einrichtung.php:231
+msgid "Gespeichert."
+msgstr ""
+
+#: inc/einrichtung.php:260
+msgid "Auf dieser Seite steht, was zur Einrichtung noch fehlt – und der Text, den Suchmaschinen und KI-Werkzeuge über das Fest lesen. Die Termine selbst werden im Customizer gepflegt."
+msgstr ""
+
+#. translators: %d: Anzahl offener Schritte
+#: inc/einrichtung.php:268
+#, php-format
+msgid "Einrichtung – noch %d Schritt"
+msgid_plural "Einrichtung – noch %d Schritte"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/einrichtung.php:272
+msgid "Einrichtung – alles steht"
+msgstr ""
+
+#: inc/einrichtung.php:284
+msgid "Erledigt"
+msgstr ""
+
+#: inc/einrichtung.php:284
+msgid "Offen"
+msgstr ""
+
+#: inc/einrichtung.php:301
+msgid "Text für Suchmaschinen und KI"
+msgstr ""
+
+#. translators: %s: Verweis auf die Datei
+#: inc/einrichtung.php:307
+#, php-format
+msgid "Unter %s liegt eine Kurzfassung der Website in reinem Text. Werkzeuge, die eine Website zusammenfassen sollen, lesen zuerst dort nach."
+msgstr ""
+
+#: inc/einrichtung.php:321
+msgid "Zurzeit: automatisch aus den Eckdaten."
+msgstr ""
+
+#: inc/einrichtung.php:322
+msgid "Zurzeit: eigener Text."
+msgstr ""
+
+#: inc/einrichtung.php:326
+msgid "Bleibt das Feld leer, entsteht der Text bei jedem Aufruf neu aus Terminen, Ort und Kontakt – er kann dann nicht veralten. Steht etwas darin, wird genau das ausgeliefert."
+msgstr ""
+
+#: inc/einrichtung.php:334
+msgid "Im leeren Feld steht blass der Text, der gerade ausgeliefert wird."
+msgstr ""
+
+#: inc/einrichtung.php:338
+msgid "Speichern"
+msgstr ""
+
+#: inc/einrichtung.php:339
+msgid "Automatischen Text zum Bearbeiten einsetzen"
+msgstr ""
+
+#: inc/einrichtung.php:341
+msgid "Wieder automatisch"
+msgstr ""
+
+#. translators: %d: Anzahl offener Schritte
+#: inc/einrichtung.php:387
+#, php-format
+msgid "noch %d Schritt bis alles steht."
+msgid_plural "noch %d Schritte bis alles steht."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/einrichtung.php:391
+msgid "Zur Einrichtung"
+msgstr ""
+
+#: inc/einrichtung.php:393
+msgid "nicht mehr anzeigen"
+msgstr ""
+
+#: inc/menus.php:57
+msgid "Start"
+msgstr ""
+
+#: inc/menus.php:60
+msgid "Über Lindenzauber"
+msgstr ""
+
+#: inc/menus.php:73
+msgid "Impressum"
+msgstr ""
+
+#: inc/menus.php:74
+msgid "Datenschutz"
+msgstr ""
+
+#. translators: 1: Titel Samstag, 2: Zeile Samstag, 3: Titel Sonntag, 4: Zeile Sonntag, 5: Ort, 6: Hinweis zum Eintritt
+#: inc/meta.php:28
+#, php-format
+msgid "%1$s am %2$s und %3$s am %4$s – %5$s. %6$s"
+msgstr ""
+
+#. translators: %s: Name der Website
+#: inc/meta.php:211
+#, php-format
+msgid "Plakat zum %s"
+msgstr ""
+
+#: inc/meta.php:281
+msgid "Auskunft zum Fest"
+msgstr ""
+
+#: inc/meta.php:419
+msgid "Märchen, Erzählkunst, Familienfest, Bassum, Lindenzauber"
+msgstr ""
+
+#: inc/patterns.php:28
+msgid "Fertige Abschnitte im Look des Plakats. Einfügen und einfach die Texte überschreiben."
+msgstr ""
+
+#: inc/setup.php:48
+msgid "Hauptmenü (oben)"
+msgstr ""
+
+#: inc/setup.php:49
+msgid "Fußzeile: Kontakt, Impressum, Datenschutz"
+msgstr ""
+
+#: inc/setup.php:70
+msgid "Förderer (Fußbereich)"
+msgstr ""
+
+#: inc/setup.php:72
+msgid "Die Logos der Förderer im Fußbereich, auf hellen Kacheln im Raster. Am besten ein Spalten-Block mit vier Bild-Blöcken, jedes Bild mit der Website des Förderers verlinkt. Auf der Startseite wird dieser Bereich nicht angezeigt – dort stehen die Förderer weiter oben in groß."
+msgstr ""
+
+#. translators: %s: Suchbegriff
+#: index.php:18
+#, php-format
+msgid "Suche nach %s"
+msgstr ""
+
+#: index.php:22
+msgid "Neues vom Lindenzauber"
+msgstr ""
+
+#: index.php:48
+msgid "Zurück"
+msgstr ""
+
+#: index.php:49
+msgid "Weiter"
+msgstr ""
+
+#: index.php:55
+msgid "Hier ist im Moment nichts zu finden."
+msgstr ""
+
+#: index.php:56
+msgid "Zurück zur Startseite"
+msgstr ""
+
+#: page.php:30
+msgid "Seiten:"
+msgstr ""
+
+#: patterns/abschnitt-anfahrt.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Ort und Anfahrt"
+msgstr ""
+
+#: patterns/abschnitt-anfahrt.php
+msgctxt "Pattern description"
+msgid "Kartenbild, Adresse und ein Knopf zur Routenplanung. Die Karte ist ein normales Bild – es wird beim Aufruf der Seite kein fremder Dienst geladen."
+msgstr ""
+
+#: patterns/abschnitt-banderole.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Banderole „Eintritt frei“"
+msgstr ""
+
+#: patterns/abschnitt-banderole.php
+msgctxt "Pattern description"
+msgid "Das goldene Band mit Laub an den Enden, wie auf dem Plakat, darunter ein Hinweis mit Lindenblatt."
+msgstr ""
+
+#: patterns/abschnitt-festtage.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Die beiden Festtage"
+msgstr ""
+
+#: patterns/abschnitt-festtage.php
+msgctxt "Pattern description"
+msgid "Zwei gleichwertige Karten für Samstag und Sonntag. Die goldene Kante oben und die gleiche Form zeigen, dass beide Tage zusammengehören; nur das Zeichen unterscheidet sie."
+msgstr ""
+
+#: patterns/abschnitt-foerderer.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Förderer-Kacheln"
+msgstr ""
+
+#: patterns/abschnitt-foerderer.php
+msgctxt "Pattern description"
+msgid "Vier große weiße Kacheln mit Logo und Namen. Ein Klick auf die ganze Kachel führt zur Website des Förderers."
+msgstr ""
+
+#: patterns/abschnitt-karten.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Drei Schnellinfo-Karten"
+msgstr ""
+
+#: patterns/abschnitt-karten.php
+msgctxt "Pattern description"
+msgid "Drei knappe Karten nebeneinander – etwa Wann, Für wen und Eintritt."
+msgstr ""
+
+#: patterns/abschnitt-portraet.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Erzähler-Porträt"
+msgstr ""
+
+#: patterns/abschnitt-portraet.php
+msgctxt "Pattern description"
+msgid "Ein Porträt mit Foto, Name, Rolle und Text. Auf der Website wechselt das Bild automatisch die Seite, lange Texte bekommen von selbst einen Schalter „Mehr anzeigen“."
+msgstr ""
+
+#: patterns/abschnitt-zeiten.php
+msgctxt "Pattern title"
+msgid "Abschnitt: Ablauf-Tafel (Räume und Erzählzeiten)"
+msgstr ""
+
+#: patterns/abschnitt-zeiten.php
+msgctxt "Pattern description"
+msgid "Die Erzählräume als Kacheln und die Uhrzeiten als Zeitstrahl, zusammengefasst auf einer gerahmten Tafel."
+msgstr ""
+
+#: patterns/foerderband.php
+msgctxt "Pattern title"
+msgid "Förderer-Band (für die Fußzeile)"
+msgstr ""
+
+#: patterns/foerderband.php
+msgctxt "Pattern description"
+msgid "Die vier Logos für den Widget-Bereich „Förderer-Band“ am Fuß der Seite."
+msgstr ""
+
+#: patterns/seite-die-erzaehlenden.php
+msgctxt "Pattern title"
+msgid "Seite: Die Erzählenden"
+msgstr ""
+
+#: patterns/seite-die-erzaehlenden.php
+msgctxt "Pattern description"
+msgid "Sechs Porträts. Das Bild wechselt automatisch die Seite, lange Texte bekommen einen Schalter „Mehr anzeigen“."
+msgstr ""
+
+#: patterns/seite-foerderer.php
+msgctxt "Pattern title"
+msgid "Seite: Förderer"
+msgstr ""
+
+#: patterns/seite-foerderer.php
+msgctxt "Pattern description"
+msgid "Vier große Förderer-Kacheln, die komplett anklickbar sind."
+msgstr ""
+
+#: patterns/seite-fotogalerie.php
+msgctxt "Pattern title"
+msgid "Seite: Fotogalerie"
+msgstr ""
+
+#: patterns/seite-fotogalerie.php
+msgctxt "Pattern description"
+msgid "Vorbereitete Rückblick-Seite mit Bildergalerie im Nachtlook."
+msgstr ""
+
+#: patterns/seite-impressum.php
+msgctxt "Pattern title"
+msgid "Seite: Impressum"
+msgstr ""
+
+#: patterns/seite-impressum.php
+msgctxt "Pattern description"
+msgid "Pflichtangaben mit dem Mütter-Kinder-Zentrum Bassum e. V. als Träger."
+msgstr ""
+
+#: patterns/seite-kontakt.php
+msgctxt "Pattern title"
+msgid "Seite: Kontakt"
+msgstr ""
+
+#: patterns/seite-kontakt.php
+msgctxt "Pattern description"
+msgid "Direkte Wege zur Kontaktaufnahme, dazu Ansprechpartnerin, Veranstalter und Presse."
+msgstr ""
+
+#: patterns/seite-programm.php
+msgctxt "Pattern title"
+msgid "Seite: Programm"
+msgstr ""
+
+#: patterns/seite-programm.php
+msgctxt "Pattern description"
+msgid "Die Programmseite: Samstagabend und Sonntagnachmittag als erkennbare Geschwister, dazu Ort und Anfahrt mit Karte."
+msgstr ""
+
+#: patterns/seite-startseite.php
+msgctxt "Pattern title"
+msgid "Seite: Startseite"
+msgstr ""
+
+#: patterns/seite-startseite.php
+msgctxt "Pattern description"
+msgid "Die komplette Startseite: Kopfbereich mit Sternenhimmel, die beiden Festtage, Plakat, gute Gründe, Erzählende und Förderer."
+msgstr ""
+
+#: patterns/seite-ueber-lindenzauber.php
+msgctxt "Pattern title"
+msgid "Seite: Über Lindenzauber"
+msgstr ""
+
+#: patterns/seite-ueber-lindenzauber.php
+msgctxt "Pattern description"
+msgid "Die beiden Tage getrennt dargestellt, alle Eckdaten kompakt und die Beteiligten als drei Karten."
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Nachtblau"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Nachtblau tief"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Nachtblau hell"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Gold"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Gold hell"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Gold dunkel"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Cremeweiß"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Weiß"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Blaugrau"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Laubgrün"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Nachthimmel"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Goldband"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Laternenschein"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "1 – Sehr eng"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2 – Eng"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3 – Normal"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4 – Luftig"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "5 – Abschnitt"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "6 – Großer Abschnitt"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Fließtext (Lato)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Schwungschrift (Great Vibes)"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Winzig"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Klein"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Normal"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Groß"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Überschrift klein"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Überschrift"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Überschrift groß"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Festtitel"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Weich"
+msgstr ""
+
+#: theme.json
+msgctxt "Shadow name"
+msgid "Goldschein"
+msgstr ""

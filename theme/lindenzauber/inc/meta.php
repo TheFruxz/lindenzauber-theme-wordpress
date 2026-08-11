@@ -140,7 +140,7 @@ function lz_teilen_bild() {
  */
 function lz_meta_tags() {
 	$beschreibung = lz_beschreibung();
-	$titel        = is_front_page() ? get_bloginfo( 'name' ) . ' – ' . __( 'Märchenfest in Bassum', 'lindenzauber' ) : wp_get_document_title();
+	$titel        = is_front_page() ? get_bloginfo( 'name' ) . ' – ' . lz_untertitel() : wp_get_document_title();
 	$adresse      = is_singular() && ! is_front_page() ? get_permalink() : home_url( '/' );
 	$bild         = lz_teilen_bild();
 
@@ -404,7 +404,7 @@ function lz_schema() {
 			'@type'               => 'Festival',
 			'@id'                 => home_url( '/#fest' ),
 			'name'                => get_bloginfo( 'name' ),
-			'alternateName'       => __( 'Märchenfest in Bassum', 'lindenzauber' ),
+			'alternateName'       => lz_untertitel(),
 			'description'         => lz_beschreibung(),
 			'url'                 => home_url( '/' ),
 			'startDate'           => min( $starts ),

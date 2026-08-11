@@ -29,7 +29,7 @@
 <div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
 <div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
 <div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/01_DSCN4969-1024x768.jpg" alt="Brigitta Wortmann, Märchenerzählerin und Harfenspielerin"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/01_DSCN4969-1024x768.jpg" alt="Brigitta Wortmann, Märchenerzählerin und Harfenspielerin"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -59,7 +59,7 @@
 <!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
 <div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
 <div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/P8283158-1024x683.jpg" alt="Brigitte Sackmaier, Märchenerzählerin aus Barnstorf"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/P8283158-1024x683.jpg" alt="Brigitte Sackmaier, Märchenerzählerin aus Barnstorf"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -113,7 +113,7 @@
 <!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
 <div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
 <div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-06-at-15.56.44-199x300.jpeg" alt="Bea Tilanus, Märchenerzählerin aus Bruchhausen-Vilsen"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-06-at-15.56.44-199x300.jpeg" alt="Bea Tilanus, Märchenerzählerin aus Bruchhausen-Vilsen"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -143,7 +143,7 @@
 <!-- wp:columns {"align":"wide","className":"is-style-lz-portraet"} -->
 <div class="wp-block-columns alignwide is-style-lz-portraet"><!-- wp:column {"width":"34%"} -->
 <div class="wp-block-column" style="flex-basis:34%"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/IMG_8690-225x300.jpeg" alt="Renate Friese, Märchenerzählerin und Gästeführerin"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/IMG_8690-225x300.jpeg" alt="Renate Friese, Märchenerzählerin und Gästeführerin"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 

@@ -292,9 +292,13 @@
 		}
 	} );
 
-	// Wird das Fenster breit, gibt es kein Vollbildmenü mehr.
+	// Wird das Fenster breit, gibt es kein Vollbildmenü mehr. Gefragt wird
+	// nicht nach einer Pixelzahl – die stünde dann doppelt hier und im
+	// Stylesheet und könnte auseinanderlaufen –, sondern danach, ob der
+	// Menüknopf überhaupt noch angezeigt wird. Wer den Umbruchpunkt ändert,
+	// ändert ihn an genau einer Stelle.
 	window.addEventListener( 'resize', function () {
-		if ( offen && window.innerWidth > 940 ) {
+		if ( offen && 'none' === getComputedStyle( schalter ).display ) {
 			schliessen( false );
 		}
 	} );

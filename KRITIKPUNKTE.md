@@ -371,3 +371,42 @@ Liste den tatsächlichen Stand zeigt.
 
 **Gegenprobe:** Ein Termin in der Vergangenheit lässt den Punkt „Termine des
 Festes“ sofort wieder aufgehen, mit dem passenden Hinweistext.
+
+---
+
+# Siebte Runde – Aufräumen
+
+Cedric hat gefragt, was noch fest eingebaut ist und aufgeräumt gehört. Der
+Durchgang durch Theme, Muster und Werkzeuge hat neun Punkte gefunden.
+
+| Was | Warum es störte | Jetzt |
+|---|---|---|
+| **„Märchenfest in Bassum“ stand viermal im Quelltext** – im Schriftzug, im Browser-Titel, in den Meta-Angaben und in den strukturierten Daten | WordPress führt genau diesen Satz ohnehin als **Untertitel** der Website. Zwei Quellen für dieselbe Angabe: Ändert Brigitta den Untertitel, wäre die Website mit sich selbst uneins gewesen. | Kommt aus *Einstellungen → Allgemein → Untertitel*. Der feste Satz bleibt nur als Rückfall, falls das Feld leer ist. Nachgeprüft: Untertitel geändert → Schriftzug und Browser-Titel ziehen mit. |
+| **Der Satz in der Fußzeile** „Diese Website lädt keine externen Schriften, Karten oder Skripte“ | Eine Zusage über die Website – wird später ein Plugin eingebaut, das doch etwas nachlädt, stimmt sie nicht mehr. Ohne Datei anzufassen war sie nicht zu ändern. | Feld in den Eckdaten. Leer lassen heißt: Zeile fällt weg. |
+| **Absolute Adressen `https://lindenzauber.de/wp-content/uploads/…`** in allen Seiteninhalten und Mustern | Bei einem Domainwechsel oder auf einer Testinstanz wären sämtliche Bilder tot gewesen. | Adressen beziehen sich jetzt auf die eigene Website (`/wp-content/uploads/…`), wie es Karte und Plakat schon taten. |
+| **`screenshot.png` fehlte** | Unter *Design → Themes* stand ein graues Feld statt einer Vorschau. | Ist da, erzeugt mit `tools/make-screenshot.mjs`. |
+| **`languages/` fehlte**, obwohl das Theme darauf verweist | `load_theme_textdomain()` zeigte ins Leere; die Angabe „translation-ready“ stimmte nicht. | Ordner mit `lindenzauber.pot` angelegt. |
+| **Umbruchpunkt 940 px stand doppelt** – im Stylesheet und im Menü-Skript | Zwei Stellen für dieselbe Zahl laufen irgendwann auseinander. | Das Skript fragt nicht mehr nach Pixeln, sondern ob der Menüknopf noch angezeigt wird. Die Zahl steht nur noch im Stylesheet. |
+| **Ort und Beschriftung der Karte standen fest im Zeichenskript** | Zieht das Fest um, hätte man die Datei bearbeiten müssen. | `--breite`, `--laenge`, `--name`, `--ort` als Aufrufparameter, die alten Werte als Voreinstellung. |
+| **`icon-frei.svg`** | Wurde nirgends verwendet – weder im Theme noch in den Inhalten. | Entfernt, auch aus dem Erzeugerskript. |
+| **`medien/`** enthielt nur noch eine Kopie der Karte | Dieselbe Datei zweimal im Repo; die Seiten holen sie ohnehin aus dem Theme. | Ordner aufgelöst. Die Karte liegt an genau einer Stelle. |
+
+## Zwei Fehler, die beim Aufräumen entstanden – und wie sie auffielen
+
+**Die Ortsmarke auf der Karte hieß plötzlich „Amselstraße“.** Beim Beweglichmachen
+der Beschriftung hieß die Laufvariable der Straßenschleife genauso wie der neue
+Parameter (`name`). Nach der Schleife stand dort der zuletzt gesetzte
+Straßenname. Aufgefallen ist es nur, weil ich die Gegenprobe mit einem anderen
+Namen gemacht habe – im Normalfall wäre das Bild einfach falsch beschriftet
+gewesen.
+
+**Das Signet auf der Startseite lud nicht mehr.** Die Umstellung auf
+Website-eigene Adressen war für die echte Website richtig, hat aber die
+Testumgebung ausgehebelt: Sie suchte nach der alten absoluten Adresse und fand
+nichts mehr, holte also keine Bilder und schrieb keine Verweise um. Aufgefallen
+beim Blick auf das neu erzeugte `screenshot.png` – dort stand der Alternativtext
+statt des Bildes.
+
+Damit so etwas nicht mehr am Zufall hängt, meldet `layout-check.mjs` jetzt auch
+**Bilder, die nicht laden**. Gegenprobe mit einer erfundenen Adresse: wird sofort
+gemeldet.

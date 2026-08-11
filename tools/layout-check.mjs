@@ -308,6 +308,17 @@ const pruefung = () => {
 				mass: 'alt-Attribut fehlt ganz',
 			});
 		}
+
+		// Ein Bild, das nicht lädt, hinterlässt einen Kasten mit Alternativtext.
+		// Das sieht auf den ersten Blick nach Inhalt aus – gemerkt hat man es
+		// erst, als das Vorschaubild des Themes den Fehler zeigte.
+		if (bild.complete && bild.naturalWidth === 0) {
+			befunde.push({
+				art: 'Bild lädt nicht',
+				wo: (bild.currentSrc || bild.src).replace(location.origin, ''),
+				mass: 'Datei fehlt oder Adresse stimmt nicht',
+			});
+		}
 	});
 
 	/* ------------------------------- 10. Gestaltetes ohne Fläche */

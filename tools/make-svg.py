@@ -351,12 +351,6 @@ ICONS = {
   <path d="M24 12v12.6l8 4.6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 """,
-    # Eintritt frei – Ticket
-    "icon-frei.svg": """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
-  <path d="M5 14a3 3 0 0 1 3-3h32a3 3 0 0 1 3 3v5.2a4.8 4.8 0 0 0 0 9.6V34a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-5.2a4.8 4.8 0 0 0 0-9.6V14Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
-  <path d="M24 15v3m0 5v3m0 5v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
-""",
 }
 
 for name, body in ICONS.items():

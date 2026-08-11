@@ -45,7 +45,7 @@
 
 				<span class="site-brand__text">
 					<span class="site-brand__name"><?php bloginfo( 'name' ); ?></span>
-					<span class="site-brand__tag"><?php esc_html_e( 'Märchenfest in Bassum', 'lindenzauber' ); ?></span>
+					<span class="site-brand__tag"><?php echo esc_html( lz_untertitel() ); ?></span>
 				</span>
 			</a>
 

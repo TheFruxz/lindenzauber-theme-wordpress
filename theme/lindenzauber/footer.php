@@ -106,7 +106,17 @@
 
 		<div class="site-footer__bottom">
 			<span>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></span>
-			<span><?php esc_html_e( 'Diese Website lädt keine externen Schriften, Karten oder Skripte.', 'lindenzauber' ); ?></span>
+			<?php
+			// Bearbeitbar in den Eckdaten. Der Satz ist eine Zusage über die
+			// Website – wird später ein Plugin eingebaut, das doch etwas
+			// nachlädt, muss man ihn ändern oder löschen können, ohne dafür
+			// eine Datei anzufassen. Leeres Feld heißt: Zeile fällt weg.
+			$lz_hinweis = lz_eckdaten( 'fusszeile_hinweis' );
+
+			if ( '' !== $lz_hinweis ) :
+				?>
+				<span><?php echo esc_html( $lz_hinweis ); ?></span>
+			<?php endif; ?>
 		</div>
 	</footer>
 

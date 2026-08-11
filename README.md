@@ -16,7 +16,6 @@ WordPress-Editor bearbeitbar** – ohne Code, ohne Plugins, ohne Umwege.
 | `dist/lindenzauber.zip` | **Das Theme.** In WordPress unter *Design → Themes → Theme hochladen* installieren. |
 | `dist/lindenzauber-vorschau.zip` | **Die Vorschau.** Entpacken, `index.html` doppelklicken – die ganze Website ohne WordPress anschauen. |
 | `inhalte/` | Der Blockcode für jede Seite, zum einmaligen Einfügen. Siehe [SETUP.md](SETUP.md). |
-| `medien/` | Die Anfahrtskarte als SVG (liegt auch schon im Theme). |
 | `theme/lindenzauber/` | Der Quellcode des Themes. |
 | `tools/` | Hilfsskripte zum Bauen und Prüfen. Werden für den Betrieb nicht gebraucht. |
 | [SETUP.md](SETUP.md) | Einrichtung, Schritt für Schritt. Für Cedric. |
@@ -104,6 +103,7 @@ node tools/layout-check.mjs   <url>                                     # Abstä
 node tools/vorschau-check.mjs <ordner>                                  # das Vorschau-Paket
 node tools/meta-check.mjs     <url>                                     # Metadaten, strukturierte Daten, llms.txt
 node tools/admin-check.mjs    <url> <benutzer> <passwort>               # die Seite Design → Lindenzauber
+node tools/make-screenshot.mjs <url>                                    # Vorschaubild des Themes erneuern
 node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
@@ -119,11 +119,17 @@ dem festen Kopfbereich landen und Bedienelemente unter 44 × 44 px. Nach jeder
 eingebunden, alle Dateien da, und – wichtig – der Menüknopf öffnet das Menü
 wirklich. Der Aufruf steckt in `build.sh`; bei Befunden wird kein Paket gebaut.
 
-Die Karte wird nur neu erzeugt, wenn sich der Ausschnitt ändern soll:
+Die Karte wird nur neu erzeugt, wenn sich der Ort oder der Ausschnitt ändern
+soll. Ort und Beschriftung stehen als Voreinstellung im Skript und lassen sich
+überschreiben – sie müssen zu den Koordinaten im Customizer passen:
 
 ```bash
-python3 tools/make-karte.py     # fragt OpenStreetMap ab und zeichnet das SVG
+python3 tools/make-karte.py
+python3 tools/make-karte.py --breite 52.85 --laenge 8.73 --name "Neuer Ort" --ort Bassum
 ```
+
+`screenshot.png` – das Bild unter *Design → Themes* – wird ebenfalls von Hand
+erneuert, wenn sich die Gestaltung deutlich ändert.
 
 ---
 

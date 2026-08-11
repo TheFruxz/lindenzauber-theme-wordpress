@@ -27,9 +27,14 @@ import subprocess
 import sys
 import time
 
-# Der Kindergarten KinderReich, Bassum.
+# Der Kindergarten KinderReich, Bassum. Dieselben Werte stehen im
+# Customizer unter "Ort: Breitengrad/Längengrad" – wer den Ort ändert,
+# muss beides umstellen und die Karte einmal neu zeichnen lassen.
+# Über --breite/--laenge/--name geht das ohne Eingriff in diese Datei.
 ZIEL_LAT = 52.8517566
 ZIEL_LON = 8.7355695
+ZIEL_NAME = "Kindergarten KinderReich"
+ZIEL_ORT = "Bassum"
 
 # Kartenausschnitt. Etwas breiter als hoch, damit er über dem Text liegen
 # kann, ohne die Seite auseinanderzuziehen.
@@ -299,7 +304,7 @@ def bauen(daten, proj):
 	return gruen, wasser, gebaeude, bahn, strassen, beschriftung
 
 
-def schriftzug(name, folge, proj, belegt, wichtig):
+def schriftzug(name, folge, proj, belegt, wichtig, ziel):
 	"""Setzt den Straßennamen auf das längste gerade Stück des Weges, in
 	dessen Richtung gedreht. Übersprungen wird, was am Bildrand liegt, zu
 	nah an der Ortsmarke steht oder eine schon gesetzte Schrift berührt –
@@ -328,7 +333,7 @@ def schriftzug(name, folge, proj, belegt, wichtig):
 		return None
 
 	# Der Ortsmarke ihren Platz lassen.
-	zx, zy = proj(ZIEL_LAT, ZIEL_LON)
+	zx, zy = proj(*ziel)
 
 	if math.hypot(x - zx, y - zy) < 96:
 		return None
@@ -366,17 +371,17 @@ def xml(text):
 	            .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def zeichnen(daten, proj):
+def zeichnen(daten, proj, ziel=(ZIEL_LAT, ZIEL_LON), name=ZIEL_NAME, ort=ZIEL_ORT):
 	gruen, wasser, gebaeude, bahn, strassen, beschriftung = bauen(daten, proj)
 	b, h = proj.breite, proj.hoehe
-	zx, zy = proj(ZIEL_LAT, ZIEL_LON)
+	zx, zy = proj(*ziel)
 
 	teile = []
 	a = teile.append
 
 	a('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
 	  'width="%d" height="%d" role="img" '
-	  'aria-label="Lageplan: der Kindergarten KinderReich in Bassum">' % (b, h, b, h))
+	  'aria-label="%s">' % (b, h, b, h, xml('Lageplan: %s in %s' % (name, ort))))
 
 	a("<defs>")
 	# Nachthimmel-Grund, oben etwas heller wie auf der Seite.
@@ -453,10 +458,13 @@ def zeichnen(daten, proj):
 	belegt = []
 	gesetzt = 0
 
-	for name, (rang, _laenge, folge) in sorted(
+	# Die Laufvariable heißt bewusst nicht "name": so hieß auch der
+	# Parameter für die Ortsmarke, und nach der Schleife stand dort der
+	# zuletzt gesetzte Straßenname. Die Marke hieß dann "Amselstraße".
+	for strasse, (rang, _laenge, folge) in sorted(
 		beschriftung.items(), key=lambda p: (-p[1][0], -p[1][1])
 	):
-		zug = schriftzug(name, folge, proj, belegt, rang >= 3)
+		zug = schriftzug(strasse, folge, proj, belegt, rang >= 3, ziel)
 
 		if zug:
 			a(zug)
@@ -473,8 +481,7 @@ def zeichnen(daten, proj):
 	  'stroke-width="1.2" stroke-opacity="0.55"/>' % (zx, zy))
 	a('<circle cx="%.1f" cy="%.1f" r="7.5" fill="#f0c868"/>' % (zx, zy))
 	a('<circle cx="%.1f" cy="%.1f" r="2.6" fill="#0b1428" fill-opacity="0.55"/>' % (zx, zy))
-	a('<text x="%.1f" y="%.1f" class="m">Kindergarten KinderReich</text>'
-	  % (zx, zy - 26))
+	a('<text x="%.1f" y="%.1f" class="m">%s</text>' % (zx, zy - 26, xml(name)))
 
 	a('<text x="14" y="%d" class="q">© OpenStreetMap-Mitwirkende</text>' % (h - 12))
 	# Kein Rahmen im Bild: den zeichnet das Theme um den Bildblock herum.
@@ -487,9 +494,14 @@ def main():
 	zerteiler = argparse.ArgumentParser(description=__doc__)
 	zerteiler.add_argument("--cache", help="Vorhandene Overpass-Antwort verwenden")
 	zerteiler.add_argument("--ziel", default=ZIEL_DATEI)
+	zerteiler.add_argument("--breite", type=float, default=ZIEL_LAT, help="Breitengrad des Ortes")
+	zerteiler.add_argument("--laenge", type=float, default=ZIEL_LON, help="Längengrad des Ortes")
+	zerteiler.add_argument("--name", default=ZIEL_NAME, help="Beschriftung der Ortsmarke")
+	zerteiler.add_argument("--ort", default=ZIEL_ORT, help="Stadt, für den Alternativtext")
 	argumente = zerteiler.parse_args()
 
-	proj = Projektion(ZIEL_LAT, ZIEL_LON, SPANNE_LAT, BREITE, HOEHE)
+	ziel = (argumente.breite, argumente.laenge)
+	proj = Projektion(ziel[0], ziel[1], SPANNE_LAT, BREITE, HOEHE)
 
 	if argumente.cache and os.path.exists(argumente.cache):
 		sys.stderr.write("Karte: benutze %s\n" % argumente.cache)
@@ -505,7 +517,7 @@ def main():
 			with open(argumente.cache, "w", encoding="utf-8") as datei:
 				json.dump(daten, datei)
 
-	svg = zeichnen(daten, proj)
+	svg = zeichnen(daten, proj, ziel, argumente.name, argumente.ort)
 
 	with open(argumente.ziel, "w", encoding="utf-8") as datei:
 		datei.write(svg)

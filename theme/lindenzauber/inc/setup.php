@@ -126,7 +126,7 @@ add_filter( 'body_class', 'lz_body_classes' );
  */
 function lz_document_title( $parts ) {
 	if ( is_front_page() ) {
-		$parts['title']   = get_bloginfo( 'name' ) . ' – ' . __( 'Märchenfest in Bassum', 'lindenzauber' );
+		$parts['title']   = get_bloginfo( 'name' ) . ' – ' . lz_untertitel();
 		$parts['tagline'] = '';
 	}
 

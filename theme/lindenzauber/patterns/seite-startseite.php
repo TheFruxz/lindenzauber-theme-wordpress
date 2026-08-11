@@ -17,7 +17,7 @@
 ?>
 <!-- wp:group {"align":"full","className":"is-style-lz-hero","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-lz-hero"><!-- wp:image {"width":"124px","sizeSlug":"full","align":"center","linkDestination":"none"} -->
-<figure class="wp-block-image aligncenter size-full is-resized"><img src="https://lindenzauber.de/wp-content/uploads/2026/03/cropped-cropped-Logo-freigestellt.png" alt="Signet des Lindenzaubers: eine Linde in einem Lindenblatt" style="width:124px"/></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img src="/wp-content/uploads/2026/03/cropped-cropped-Logo-freigestellt.png" alt="Signet des Lindenzaubers: eine Linde in einem Lindenblatt" style="width:124px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:heading {"textAlign":"center","level":1,"className":"is-style-lz-festtitel","fontSize":"titel"} -->
@@ -195,7 +195,7 @@
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-foerderer"} -->
 <div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Avacon-1024x640.png" alt="Logo von Avacon"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/Avacon-1024x640.png" alt="Logo von Avacon"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"center"} -->
@@ -205,7 +205,7 @@
 
 <!-- wp:column {"className":"is-style-lz-foerderer"} -->
 <div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Bassum-1024x640.png" alt="Logo der Stadt Bassum"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/Bassum-1024x640.png" alt="Logo der Stadt Bassum"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"center"} -->
@@ -215,7 +215,7 @@
 
 <!-- wp:column {"className":"is-style-lz-foerderer"} -->
 <div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Weser-Hunte1-1024x640.png" alt="Logo des Landschaftsverbands Weser-Hunte e. V."/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/Weser-Hunte1-1024x640.png" alt="Logo des Landschaftsverbands Weser-Hunte e. V."/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"center"} -->
@@ -225,7 +225,7 @@
 
 <!-- wp:column {"className":"is-style-lz-foerderer"} -->
 <div class="wp-block-column is-style-lz-foerderer"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://lindenzauber.de/wp-content/uploads/2026/08/Volksbank-1024x640.png" alt="Logo der Volksbank Bassum-Syke"/></figure>
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/08/Volksbank-1024x640.png" alt="Logo der Volksbank Bassum-Syke"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"center"} -->
