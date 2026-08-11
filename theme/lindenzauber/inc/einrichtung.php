@@ -191,6 +191,98 @@ function lz_seite_anlegen() {
 add_action( 'admin_menu', 'lz_seite_anlegen' );
 
 /**
+ * Das hochgeladene Paket annehmen und die Vorschau vorbereiten.
+ *
+ * Zwischen Vorschau und Ausführung liegt ein zweiter Klick. Damit der
+ * ausgepackte Ordner so lange auffindbar bleibt, ohne dass sein Pfad durchs
+ * Formular wandert – das ließe sich von außen setzen –, steht er unter einer
+ * Zufallskennung in einem Zwischenspeicher.
+ */
+function lz_import_annehmen() {
+	if ( ! isset( $_POST['lz_import_form'] ) ) {
+		return;
+	}
+
+	check_admin_referer( 'lz_import' );
+
+	$erlaubt = lz_import_erlaubt();
+
+	if ( true !== $erlaubt ) {
+		add_settings_error( 'lindenzauber', 'import_recht', $erlaubt, 'error' );
+
+		return;
+	}
+
+	if ( empty( $_FILES['lz_paket']['tmp_name'] ) || ! is_uploaded_file( $_FILES['lz_paket']['tmp_name'] ) ) {
+		add_settings_error( 'lindenzauber', 'import_datei', __( 'Es wurde keine Datei ausgewählt.', 'lindenzauber' ), 'error' );
+
+		return;
+	}
+
+	$paket = lz_import_auspacken( $_FILES['lz_paket']['tmp_name'] );
+
+	if ( is_wp_error( $paket ) ) {
+		add_settings_error( 'lindenzauber', 'import_paket', $paket->get_error_message(), 'error' );
+
+		return;
+	}
+
+	$kennung = wp_generate_password( 20, false );
+	set_transient( 'lz_import_' . $kennung, $paket, HOUR_IN_SECONDS );
+
+	$GLOBALS['lz_import_kennung']  = $kennung;
+	$GLOBALS['lz_import_vorschau'] = lz_import_vorschau( $paket['plan'], $paket['pfad'] );
+}
+add_action( 'load-appearance_page_lindenzauber', 'lz_import_annehmen' );
+
+/**
+ * Den bestätigten Import ausführen.
+ */
+function lz_import_starten() {
+	if ( ! isset( $_POST['lz_import_los'] ) ) {
+		return;
+	}
+
+	check_admin_referer( 'lz_import_los' );
+
+	$erlaubt = lz_import_erlaubt();
+
+	if ( true !== $erlaubt ) {
+		add_settings_error( 'lindenzauber', 'import_recht', $erlaubt, 'error' );
+
+		return;
+	}
+
+	$kennung = isset( $_POST['lz_kennung'] ) ? sanitize_key( wp_unslash( $_POST['lz_kennung'] ) ) : '';
+	$paket   = $kennung ? get_transient( 'lz_import_' . $kennung ) : false;
+
+	if ( ! is_array( $paket ) || empty( $paket['pfad'] ) ) {
+		add_settings_error(
+			'lindenzauber',
+			'import_abgelaufen',
+			__( 'Das hochgeladene Paket ist nicht mehr da. Bitte noch einmal hochladen.', 'lindenzauber' ),
+			'error'
+		);
+
+		return;
+	}
+
+	$stilllegen = isset( $_POST['lz_stilllegen'] ) ? array_map( 'absint', (array) wp_unslash( $_POST['lz_stilllegen'] ) ) : array();
+	$meldungen  = lz_import_ausfuehren( $paket['plan'], $paket['pfad'], $stilllegen );
+
+	lz_import_aufraeumen( $paket['pfad'] );
+	delete_transient( 'lz_import_' . $kennung );
+
+	add_settings_error(
+		'lindenzauber',
+		'import_fertig',
+		'<strong>' . esc_html__( 'Import abgeschlossen.', 'lindenzauber' ) . '</strong><br>' . implode( '<br>', array_map( 'esc_html', $meldungen ) ),
+		'updated'
+	);
+}
+add_action( 'load-appearance_page_lindenzauber', 'lz_import_starten' );
+
+/**
  * Speichern, Zurücksetzen und Adressregeln erneuern.
  */
 function lz_seite_verarbeiten() {
@@ -274,7 +366,7 @@ function lz_seite_ausgeben() {
 			?>
 		</h2>
 
-		<table class="widefat striped" style="max-width:60em;">
+		<table class="widefat striped lz-schritte" style="max-width:60em;">
 			<tbody>
 			<?php foreach ( $schritte as $schritt ) : ?>
 				<tr>
@@ -297,6 +389,107 @@ function lz_seite_ausgeben() {
 			<?php endforeach; ?>
 			</tbody>
 		</table>
+
+		<h2 style="margin-top:2.5em;"><?php esc_html_e( 'Seiten importieren', 'lindenzauber' ); ?></h2>
+
+		<?php
+		$vorschau = isset( $GLOBALS['lz_import_vorschau'] ) ? $GLOBALS['lz_import_vorschau'] : null;
+
+		if ( $vorschau ) :
+			// Schritt 2: zeigen, was passieren würde.
+			?>
+			<form method="post" action="">
+				<?php wp_nonce_field( 'lz_import_los' ); ?>
+				<input type="hidden" name="lz_import_los" value="1">
+				<input type="hidden" name="lz_kennung" value="<?php echo esc_attr( $GLOBALS['lz_import_kennung'] ); ?>">
+
+				<p class="description" style="max-width:46em;">
+					<?php esc_html_e( 'Das Paket ist gelesen. Bitte durchsehen – geändert wird erst mit dem Knopf unten.', 'lindenzauber' ); ?>
+				</p>
+
+				<table class="widefat striped lz-vorhaben" style="max-width:60em;">
+					<tbody>
+					<?php foreach ( $vorschau['vorhaben'] as $punkt ) : ?>
+						<tr>
+							<td style="width:9em;">
+								<?php
+								$farben = array(
+									'anlegen'       => array( '#1a7f37', __( 'neu', 'lindenzauber' ) ),
+									'aktualisieren' => array( '#0a4b78', __( 'wird ersetzt', 'lindenzauber' ) ),
+									'fehlt'         => array( '#996800', __( 'fehlt', 'lindenzauber' ) ),
+								);
+								$farbe = isset( $farben[ $punkt['was'] ] ) ? $farben[ $punkt['was'] ] : array( '#666', $punkt['was'] );
+								printf(
+									'<strong style="color:%s">%s</strong>',
+									esc_attr( $farbe[0] ),
+									esc_html( $farbe[1] )
+								);
+								?>
+							</td>
+							<td>
+								<strong><?php echo esc_html( $punkt['titel'] ); ?></strong><br>
+								<span class="description"><?php echo esc_html( $punkt['text'] ); ?></span>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+
+				<?php if ( ! empty( $vorschau['fremde'] ) ) : ?>
+					<h3 style="margin-top:2em;"><?php esc_html_e( 'Seiten, die nicht zum Paket gehören', 'lindenzauber' ); ?></h3>
+					<p class="description" style="max-width:46em;">
+						<?php esc_html_e( 'Diese Seiten bleiben unangetastet. Wer angehakt wird, kommt auf Entwurf und ist danach nicht mehr aufrufbar – gelöscht wird nichts, und der alte Adressname wird gemerkt, damit sich das zurückdrehen lässt.', 'lindenzauber' ); ?>
+					</p>
+
+					<table class="widefat striped lz-fremde" style="max-width:60em;">
+						<tbody>
+						<?php foreach ( $vorschau['fremde'] as $fremd ) : ?>
+							<tr>
+								<td style="width:3em;text-align:center;">
+									<input type="checkbox" name="lz_stilllegen[]" value="<?php echo esc_attr( $fremd['id'] ); ?>"
+										id="lz-still-<?php echo esc_attr( $fremd['id'] ); ?>">
+								</td>
+								<td>
+									<label for="lz-still-<?php echo esc_attr( $fremd['id'] ); ?>">
+										<strong><?php echo esc_html( $fremd['titel'] ); ?></strong>
+										<span class="description">/<?php echo esc_html( $fremd['slug'] ); ?>/</span>
+									</label>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				<?php endif; ?>
+
+				<p style="margin-top:1.5em;">
+					<button type="submit" class="button button-primary"><?php esc_html_e( 'Jetzt importieren', 'lindenzauber' ); ?></button>
+					<a class="button" href="<?php echo esc_url( admin_url( 'themes.php?page=lindenzauber' ) ); ?>"><?php esc_html_e( 'Abbrechen', 'lindenzauber' ); ?></a>
+				</p>
+			</form>
+		<?php else : ?>
+			<p class="description" style="max-width:46em;">
+				<?php esc_html_e( 'Das Inhalte-Paket hochladen – die Seiten werden angelegt oder auf den neuen Stand gebracht, die Kurzbeschreibungen eingetragen, die Startseite gesetzt und das Förderer-Band gefüllt. Vorhandene Seiten behalten ihre Adresse und ihre Menüeinträge; der alte Stand bleibt unter „Revisionen“ erhalten.', 'lindenzauber' ); ?>
+			</p>
+
+			<?php $erlaubt = lz_import_erlaubt(); ?>
+
+			<?php if ( true !== $erlaubt ) : ?>
+				<p><em><?php echo esc_html( $erlaubt ); ?></em></p>
+			<?php else : ?>
+				<form method="post" action="" enctype="multipart/form-data">
+					<?php wp_nonce_field( 'lz_import' ); ?>
+					<input type="hidden" name="lz_import_form" value="1">
+
+					<p>
+						<input type="file" name="lz_paket" accept=".zip,application/zip" required>
+						<button type="submit" class="button"><?php esc_html_e( 'Paket lesen', 'lindenzauber' ); ?></button>
+					</p>
+					<p class="description">
+						<?php esc_html_e( 'Gemeint ist lindenzauber-inhalte.zip – nicht das Theme-Paket.', 'lindenzauber' ); ?>
+					</p>
+				</form>
+			<?php endif; ?>
+		<?php endif; ?>
 
 		<h2 style="margin-top:2.5em;"><?php esc_html_e( 'Text für Suchmaschinen und KI', 'lindenzauber' ); ?></h2>
 

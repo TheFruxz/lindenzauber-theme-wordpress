@@ -55,6 +55,17 @@ fi
 
 echo "== Testinstanz aufsetzen =="
 bash tools/wp-test-setup.sh > /dev/null
+
+# Der Import läuft auf der noch leeren Instanz – das ist der echte Erstfall.
+# Er legt die Seiten an; die folgenden Schritte setzen nur noch Menüs und
+# holen die Bilder. Bricht der Import, bricht der Bau.
+echo "== Seiten-Import prüfen =="
+if ! node tools/import-check.mjs "http://127.0.0.1:8321" admin lindenzauber \
+	"$LZ_WORK/site" "$LZ_WORK/wp-cli.phar" "dist/lindenzauber-inhalte.zip"; then
+	echo "  Der Seiten-Import hat Befunde."
+	exit 1
+fi
+
 LZ_REPO="$REPO" bash tools/wp-test-inhalte.sh > /dev/null
 LZ_REPO="$REPO" bash tools/wp-test-medien.sh > /dev/null
 

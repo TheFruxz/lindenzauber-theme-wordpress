@@ -15,8 +15,8 @@ WordPress-Editor bearbeitbar** – ohne Code, ohne Plugins, ohne Umwege.
 |---|---|
 | `dist/lindenzauber.zip` | **Das Theme.** In WordPress unter *Design → Themes → Theme hochladen* installieren. |
 | `dist/lindenzauber-vorschau.zip` | **Die Vorschau.** Entpacken, `index.html` doppelklicken – die ganze Website ohne WordPress anschauen. |
-| `dist/lindenzauber-inhalte.zip` | **Die Seiteninhalte.** Dieselben Dateien wie in `inhalte/`, als ein Download. |
-| `inhalte/` | Der Blockcode für jede Seite, zum einmaligen Einfügen. Siehe [SETUP.md](SETUP.md). |
+| `dist/lindenzauber-inhalte.zip` | **Die Seiteninhalte.** Wird im Backend unter *Design → Lindenzauber → Seiten importieren* hochgeladen. |
+| `inhalte/` | Der Inhalt dieses Pakets: der Blockcode je Seite und `seiten.json` als Bauplan. Siehe [SETUP.md](SETUP.md). |
 | `theme/lindenzauber/` | Der Quellcode des Themes. |
 | `tools/` | Hilfsskripte zum Bauen und Prüfen. Werden für den Betrieb nicht gebraucht. |
 | [SETUP.md](SETUP.md) | Einrichtung, Schritt für Schritt. Für Cedric. |
@@ -67,6 +67,15 @@ Plakat. Jeder Punkt fragt WordPress nach seinem Stand, es wird nichts von Hand
 abgehakt. Solange etwas offen ist, weist ein Hinweis im Backend darauf hin. Auf
 derselben Seite lässt sich der Text für `/llms.txt` bearbeiten.
 
+**Seiten importieren statt einfügen.** Auf derselben Seite wird
+`lindenzauber-inhalte.zip` hochgeladen: alle Seiten werden angelegt oder ersetzt,
+Kurzbeschreibungen eingetragen, die Startseite gesetzt, das Förderer-Band
+gefüllt. Zwischen Hochladen und Ausführen liegt eine Vorschau, die Zeile für
+Zeile zeigt, was passieren würde; alte Seiten werden nur stillgelegt, wenn sie
+ausdrücklich angehakt sind – und dann auf *Entwurf* gesetzt statt gelöscht, mit
+gemerktem Adressnamen. Was zum Paket gehört, steht allein in `inhalte/seiten.json`;
+im Theme ist kein Slug und kein Titel fest verdrahtet.
+
 ---
 
 ## Datenschutz
@@ -92,8 +101,9 @@ LZ_WORK=/pfad/zum/arbeitsordner bash build.sh  # Theme und Vorschau
 
 Für die Vorschau werden im Arbeitsordner `wordpress.zip`, `sqlite.zip` und
 `wp-cli.phar` erwartet. Der Build setzt daraus eine echte WordPress-Instanz auf,
-legt alle Seiten an und holt sich die fertigen Seiten von dort. Dadurch können
-Vorschau und spätere Website nicht auseinanderlaufen.
+spielt die Seiten mit dem Import aus dem Backend ein und holt sich die fertigen
+Seiten von dort. Dadurch können Vorschau und spätere Website nicht
+auseinanderlaufen.
 
 Prüfwerkzeuge:
 
@@ -104,6 +114,8 @@ node tools/layout-check.mjs   <url>                                     # Abstä
 node tools/vorschau-check.mjs <ordner>                                  # das Vorschau-Paket
 node tools/meta-check.mjs     <url>                                     # Metadaten, strukturierte Daten, llms.txt
 node tools/admin-check.mjs    <url> <benutzer> <passwort>               # die Seite Design → Lindenzauber
+node tools/import-check.mjs   <url> <benutzer> <passwort> <wp-ordner> <wp-cli.phar> <paket.zip>
+                                                                        # der Seiten-Import, Klick für Klick
 node tools/make-screenshot.mjs <url>                                    # Vorschaubild des Themes erneuern
 
 # Probelauf der Einrichtung: frisches WordPress, Theme aus dem fertigen ZIP,
@@ -123,6 +135,10 @@ dem festen Kopfbereich landen und Bedienelemente unter 44 × 44 px. Nach jeder
 `vorschau-check.mjs` prüft das fertige Vorschau-Paket: jedes Skript genau einmal
 eingebunden, alle Dateien da, und – wichtig – der Menüknopf öffnet das Menü
 wirklich. Der Aufruf steckt in `build.sh`; bei Befunden wird kein Paket gebaut.
+
+`import-check.mjs` läuft im Build auf der noch **leeren** Instanz und legt die
+Seiten für die Vorschau an – über das Backend, so wie Cedric es tut. Damit ist
+der Import kein Nebenweg, sondern der Weg, auf dem alles Weitere entsteht.
 
 Die Karte wird nur neu erzeugt, wenn sich der Ort oder der Ausschnitt ändern
 soll. Ort und Beschriftung stehen als Voreinstellung im Skript und lassen sich

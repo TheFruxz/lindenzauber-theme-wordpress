@@ -33,7 +33,7 @@ was daraus geworden ist.
 | 16 | „Keine Anmeldung nötig dafür präsenter“ | **Erledigt.** Steht jetzt direkt unter der Banderole „Eintritt frei“, in Gold mit Funkelzeichen – die auffälligste Stelle der ganzen Seite. |
 | 17 | „Die Aufteilungen / Verlinkungen waren schon gut mit dem Button“ | **Beibehalten.** Zwei Knöpfe im Kopfbereich, je ein Knopf in den beiden Festtag-Karten. |
 | 18 | „Das gut bis inklusive die gleichbedeutenden Karte“ | **Beibehalten.** Reihenfolge unverändert: Kopfbereich → Einleitung → die beiden gleichwertigen Karten. |
-| 19 | „Dahinter platzhalter mit dem Flyer ausfüllen“ | **Erledigt.** Direkt nach den beiden Karten kommt der Abschnitt „Das Plakat zum Lindenzauber“. Solange das Plakat fehlt, steht dort ein gestalteter goldener Rahmen statt eines kaputten Bildes – siehe SETUP.md, Schritt 6. |
+| 19 | „Dahinter platzhalter mit dem Flyer ausfüllen“ | **Erledigt.** Direkt nach den beiden Karten kommt der Abschnitt „Das Plakat zum Lindenzauber“. Solange das Plakat fehlt, steht dort ein gestalteter goldener Rahmen statt eines kaputten Bildes – siehe SETUP.md, Schritt 7. |
 | 20 | „Die sechste Stimme ist noch nicht da, aber kommt noch“ | **Vorbereitet.** Sechster Platz mit Lindenblatt-Feld und Text „Wird noch bekannt gegeben“. Foto und Text eintragen, fertig. |
 | 21 | „Die 4 Sponsoren viel größer und anklickbar“ | **Erledigt.** Kacheln mit 96 px hohen Logos, die **komplette Kachel** ist anklickbar, mit Anhebe-Effekt beim Überfahren. |
 | 22 | „In einer Reihe aber besser wären 4 Felder in so nem Grid“ | **Erledigt.** Am Rechner vier Felder in einer Reihe, auf dem Tablet und Handy 2 × 2. |
@@ -299,7 +299,8 @@ Koordinaten, Anfahrt, Eintritt, Kontakt und alle Seiten mit je einem Satz.
 Ebenfalls aus den Eckdaten, kann also nicht veralten.
 
 **Seitenbeschreibungen:** Die automatische Fassung schneidet mitten im Satz ab.
-In SETUP.md steht jetzt für jede Seite ein fertiger Auszug zum Einfügen.
+Für jede Seite gibt es jetzt einen fertigen Auszug. *(Seit der achten Runde
+trägt der Import ihn selbst ein; er steht in `inhalte/seiten.json`.)*
 
 ## Die Signatur – und was sie nicht darf
 
@@ -429,6 +430,10 @@ niemand automatisieren kann:
 * **Kurzbeschreibung der „Beispielseite“** – WordPress' eigene Musterseite. Auf
   lindenzauber.de kann sie gelöscht werden.
 
+> Nachtrag: Seit dem Seiten-Import (achte Runde) fällt der zweite Punkt weg –
+> die Beispielseite wird beim Import mit stillgelegt. Der Probelauf geht
+> denselben Weg wie SETUP.md und lässt jetzt den Import die Arbeit machen.
+
 Alle Werkzeuge liefen anschließend gegen diese frisch eingerichtete Instanz:
 Abstände und Klickflächen, Metadaten und strukturierte Daten, Backend, Blöcke –
 keine Befunde. Keine fehlenden Bilder, keine fehlgeschlagenen Anfragen, in
@@ -441,3 +446,78 @@ keine Befunde. Keine fehlenden Bilder, keine fehlgeschlagenen Anfragen, in
 * Die Einrichtungsseite ließ sich nicht von der Kommandozeile abfragen, weil sie
   nur im Backend geladen wurde. Jetzt lädt sie auch für WP-CLI – damit lässt
   sich der Stand der Einrichtung ohne Anmeldung prüfen.
+
+---
+
+# Achte Runde – Seiten importieren
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 66 | „Kannst du das Seiten-Inhalt importieren mit den Theme-Optionen automatisieren? Dass ich deine Zip eingebe und alle Seiten importiert werden?“ | **Erledigt.** *Design → Lindenzauber → Seiten importieren*: `lindenzauber-inhalte.zip` hochladen, fertig. Aus acht Seiten Copy-und-Paste im Code-Editor, sieben Kurzbeschreibungen von Hand und einem Widget-Handgriff sind zwei Klicks geworden. |
+| 67 | „Alte bestandene Seiten werden deaktiviert/umbenannt und nicht mehr erreichbar“ | **Erledigt, aber nur auf ausdrücklichen Wunsch.** Der Import listet alles auf, was veröffentlicht ist und nicht zum Paket gehört. Angehakt wird, was weichen soll. Gelöscht wird nichts: Die Seite kommt auf *Entwurf*, ihre Adresse bekommt `alt-` davor und der alte Adressname wird als Notiz an der Seite gemerkt. Rückgängig heißt: Seite öffnen, `alt-` entfernen, veröffentlichen. |
+
+## Warum zwei Schritte
+
+Ein Import, der auf Knopfdruck losläuft, ist bequem – bis er einmal das Falsche
+trifft. Deshalb liegt zwischen Hochladen und Ausführen eine Vorschau, die Zeile
+für Zeile zeigt, was passieren *würde*: welche Seite neu entsteht, welche ersetzt
+wird, welche fremde Seite zur Auswahl steht. Nichts ist vorangehakt.
+
+Drei Dinge kann der Import grundsätzlich nicht kaputt machen:
+
+* **Datenschutz.** Die Seite steht im Paket auf einer Schutzliste und wird gar
+  nicht erst zum Stilllegen angeboten – zusammen mit `datenschutzerklaerung` und
+  `privacy-policy`, weil WordPress je nach Sprache anders benennt.
+* **Adressen und Menüs.** Eine vorhandene Seite wird aktualisiert, nicht neu
+  angelegt. Sie behält ihre Kennung, ihre Adresse und ihre Menüeinträge; der
+  alte Stand steht danach unter *Revisionen*.
+* **Ein von Hand auf Entwurf gesetzter Zustand.** Wer eine Seite bewusst
+  offline genommen hat, findet sie nach dem Import nicht plötzlich wieder
+  veröffentlicht.
+
+Das Förderer-Band wird nur gefüllt, wenn dort noch nichts steht. Sonst hätte ein
+zweiter Lauf die Logos verdoppelt.
+
+## Was dabei ausgebaut wurde
+
+**`inhalte/seiten.json` ist neu** und der einzige Ort, an dem steht, welche
+Datei zu welcher Seite gehört: Adressname, Titel, Kurzbeschreibung, Status,
+welche die Startseite ist und welche Adressen geschützt sind. Vorher stand das
+an drei Stellen – in SETUP.md, im Probelauf-Skript und im Kopf des Bearbeiters.
+Im Theme steht davon nichts; es liest den Bauplan aus dem Paket.
+
+**Ohne `unfiltered_html` bricht der Import ab, bevor er anfängt.** Fehlt dem
+Konto dieses Recht, filtert WordPress beim Speichern die HTML-Kommentare heraus –
+und genau die *sind* bei Blöcken der Inhalt. Das Ergebnis wären acht Seiten
+voller kaputter Blöcke gewesen. Statt dessen kommt ein Satz, der sagt, woran es
+liegt.
+
+**Zwei Lecks im Temp-Verzeichnis.** Aufgefallen an zwei Ordnern `lz-import-…`,
+die nach den eigenen Tests liegengeblieben waren.
+
+Das erste war der abgebrochene Versuch: Wer ein Paket hochlädt und die Vorschau
+dann wegklickt, ließ den ausgepackten Ordner stehen – der Zwischenspeicher läuft
+ab, der Ordner nicht. Jeder Upload räumt jetzt weg, was älter als zwei Stunden ist.
+
+Das zweite war ernster und wäre ohne die Zählung nie aufgefallen: Nach dem
+Aufräumen des ersten Lecks blieben **wieder genau zwei** Ordner liegen – einer
+je *erfolgreichem* Import. Ursache: Ausgepackt wird beim Hochladen, weggeräumt
+erst nach dem Bestätigen; das sind zwei getrennte Aufrufe. Im zweiten stand
+`$wp_filesystem` noch auf `null`, die Bedingung im Aufräumer war damit still
+falsch und löschte nichts. Der Aufräumer meldet das Dateisystem jetzt selbst an.
+`import-check.mjs` zählt nach jedem Lauf nach; liegt noch etwas da, ist es ein
+Befund.
+
+## Geprüft wird das auch
+
+`tools/import-check.mjs` (neu) geht den Weg, den Cedric geht: anmelden, Paket
+hochladen, Vorschau lesen, bestätigen – und sieht danach in der Datenbank nach,
+ob wirklich passiert ist, was in der Vorschau stand. 30 Prüfpunkte, darunter:
+das Theme-Paket wird als falsches Paket erkannt; Datenschutz taucht nicht in der
+Abschussliste auf; die stillgelegte Seite antwortet mit 404; die Blockangaben
+haben den Weg durch WordPress unbeschadet überstanden; ein zweiter Lauf ändert
+keine Kennung und verdoppelt das Förderer-Band nicht.
+
+Der Aufruf steckt in `build.sh` und läuft auf der **noch leeren** Instanz – der
+echte Erstfall. Die Vorschau-Seiten entstehen danach aus dem, was der Import
+angelegt hat. Bricht der Import, bricht der Bau.

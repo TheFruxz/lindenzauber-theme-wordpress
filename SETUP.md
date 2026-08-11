@@ -1,7 +1,7 @@
 # Einrichtung – Schritt für Schritt
 
 Für Cedric. Einmal durcharbeiten, danach macht Brigitta alles im visuellen Editor.
-Rechne mit etwa 20 Minuten.
+Rechne mit etwa 15 Minuten.
 
 > **Vorher:** Bitte eine Sicherung der bestehenden Website machen (Datenbank und
 > `wp-content`). Es wird nichts gelöscht, aber Seiteninhalte werden ersetzt.
@@ -22,33 +22,54 @@ Das alte Theme kann liegen bleiben; es wird nur nicht mehr benutzt.
 > *Lindenzauber* zeigt, wie viel noch offen ist. Diese Datei hier und die Seite
 > im Backend sagen dasselbe; im Zweifel gilt die Seite, denn die sieht nach.
 
-## 2. Logo setzen
+## 2. Seiten importieren
 
-*Design → Customizer → Website-Informationen → Logo* → das Lindenblatt-Logo aus
-der Mediathek wählen (die bestehende Datei `cropped-cropped-Logo-freigestellt.png`).
+*Design → Lindenzauber → Seiten importieren*
 
-Es erscheint dann links oben im Kopfbereich neben dem Schriftzug.
+1. `dist/lindenzauber-inhalte.zip` auswählen und auf **Paket lesen** klicken
+2. Die Vorschau durchsehen – hier steht Zeile für Zeile, was passieren würde:
+   welche Seiten neu angelegt und welche ersetzt werden
+3. Darunter stehen die Seiten, die **nicht** zum Paket gehören. Angehakt wird,
+   was verschwinden soll
+4. **Jetzt importieren**
 
-## 3. Eckdaten eintragen
+Damit sind acht Seiten angelegt, ihre Kurzbeschreibungen eingetragen, die
+Startseite festgelegt und das Förderer-Band im Fußbereich gefüllt.
 
-*Design → Customizer → Lindenzauber → Eckdaten des Festes*
+| | |
+|---|---|
+| **Startseite** (wird als Startseite gesetzt) | Programm |
+| Die Erzählenden | Über Lindenzauber |
+| Förderer | Kontakt |
+| Impressum | Fotogalerie *(bleibt Entwurf)* |
 
-Alles ist mit den aktuellen Angaben vorbelegt – bitte einmal durchsehen. Wichtig
-sind besonders die Felder **Beginn** und **Ende** im Format `2026-09-26 19:00`:
-Daraus entstehen die Angaben, die Google für die Veranstaltung anzeigt.
+Was der Import **nicht** anfasst:
 
-Diese Angaben versorgen gleichzeitig die Fußzeile. Nächstes Jahr müssen nur diese
-Felder geändert werden.
+* **Datenschutz** bleibt unverändert. Der bestehende Text ist juristisch erzeugt
+  und wird nur neu gestaltet – da ist nichts zu tun. Die Seite steht auf einer
+  Schutzliste und lässt sich gar nicht erst zum Stilllegen anhaken.
+* **Fremde Seiten** bleiben, solange sie nicht angehakt werden. Angehakte werden
+  auch nicht gelöscht: sie kommen auf *Entwurf*, ihr Adressname bekommt ein
+  `alt-` davor und wird gemerkt. Rückgängig machen heißt also: Seite öffnen,
+  Adressname und Status zurückstellen.
+* **Adressen und Menüeinträge** vorhandener Seiten. Wird eine Seite ersetzt,
+  behält sie ihre Kennung; der alte Stand liegt danach unter *Revisionen*.
+* **Bilder.** Die Inhalte verweisen auf die Dateien, die schon in der Mediathek
+  liegen.
 
-## 4. Vorschaubild fürs Teilen
+> **Achtung, das ist wichtig:** Auf der Seite `/kontakt/` steht derzeit das
+> **Impressum**, und auf `/impressum/` stehen Brigittas Kontaktdaten. Die beiden
+> sind vertauscht. Der Import stellt das richtig.
 
-*Design → Customizer → Lindenzauber → Vorschaubild beim Teilen* → am besten das
-Plakat. Dieses Bild erscheint, wenn jemand einen Link in WhatsApp, Signal oder
-Facebook einfügt.
+Der Import lässt sich beliebig oft wiederholen – beim zweiten Mal steht bei
+jeder Seite „wird ersetzt“ statt „neu“, sonst ändert sich nichts.
 
-## 5. Seiteninhalte einfügen
+<details>
+<summary><strong>Falls der Import nicht geht</strong> – von Hand einfügen</summary>
 
-Für jede Seite einmal:
+Der Import braucht ein Administratorkonto (genauer: das Recht, rohes HTML zu
+speichern). Ohne das sagt die Seite Bescheid, statt kaputte Blöcke anzulegen.
+Dann geht es so – für jede Seite einmal:
 
 1. Seite öffnen: *Seiten → die Seite → Bearbeiten*
 2. Oben rechts auf **⋮** (die drei Punkte) → **Code-Editor**
@@ -60,46 +81,36 @@ Für jede Seite einmal:
 
 | Seite | Datei |
 |---|---|
-| Startseite | `inhalte/01-startseite.html` |
-| Programm | `inhalte/02-programm.html` |
-| Die Erzählenden | `inhalte/03-die-erzaehlenden.html` |
-| Über Lindenzauber | `inhalte/04-ueber-lindenzauber.html` |
-| Förderer | `inhalte/05-foerderer.html` |
-| Kontakt | `inhalte/06-kontakt.html` |
-| Impressum | `inhalte/07-impressum.html` |
-| Fotogalerie *(neu anlegen, als Entwurf)* | `inhalte/08-fotogalerie.html` |
+| Startseite | `01-startseite.html` |
+| Programm | `02-programm.html` |
+| Die Erzählenden | `03-die-erzaehlenden.html` |
+| Über Lindenzauber | `04-ueber-lindenzauber.html` |
+| Förderer | `05-foerderer.html` |
+| Kontakt | `06-kontakt.html` |
+| Impressum | `07-impressum.html` |
+| Fotogalerie *(neu anlegen, als Entwurf)* | `08-fotogalerie.html` |
 
-**Datenschutz bleibt unverändert.** Der bestehende Text ist juristisch erzeugt und
-wird nur neu gestaltet – da ist nichts zu tun.
+Die Kurzbeschreibungen stehen dann noch aus. Sie erscheinen bei Google unter dem
+Seitentitel; ohne sie nimmt die Website die ersten Sätze der Seite, die enden
+mitten im Satz. Je Seite: *Bearbeiten* → rechte Leiste → Reiter **Seite** → Feld
+**Auszug**. Die Texte stehen in `inhalte/seiten.json` unter `auszug`.
 
-> **Achtung, das ist wichtig:** Auf der Seite `/kontakt/` steht derzeit das
-> **Impressum**, und auf `/impressum/` stehen Brigittas Kontaktdaten. Die beiden
-> sind vertauscht. Mit den Dateien oben wird das richtiggestellt – bitte nicht
-> verwechseln.
+Auch das Förderer-Band muss dann von Hand gesetzt werden – siehe Schritt 9.
 
-**Alternative ohne Copy-und-Paste:** Bei einer leeren Seite bietet WordPress unten
+**Ganz ohne Copy-und-Paste:** Bei einer leeren Seite bietet WordPress unten
 „Muster wählen“ an. Dort liegen dieselben Seiten unter *Lindenzauber* bereit
 („Seite: Startseite“, „Seite: Programm“ …). Ein Klick genügt.
 
-## 5a. Kurzbeschreibungen eintragen
+</details>
 
-Diese Texte erscheinen bei Google unter dem Seitentitel und in der Vorschau,
-wenn jemand einen Link teilt. Ohne sie nimmt die Website die ersten Sätze der
-Seite – die enden dann mitten im Satz.
+## 3. Logo setzen
 
-Je Seite: *Bearbeiten* → rechte Leiste → Reiter **Seite** → Feld **Auszug**.
+*Design → Customizer → Website-Informationen → Logo* → das Lindenblatt-Logo aus
+der Mediathek wählen (die bestehende Datei `cropped-cropped-Logo-freigestellt.png`).
 
-| Seite | Auszug |
-|---|---|
-| Startseite | Märchenfest in Bassum am 26. und 27. September 2026: Märchenabend für Erwachsene, Märchentag für Familien. Eintritt frei, keine Anmeldung nötig. |
-| Programm | Samstagabend für Erwachsene, Sonntagnachmittag für Familien – alle Zeiten, der Ablauf mit den vier Erzählräumen und die Anfahrt zum Kindergarten KinderReich. |
-| Die Erzählenden | Sechs Erzählerinnen und Erzähler, sechs Geschichtenwelten: wer beim Lindenzauber erzählt, wie sie erzählen und wann Sie wen hören. |
-| Über Lindenzauber | Wie aus einer Idee ein Märchenfest wurde: die Menschen dahinter, die beiden Festtage und alles Wichtige in Kürze. |
-| Förderer | Vier Förderer machen den Lindenzauber möglich – deshalb ist der Eintritt an beiden Tagen frei. |
-| Kontakt | Fragen zum Lindenzauber? Brigitta Wortmann ist per E-Mail, Telefon und WhatsApp erreichbar. |
-| Impressum | Pflichtangaben nach § 5 DDG: Anbieter, Kontakt und inhaltlich Verantwortliche für die Website lindenzauber.de. |
+Es erscheint dann links oben im Kopfbereich neben dem Schriftzug.
 
-## 5b. Symbol für den Browser-Tab
+## 4. Symbol für den Browser-Tab
 
 *Design → Customizer → Website-Informationen → Website-Icon*
 
@@ -111,7 +122,24 @@ Startbildschirm legt.
 > Gold auf Nachtblau. Es sieht nicht kaputt aus – aber Brigittas eigenes
 > Signet ist schöner.
 
-## 6. Plakat einsetzen
+## 5. Eckdaten eintragen
+
+*Design → Customizer → Lindenzauber → Eckdaten des Festes*
+
+Alles ist mit den aktuellen Angaben vorbelegt – bitte einmal durchsehen. Wichtig
+sind besonders die Felder **Beginn** und **Ende** im Format `2026-09-26 19:00`:
+Daraus entstehen die Angaben, die Google für die Veranstaltung anzeigt.
+
+Diese Angaben versorgen gleichzeitig die Fußzeile. Nächstes Jahr müssen nur diese
+Felder geändert werden.
+
+## 6. Vorschaubild fürs Teilen
+
+*Design → Customizer → Lindenzauber → Vorschaubild beim Teilen* → am besten das
+Plakat. Dieses Bild erscheint, wenn jemand einen Link in WhatsApp, Signal oder
+Facebook einfügt.
+
+## 7. Plakat einsetzen
 
 Auf der Startseite steht im Abschnitt „Das Plakat zum Lindenzauber“ zunächst ein
 gestalteter goldener Rahmen als Platzhalter.
@@ -121,7 +149,7 @@ gestalteter goldener Rahmen als Platzhalter.
 3. In der Werkzeugleiste über dem Bild auf **Ersetzen → Mediathek öffnen**
 4. Das Plakat auswählen, *Aktualisieren*
 
-## 7. Menüs zuweisen
+## 8. Menüs zuweisen
 
 *Design → Menüs*
 
@@ -136,28 +164,23 @@ Beide Menüs unter *Positionen des Menüs* dem passenden Platz zuweisen.
 > Wenn kein Menü zugewiesen ist, zeigt das Theme automatisch eine sinnvolle
 > Linkliste. Es sieht also nie kaputt aus.
 
-## 8. Förderer im Fußbereich
+## 9. Förderer im Fußbereich
 
-*Design → Widgets → Förderer (Fußbereich)*
+Das hat der Import in Schritt 2 schon erledigt: unter *Design → Widgets →
+Förderer (Fußbereich)* stehen die vier Logos. Zum Austauschen genügt ein Klick
+auf das jeweilige Logo → *Ersetzen*.
 
-Der bequemste Weg: auf **+** klicken, oben nach *Lindenzauber* suchen und das Muster
-**„Förderer-Band (für die Fußzeile)“** einfügen. Fertig.
+Die Logos erscheinen als erste Zeile im Fußbereich – auf allen Seiten **außer
+der Startseite**. Dort stehen die Förderer weiter oben groß und präsent;
+zweimal untereinander wäre doppelt. Ist der Bereich leer, wird das weiße Band
+einfach nicht angezeigt – es entsteht kein halb fertiger Streifen.
 
-Alternativ den Inhalt von `inhalte/09-foerderband-widget.html` kopieren, in den
-leeren Widget-Bereich klicken und mit `Strg+V` einfügen – WordPress erkennt den
-Blockcode und macht daraus vier Bild-Blöcke.
+> Der Import füllt den Bereich nur, wenn dort noch nichts steht. Sind schon
+> Logos drin, bleiben sie unangetastet. Sie lassen sich jederzeit nachträglich
+> einfügen: auf **+** klicken, oben nach *Lindenzauber* suchen und das Muster
+> **„Förderer-Band (für die Fußzeile)“** wählen.
 
-Die Logos zeigen zunächst auf die vorhandenen Dateien in der Mediathek. Zum
-Austauschen genügt ein Klick auf das jeweilige Logo → *Ersetzen*.
-
-Die Logos erscheinen dann auf hellen Kacheln als erste Zeile im Fußbereich –
-auf allen Seiten **außer der Startseite**. Dort stehen die Förderer weiter oben
-groß und präsent; zweimal untereinander wäre doppelt.
-
-Ist der Bereich leer, wird das weiße Band einfach nicht angezeigt – es entsteht
-kein halb fertiger Streifen.
-
-## 9. Fotogalerie vorbereiten
+## 10. Fotogalerie vorbereiten
 
 Die Seite „Fotogalerie“ bleibt auf **Entwurf**, bis es Fotos gibt. Sie enthält
 bereits Einleitung, Galerie-Raster und Abschluss mit drei Platzhalterbildern.
@@ -165,7 +188,7 @@ bereits Einleitung, Galerie-Raster und Abschluss mit drei Platzhalterbildern.
 Wenn die Fotos da sind: Galerie anklicken → Bilder ersetzen bzw. ergänzen → Seite
 veröffentlichen → im Menü verlinken.
 
-## 10. Zum Schluss durchsehen
+## 11. Zum Schluss durchsehen
 
 - [ ] Startseite: Logo sichtbar, Plakat eingesetzt
 - [ ] Programm: Karte wird angezeigt, die drei Sprungmarken funktionieren
@@ -173,6 +196,7 @@ veröffentlichen → im Menü verlinken.
 - [ ] Kontakt zeigt Kontaktdaten (nicht das Impressum)
 - [ ] Impressum zeigt die Pflichtangaben
 - [ ] Fußzeile: Kontakt, Impressum, Datenschutz vorhanden
+- [ ] Alte Seiten, die stillgelegt wurden, sind nicht mehr aufrufbar
 - [ ] Auf dem Handy prüfen: nichts lässt sich seitlich verschieben, das Menü öffnet sich
 - [ ] Einen Link in WhatsApp einfügen: Vorschaubild und Text stimmen
 - [ ] Symbol im Browser-Tab ist da
@@ -186,6 +210,18 @@ veröffentlichen → im Menü verlinken.
 
 ## Wenn etwas nicht stimmt
 
+**Der Import sagt „In dem Paket fehlt die Datei seiten.json“.** Dann war es das
+Theme-Paket. Gemeint ist `lindenzauber-inhalte.zip`.
+
+**Der Import sagt „Dieses Benutzerkonto darf kein rohes HTML speichern“.** Dann
+bitte mit einem Administratorkonto anmelden. WordPress würde sonst beim Speichern
+die Blockangaben herausfiltern und alle Seiten unbrauchbar machen – deshalb
+bricht der Import lieber vorher ab.
+
+**Eine Seite ist beim Import versehentlich stillgelegt worden.** Nichts wurde
+gelöscht. *Seiten → Entwürfe* → die Seite öffnen, unter *Permalink* das `alt-`
+aus der Adresse entfernen und wieder veröffentlichen.
+
 **Ein Abschnitt sieht falsch aus.** Meist ist ein Block-Stil verrutscht. Block
 anklicken, rechts unter *Stile* den passenden wieder auswählen.
 
@@ -194,8 +230,8 @@ Ausrichtung *Volle Breite*. Gruppe anklicken → Ausrichtungs-Symbol in der
 Werkzeugleiste → *Volle Breite*.
 
 **Der Editor zeigt „Dieser Block enthält unerwarteten oder ungültigen Inhalt“.**
-Dann ist beim Einfügen etwas abgeschnitten worden. Am einfachsten: Seiteninhalt
-noch einmal komplett aus der Datei in `inhalte/` einfügen.
+Dann ist beim Einfügen etwas abgeschnitten worden. Am einfachsten: den Import
+noch einmal laufen lassen.
 
 **Die Schwungschrift erscheint nicht.** Einmal den Browser-Cache leeren. Falls ein
 Caching-Plugin läuft, dort ebenfalls den Cache löschen.

@@ -191,6 +191,13 @@ Ein Punkt kann auch später wieder aufgehen – zum Beispiel, wenn das Datum des
 Festes vorbei ist. Dann erinnert die Liste daran, die Termine auf das nächste
 Jahr umzustellen.
 
+Auf derselben Seite steht **Seiten importieren**. Das braucht man normalerweise
+nie: Es ist der Knopf, mit dem Cedric die Seiten am Anfang eingespielt hat. Wenn
+doch einmal eine Seite gründlich durcheinandergeraten ist, kann er das Paket
+noch einmal einlesen – vorhandene Seiten behalten dabei ihre Adresse, und der
+alte Stand bleibt unter *Revisionen* erhalten. Vor dem Ausführen zeigt die Seite
+erst, was passieren würde.
+
 ## Wenn etwas komisch aussieht
 
 **Rückgängig machen:** `Strg+Z` (auf dem Mac `Cmd+Z`). Geht mehrfach.

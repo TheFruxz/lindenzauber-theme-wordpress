@@ -1,10 +1,26 @@
 Seiteninhalte für lindenzauber.de
 =================================
 
-Diese Dateien werden einmal in WordPress eingefügt. Danach wird alles im
-visuellen Editor bearbeitet – der Code-Editor wird nie wieder gebraucht.
+Der bequeme Weg: gar nichts von Hand einfügen.
 
-So geht es, für jede Seite einmal:
+  Design -> Lindenzauber -> Seiten importieren
+  -> dieses ZIP (lindenzauber-inhalte.zip) auswählen
+  -> "Paket lesen", Vorschau durchsehen
+  -> "Jetzt importieren"
+
+Damit sind alle Seiten angelegt, die Kurzbeschreibungen eingetragen, die
+Startseite gesetzt und das Förderer-Band im Fußbereich gefüllt. Danach wird
+alles im visuellen Editor bearbeitet – der Code-Editor wird nie gebraucht.
+
+Der Bauplan dafür ist die Datei seiten.json: dort stehen Adressname, Titel,
+Kurzbeschreibung und Status jeder Seite. Im Theme steht nichts davon.
+
+
+Von Hand geht es auch
+---------------------
+
+Falls der Import nicht zur Verfügung steht (er braucht ein Administrator-
+konto), für jede Seite einmal:
 
   1. Seiten -> die Seite -> Bearbeiten
   2. Oben rechts auf die drei Punkte (⋮) -> Code-Editor
@@ -25,11 +41,15 @@ So geht es, für jede Seite einmal:
   09-foerderband-widget.html  -> kein Seiteninhalt, sondern für
                                  Design -> Widgets -> Förderer (Fußbereich)
 
-ACHTUNG: Auf der bestehenden Website stehen Kontakt und Impressum vertauscht.
-Mit diesen Dateien wird das richtiggestellt – bitte nicht verwechseln.
+Die Kurzbeschreibungen stehen dann noch aus; sie liegen in seiten.json unter
+"auszug" und gehören beim Bearbeiten rechts in das Feld "Auszug".
 
 Ohne Copy-und-Paste geht es auch: Bei einer leeren Seite bietet WordPress
 unten "Muster wählen" an. Dort liegen dieselben Seiten unter "Lindenzauber"
 bereit ("Seite: Startseite", "Seite: Programm" …). Ein Klick genügt.
+
+
+ACHTUNG: Auf der bestehenden Website stehen Kontakt und Impressum vertauscht.
+Mit diesen Dateien wird das richtiggestellt – bitte nicht verwechseln.
 
 Die ausführliche Anleitung steht in SETUP.md.

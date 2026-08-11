@@ -71,8 +71,8 @@ $WP site switch-language de_DE > /dev/null 2>&1 || true
 echo "== 1. Theme aus dist/lindenzauber.zip installieren =="
 $WP theme install "$REPO/dist/lindenzauber.zip" --force --activate
 
-echo "== 2.–4. Logo, Eckdaten, Vorschaubild =="
-# Die Bilder der bestehenden Website holen – auf lindenzauber.de sind sie da.
+echo "== Bilder der bestehenden Website holen =="
+# Auf lindenzauber.de liegen sie – die Inhalte verweisen darauf.
 ZIEL="$SITE/wp-content/uploads/lz"
 mkdir -p "$ZIEL"
 grep -ho '/wp-content/uploads/[^"]*' "$REPO"/inhalte/*.html | sort -u | while read -r pfad; do
@@ -80,6 +80,36 @@ grep -ho '/wp-content/uploads/[^"]*' "$REPO"/inhalte/*.html | sort -u | while re
 	[ -f "$ZIEL/$name" ] || curl -sSL --max-time 60 -o "$ZIEL/$name" "$QUELLE$pfad" 2>/dev/null || true
 done
 
+echo "== 2. Seiten importieren =="
+# Die zwei Seiten, die es auf der bestehenden Website schon gibt: die eine
+# soll weichen, die andere ausdrücklich nicht. Genau wie im Ernstfall.
+$WP post create --post_type=page --post_title="Lindenzauber 2025" --post_name=veraltet \
+	--post_status=publish \
+	--post_content='<!-- wp:paragraph --><p>Alter Stand.</p><!-- /wp:paragraph -->' > /dev/null
+$WP post create --post_type=page --post_title="Datenschutz" --post_name=datenschutz \
+	--post_status=publish --post_excerpt="Datenschutzerklärung für lindenzauber.de." \
+	--post_content='<!-- wp:paragraph --><p>Die bestehende Datenschutzerklärung bleibt unverändert.</p><!-- /wp:paragraph -->' > /dev/null
+
+# Genau der Weg aus SETUP.md, nur ohne Mausklicks: das ausgelieferte Paket
+# lesen, die Vorschau erzeugen, alles Fremde stilllegen, ausführen.
+$WP eval '
+$paket = lz_import_auspacken( "'"$REPO"'/dist/lindenzauber-inhalte.zip" );
+if ( is_wp_error( $paket ) ) { WP_CLI::error( $paket->get_error_message() ); }
+$vorschau = lz_import_vorschau( $paket["plan"], $paket["pfad"] );
+foreach ( $vorschau["vorhaben"] as $p ) { WP_CLI::log( sprintf( "  %-14s %s", $p["was"], $p["titel"] ) ); }
+foreach ( $vorschau["fremde"] as $f ) { WP_CLI::log( "  stilllegen     " . $f["titel"] ); }
+foreach ( lz_import_ausfuehren( $paket["plan"], $paket["pfad"], wp_list_pluck( $vorschau["fremde"], "id" ) ) as $m ) {
+	WP_CLI::log( "  → " . $m );
+}
+lz_import_aufraeumen( $paket["pfad"] );
+'
+
+# Die Inhalte zeigen auf /wp-content/uploads/<jahr>/<monat>/ – auf der echten
+# Website liegen die Bilder dort. In der Probe liegen sie in uploads/lz.
+$WP search-replace --regex '/wp-content/uploads/[0-9]{4}/[0-9]{2}/' '/wp-content/uploads/lz/' \
+	--all-tables-with-prefix --quiet > /dev/null 2>&1 || true
+
+echo "== 3.–6. Logo, Symbol, Vorschaubild =="
 if [ -f "$ZIEL/cropped-cropped-Logo-freigestellt.png" ]; then
 	LOGO=$($WP media import "$ZIEL/cropped-cropped-Logo-freigestellt.png" --porcelain 2>/dev/null || true)
 	[ -n "$LOGO" ] && $WP theme mod set custom_logo "$LOGO" > /dev/null
@@ -87,46 +117,7 @@ if [ -f "$ZIEL/cropped-cropped-Logo-freigestellt.png" ]; then
 	[ -n "$LOGO" ] && $WP option update site_icon "$LOGO" > /dev/null
 fi
 
-echo "== 5. Seiteninhalte einfügen =="
-mkdir -p "$WORK/probe-inhalte"
-for datei in "$REPO"/inhalte/*.html; do
-	sed 's#/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
-		"$datei" > "$WORK/probe-inhalte/$(basename "$datei")"
-done
-
-seite() { # slug titel datei auszug status
-	local id
-	id=$($WP post create --post_type=page --post_title="$2" --post_name="$1" \
-		--post_status="${5:-publish}" --post_excerpt="$4" --porcelain \
-		"$WORK/probe-inhalte/$3")
-	echo "$id"
-}
-
-START=$(seite startseite "Lindenzauber" 01-startseite.html \
-	"Märchenfest in Bassum am 26. und 27. September 2026: Märchenabend für Erwachsene, Märchentag für Familien. Eintritt frei, keine Anmeldung nötig.")
-seite programm "Programm" 02-programm.html \
-	"Samstagabend für Erwachsene, Sonntagnachmittag für Familien – alle Zeiten, der Ablauf mit den vier Erzählräumen und die Anfahrt zum Kindergarten KinderReich." > /dev/null
-seite die-erzaehlenden "Die Erzählenden" 03-die-erzaehlenden.html \
-	"Sechs Erzählerinnen und Erzähler, sechs Geschichtenwelten: wer beim Lindenzauber erzählt, wie sie erzählen und wann Sie wen hören." > /dev/null
-seite ueber-lindenzauber "Über Lindenzauber" 04-ueber-lindenzauber.html \
-	"Wie aus einer Idee ein Märchenfest wurde: die Menschen dahinter, die beiden Festtage und alles Wichtige in Kürze." > /dev/null
-seite sponsoren "Förderer" 05-foerderer.html \
-	"Vier Förderer machen den Lindenzauber möglich – deshalb ist der Eintritt an beiden Tagen frei." > /dev/null
-seite kontakt "Kontakt" 06-kontakt.html \
-	"Fragen zum Lindenzauber? Brigitta Wortmann ist per E-Mail, Telefon und WhatsApp erreichbar." > /dev/null
-seite impressum "Impressum" 07-impressum.html \
-	"Pflichtangaben nach § 5 DDG: Anbieter, Kontakt und inhaltlich Verantwortliche für die Website lindenzauber.de." > /dev/null
-seite fotogalerie "Fotogalerie" 08-fotogalerie.html \
-	"Bilder vom Lindenzauber." draft > /dev/null
-
-$WP post create --post_type=page --post_title="Datenschutz" --post_name=datenschutz \
-	--post_status=publish --post_excerpt="Datenschutzerklärung für lindenzauber.de." \
-	--post_content='<!-- wp:paragraph --><p>Die bestehende Datenschutzerklärung bleibt unverändert.</p><!-- /wp:paragraph -->' > /dev/null
-
-$WP option update show_on_front page > /dev/null
-$WP option update page_on_front "$START" > /dev/null
-
-echo "== 7. Menüs zuweisen =="
+echo "== 8. Menüs zuweisen =="
 $WP menu create "Hauptmenü" > /dev/null 2>&1 || true
 $WP menu create "Rechtliches" > /dev/null 2>&1 || true
 $WP menu item add-custom hauptmenue "Start" "/" > /dev/null
@@ -139,12 +130,11 @@ done
 $WP menu location assign hauptmenue primary > /dev/null
 $WP menu location assign rechtliches legal > /dev/null
 
-echo "== 8. Förderer im Fußbereich =="
-sed 's#/wp-content/uploads/[0-9]*/[0-9]*/#/wp-content/uploads/lz/#g' \
-	"$REPO/inhalte/09-foerderband-widget.html" > "$WORK/probe-foerderband.txt"
-$WP widget add block lz-foerderband --content="$(cat "$WORK/probe-foerderband.txt")" > /dev/null
-
 $WP rewrite flush --hard > /dev/null 2>&1
+
+echo
+echo "== Was der Import hinterlassen hat =="
+$WP post list --post_type=page --post_status=publish,draft --fields=post_name,post_status,post_title
 
 echo
 echo "== Stand der Einrichtungsliste =="

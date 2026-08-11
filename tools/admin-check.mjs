@@ -41,7 +41,7 @@ sagen('Eintrag unter Design', !!eintrag, eintrag);
 
 // Die Seite selbst
 await s.goto(basis + '/wp-admin/themes.php?page=lindenzauber', { waitUntil: 'networkidle' });
-const liste = await s.evaluate(() => [...document.querySelectorAll('.lz-einrichtung tbody tr')].map(tr => ({
+const liste = await s.evaluate(() => [...document.querySelectorAll('.lz-schritte tbody tr')].map(tr => ({
   fertig: tr.querySelector('td span[aria-hidden]')?.textContent.trim() === '✔',
   titel: tr.querySelector('strong')?.textContent.trim(),
 })));

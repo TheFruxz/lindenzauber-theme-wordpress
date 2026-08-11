@@ -34,5 +34,6 @@ require_once LZ_DIR . '/inc/menus.php';
 // WP-CLI wird sie trotzdem geladen – so lässt sich der Stand der Einrichtung
 // auch von der Kommandozeile abfragen, ohne sich einzuloggen.
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+	require_once LZ_DIR . '/inc/import.php';
 	require_once LZ_DIR . '/inc/einrichtung.php';
 }

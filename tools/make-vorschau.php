@@ -360,7 +360,7 @@ file_put_contents(
 	. "----------\n"
 	. "Auf der Startseite steht beim Plakat noch ein Platzhalter (goldener Rahmen\n"
 	. "mit Lindenblatt). Sobald das Plakat in der Mediathek liegt, wird es im\n"
-	. "Editor mit einem Klick eingesetzt – siehe SETUP.md, Schritt 6.\n"
+	. "Editor mit einem Klick eingesetzt – siehe SETUP.md, Schritt 7.\n"
 );
 
 echo "\nfertig: $ziel\n";

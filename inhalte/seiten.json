@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "hinweis": "Bauplan für den Seiten-Import unter Design → Lindenzauber. Slug, Titel, Auszug und Status stehen nur hier – nicht zusätzlich im Code und nicht in der Anleitung.",
+
+  "seiten": [
+    {
+      "datei": "01-startseite.html",
+      "slug": "startseite",
+      "titel": "Lindenzauber",
+      "status": "publish",
+      "startseite": true,
+      "auszug": "Märchenfest in Bassum am 26. und 27. September 2026: Märchenabend für Erwachsene, Märchentag für Familien. Eintritt frei, keine Anmeldung nötig."
+    },
+    {
+      "datei": "02-programm.html",
+      "slug": "programm",
+      "titel": "Programm",
+      "status": "publish",
+      "auszug": "Samstagabend für Erwachsene, Sonntagnachmittag für Familien – alle Zeiten, der Ablauf mit den vier Erzählräumen und die Anfahrt zum Kindergarten KinderReich."
+    },
+    {
+      "datei": "03-die-erzaehlenden.html",
+      "slug": "die-erzaehlenden",
+      "titel": "Die Erzählenden",
+      "status": "publish",
+      "auszug": "Sechs Erzählerinnen und Erzähler, sechs Geschichtenwelten: wer beim Lindenzauber erzählt, wie sie erzählen und wann Sie wen hören."
+    },
+    {
+      "datei": "04-ueber-lindenzauber.html",
+      "slug": "ueber-lindenzauber",
+      "titel": "Über Lindenzauber",
+      "status": "publish",
+      "auszug": "Wie aus einer Idee ein Märchenfest wurde: die Menschen dahinter, die beiden Festtage und alles Wichtige in Kürze."
+    },
+    {
+      "datei": "05-foerderer.html",
+      "slug": "sponsoren",
+      "titel": "Förderer",
+      "status": "publish",
+      "auszug": "Vier Förderer machen den Lindenzauber möglich – deshalb ist der Eintritt an beiden Tagen frei."
+    },
+    {
+      "datei": "06-kontakt.html",
+      "slug": "kontakt",
+      "titel": "Kontakt",
+      "status": "publish",
+      "auszug": "Fragen zum Lindenzauber? Brigitta Wortmann ist per E-Mail, Telefon und WhatsApp erreichbar."
+    },
+    {
+      "datei": "07-impressum.html",
+      "slug": "impressum",
+      "titel": "Impressum",
+      "status": "publish",
+      "auszug": "Pflichtangaben nach § 5 DDG: Anbieter, Kontakt und inhaltlich Verantwortliche für die Website lindenzauber.de."
+    },
+    {
+      "datei": "08-fotogalerie.html",
+      "slug": "fotogalerie",
+      "titel": "Fotogalerie",
+      "status": "draft",
+      "auszug": "Bilder vom Lindenzauber – erscheint, sobald es Fotos gibt."
+    }
+  ],
+
+  "widgets": [
+    {
+      "datei": "09-foerderband-widget.html",
+      "bereich": "lz-foerderband",
+      "titel": "Förderer-Band für den Fußbereich"
+    }
+  ],
+
+  "behalten": [
+    "datenschutz",
+    "datenschutzerklaerung",
+    "privacy-policy"
+  ]
+}
