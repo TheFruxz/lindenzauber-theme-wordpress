@@ -124,13 +124,16 @@ LZ_WORK=/pfad/zum/arbeitsordner bash tools/wp-probelauf.sh
 node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
+Fünf davon sind Tore in `build.sh` – Import, Gestaltung, Metadaten, Backend und
+Vorschau. Schlägt eines an, entsteht kein Paket.
+
 `layout-check.mjs` geht alle Seiten in 390 px, 768 px und 1440 px durch und meldet
 fehlende Abstände zwischen Blöcken, außermittige Abschnitte, Flächen die klickbar
 aussehen aber keine sind, seitlichen Überlauf, zu schwachen Kontrast, Leerraum
 hinter dem Fußbereich, Bilder deren eigener Grund nicht zur Kachel darunter passt
 (Eckpixel gegen die tatsächlich sichtbare Hintergrundfarbe), Sprungziele die unter
-dem festen Kopfbereich landen und Bedienelemente unter 44 × 44 px. Nach jeder
-Änderung an der Gestaltung einmal laufen lassen – es muss „Keine Befunde“ herauskommen.
+dem festen Kopfbereich landen und Bedienelemente unter 44 × 44 px. Der Aufruf
+steckt in `build.sh`; bei Befunden entsteht kein Paket.
 
 `vorschau-check.mjs` prüft das fertige Vorschau-Paket: jedes Skript genau einmal
 eingebunden, alle Dateien da, und – wichtig – der Menüknopf öffnet das Menü

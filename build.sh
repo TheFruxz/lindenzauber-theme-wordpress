@@ -69,6 +69,15 @@ fi
 LZ_REPO="$REPO" bash tools/wp-test-inhalte.sh > /dev/null
 LZ_REPO="$REPO" bash tools/wp-test-medien.sh > /dev/null
 
+# Abstände, Klickflächen, Kontrast, Überlauf, Bilder – die Fehlerklassen, die
+# Brigitta und Cedric gemeldet haben. Bis hierher war das ein Werkzeug, das man
+# von Hand aufrufen musste; ein Rückfall hätte den Bau nicht aufgehalten.
+echo "== Gestaltung prüfen =="
+if ! node tools/layout-check.mjs "http://127.0.0.1:8321"; then
+	echo "  Die Gestaltung hat Befunde."
+	exit 1
+fi
+
 echo "== Vorschau erzeugen =="
 php tools/make-vorschau.php > /dev/null
 

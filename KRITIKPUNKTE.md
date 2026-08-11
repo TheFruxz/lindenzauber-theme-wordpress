@@ -521,3 +521,26 @@ keine Kennung und verdoppelt das Förderer-Band nicht.
 Der Aufruf steckt in `build.sh` und läuft auf der **noch leeren** Instanz – der
 echte Erstfall. Die Vorschau-Seiten entstehen danach aus dem, was der Import
 angelegt hat. Bricht der Import, bricht der Bau.
+
+## Abnahme – der Probelauf geht jetzt durch den Import
+
+`tools/wp-probelauf.sh` setzt ein frisches WordPress auf, installiert das Theme
+aus `dist/lindenzauber.zip` und spielt die Seiten mit dem ausgelieferten
+`dist/lindenzauber-inhalte.zip` ein – über dieselben Funktionen, die auch der
+Knopf im Backend aufruft. Zwei Seiten stehen vorher schon da: eine, die weichen
+soll, und die Datenschutzseite, die bleiben muss.
+
+Ergebnis: acht Seiten angelegt, Startseite gesetzt, Förderer-Band gefüllt, zwei
+fremde Seiten stillgelegt (`alt-veraltet`, `alt-beispielseite`), Datenschutz
+unangetastet. Von den elf Punkten der Einrichtungsliste standen danach **zehn**
+auf erledigt – offen blieb nur „Plakat eingesetzt“, die Datei hat nur Brigitta.
+Vorher waren es zwei offene Punkte; die fehlende Kurzbeschreibung der
+Beispielseite erledigt sich, weil die Seite beim Import mit stillgelegt wird.
+
+Alle Werkzeuge liefen anschließend gegen diese Instanz – Gestaltung, Metadaten,
+Blöcke, Editor: keine Befunde.
+
+**Dabei noch eine Lücke geschlossen:** `layout-check.mjs` war das einzige
+Prüfwerkzeug, das **kein** Tor in `build.sh` war – ausgerechnet das, das die
+gemeldeten Fehlerklassen abdeckt. Ein Rückfall bei Abständen, Kontrast oder
+Klickflächen hätte den Bau nicht aufgehalten. Jetzt schon.

@@ -213,10 +213,13 @@ veröffentlichen → im Menü verlinken.
 **Der Import sagt „In dem Paket fehlt die Datei seiten.json“.** Dann war es das
 Theme-Paket. Gemeint ist `lindenzauber-inhalte.zip`.
 
-**Der Import sagt „Dieses Benutzerkonto darf kein rohes HTML speichern“.** Dann
-bitte mit einem Administratorkonto anmelden. WordPress würde sonst beim Speichern
-die Blockangaben herausfiltern und alle Seiten unbrauchbar machen – deshalb
-bricht der Import lieber vorher ab.
+**Der Import sagt „Dieses Benutzerkonto darf kein rohes HTML speichern“.**
+WordPress würde beim Speichern die Blockangaben herausfiltern und alle Seiten
+unbrauchbar machen – deshalb bricht der Import lieber vorher ab. Zwei Ursachen
+kommen infrage: In einem Mehrfach-Netzwerk (Multisite) hat nur die
+Netzwerk-Verwaltung dieses Recht; sonst entzieht es meist ein Sicherheitsmodul.
+Lässt sich das nicht ändern, gehen die Seiten von Hand – siehe den aufklappbaren
+Abschnitt in Schritt 2.
 
 **Eine Seite ist beim Import versehentlich stillgelegt worden.** Nichts wurde
 gelöscht. *Seiten → Entwürfe* → die Seite öffnen, unter *Permalink* das `alt-`

@@ -37,7 +37,7 @@ function lz_import_erlaubt() {
 	}
 
 	if ( ! current_user_can( 'unfiltered_html' ) ) {
-		return __( 'Dieses Benutzerkonto darf kein rohes HTML speichern. WordPress würde dabei die Blockangaben entfernen und die Seiten unbrauchbar machen. Bitte mit einem Administratorkonto einspielen.', 'lindenzauber' );
+		return __( 'Dieses Benutzerkonto darf kein rohes HTML speichern. WordPress würde dabei die Blockangaben entfernen und alle Seiten unbrauchbar machen – deshalb fängt der Import gar nicht erst an. In einem Mehrfach-Netzwerk hat nur die Netzwerk-Verwaltung dieses Recht; sonst nimmt es meist ein Sicherheitsmodul. Die Seiten lassen sich in diesem Fall von Hand einfügen, wie in der Anleitung beschrieben.', 'lindenzauber' );
 	}
 
 	return true;
