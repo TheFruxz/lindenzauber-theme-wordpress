@@ -57,8 +57,15 @@ werden ab etwa acht Zeilen weich ausgeblendet und bekommen „Mehr anzeigen“. 
 JavaScript steht schlicht der vollständige Text da.
 
 **Termine an einer Stelle.** Datum, Uhrzeit, Ort und Kontakt stehen unter
-*Design → Customizer → Lindenzauber*. Von dort speisen sie die Fußzeile **und**
-die Angaben für Google. Im nächsten Jahr genügt es, dort die Daten zu ändern.
+*Design → Customizer → Lindenzauber*. Von dort speisen sie die Fußzeile, die
+Angaben für Google **und** die `llms.txt`. Im nächsten Jahr genügt es, dort die
+Daten zu ändern.
+
+**Eine Einrichtungsseite, die sich selbst abhakt.** Unter *Design → Lindenzauber*
+steht, was noch fehlt – Logo, Symbol, Menüs, Förderer-Logos, Kurzbeschreibungen,
+Plakat. Jeder Punkt fragt WordPress nach seinem Stand, es wird nichts von Hand
+abgehakt. Solange etwas offen ist, weist ein Hinweis im Backend darauf hin. Auf
+derselben Seite lässt sich der Text für `/llms.txt` bearbeiten.
 
 ---
 
@@ -96,6 +103,7 @@ node tools/editor-check.mjs   <url> <benutzer> <passwort> <seiten-id...> # Warnu
 node tools/layout-check.mjs   <url>                                     # Abstände, Klickflächen, Kontrast
 node tools/vorschau-check.mjs <ordner>                                  # das Vorschau-Paket
 node tools/meta-check.mjs     <url>                                     # Metadaten, strukturierte Daten, llms.txt
+node tools/admin-check.mjs    <url> <benutzer> <passwort>               # die Seite Design → Lindenzauber
 node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
@@ -140,6 +148,8 @@ Quelltext fest.
 
 Dazu liegt unter `/llms.txt` eine Kurzfassung in reinem Text: worum es geht,
 beide Tage, Ort, Anfahrt, Eintritt, Kontakt und alle Seiten mit je einem Satz.
-Auch sie entsteht aus den Eckdaten und kann deshalb nicht veralten.
+Sie entsteht aus den Eckdaten und kann deshalb nicht veralten – lässt sich unter
+*Design → Lindenzauber* aber auch von Hand schreiben. Nichts davon steht im
+Quelltext fest.
 
 `tools/meta-check.mjs` hält beides nach.

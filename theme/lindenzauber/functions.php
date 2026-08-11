@@ -29,3 +29,7 @@ require_once LZ_DIR . '/inc/patterns.php';
 require_once LZ_DIR . '/inc/meta.php';
 require_once LZ_DIR . '/inc/llms.php';
 require_once LZ_DIR . '/inc/menus.php';
+
+if ( is_admin() ) {
+	require_once LZ_DIR . '/inc/einrichtung.php';
+}

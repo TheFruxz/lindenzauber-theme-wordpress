@@ -15,6 +15,13 @@ Rechne mit etwa 20 Minuten.
 
 Das alte Theme kann liegen bleiben; es wird nur nicht mehr benutzt.
 
+> **Danach steht die Liste im Backend.** Unter *Design → Lindenzauber* hakt sich
+> jeder Schritt dieser Anleitung von selbst ab, sobald er erledigt ist – die
+> Seite fragt WordPress, ob Logo, Menüs, Widget und so weiter stehen. Solange
+> etwas fehlt, weist ein Hinweis oben im Backend darauf hin und die Zahl neben
+> *Lindenzauber* zeigt, wie viel noch offen ist. Diese Datei hier und die Seite
+> im Backend sagen dasselbe; im Zweifel gilt die Seite, denn die sieht nach.
+
 ## 2. Logo setzen
 
 *Design → Customizer → Website-Informationen → Logo* → das Lindenblatt-Logo aus
@@ -168,10 +175,11 @@ veröffentlichen → im Menü verlinken.
 - [ ] Auf dem Handy prüfen: nichts lässt sich seitlich verschieben, das Menü öffnet sich
 - [ ] Einen Link in WhatsApp einfügen: Vorschaubild und Text stimmen
 - [ ] Symbol im Browser-Tab ist da
+- [ ] *Design → Lindenzauber*: keine offenen Schritte mehr
 - [ ] `lindenzauber.de/llms.txt` im Browser aufrufen – es muss eine Textseite
       mit Terminen, Ort und Kontakt erscheinen. Kommt stattdessen „Seite nicht
-      gefunden", einmal *Einstellungen → Permalinks → Änderungen speichern*
-      klicken; das erneuert die Adressregeln.
+      gefunden", auf *Design → Lindenzauber* den Knopf **Adressregeln erneuern**
+      drücken.
 
 ---
 

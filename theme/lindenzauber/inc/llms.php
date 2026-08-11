@@ -61,11 +61,26 @@ function lz_llms_satz( $text, $max = 220 ) {
 }
 
 /**
- * Den Text zusammensetzen.
+ * Der ausgelieferte Text.
+ *
+ * Steht unter *Design → Lindenzauber* etwas im Feld, wird genau das
+ * ausgeliefert. Ist es leer – so kommt das Theme – entsteht der Text aus den
+ * Eckdaten und bleibt damit von selbst aktuell.
  *
  * @return string
  */
 function lz_llms_text() {
+	$eigener = trim( (string) get_theme_mod( 'lz_llms_text', '' ) );
+
+	return '' !== $eigener ? $eigener : lz_llms_standardtext();
+}
+
+/**
+ * Den Text aus den Eckdaten zusammensetzen.
+ *
+ * @return string
+ */
+function lz_llms_standardtext() {
 	$name  = get_bloginfo( 'name' );
 	$start = home_url( '/' );
 

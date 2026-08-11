@@ -62,6 +62,14 @@ if ! node tools/meta-check.mjs "http://127.0.0.1:8321"; then
 	exit 1
 fi
 
+# Das Backend prüft sonst niemand – dabei ist es der Teil, den Brigitta
+# täglich sieht. Hier wird die Einrichtungsseite wirklich durchgeklickt.
+echo "== Backend prüfen =="
+if ! node tools/admin-check.mjs "http://127.0.0.1:8321" admin lindenzauber; then
+	echo "  Die Einrichtungsseite hat Befunde."
+	exit 1
+fi
+
 # Die Vorschau entsteht durch Umschreiben der WordPress-Seiten. Dabei kann
 # etwas kaputtgehen, das auf der WordPress-Seite selbst läuft – einmal war
 # nav.js doppelt eingebunden und das Handy-Menü damit tot. Deshalb wird das

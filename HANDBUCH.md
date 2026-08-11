@@ -132,6 +132,26 @@ weitere ans Ende der letzten Zeile klicken und `Enter` drücken. Der Zeitstrahl 
 den goldenen Punkten rechnet sich selbst neu aus – egal ob drei, vier oder sechs
 Zeiten dort stehen. Genauso funktionieren die vier Räume darüber.
 
+### Den Text für Suchmaschinen und KI ändern
+
+*Design → Lindenzauber.* Ganz unten steht ein großes Textfeld.
+
+Solange es **leer** ist, schreibt die Website den Text bei jedem Aufruf selbst
+aus den Eckdaten – Termine, Ort, Eintritt, Kontakt und alle Seiten. Er kann
+dadurch nicht veralten, und du musst dich um nichts kümmern.
+
+Willst du etwas ergänzen oder anders formulieren: auf **Automatischen Text zum
+Bearbeiten einsetzen** klicken, dann steht der fertige Text im Feld und du
+schreibst einfach darin weiter. **Speichern** – ab dann gilt deiner.
+
+Mit **Wieder automatisch** kommst du jederzeit zurück; dein Text wird dabei
+gelöscht.
+
+> Was steht da eigentlich drin? Eine Kurzfassung der Website in einfachen
+> Sätzen, unter `lindenzauber.de/llms.txt` abrufbar. Werkzeuge wie ChatGPT
+> lesen zuerst dort nach, wenn sie die Seite zusammenfassen sollen. Für
+> Besucherinnen und Besucher ist die Datei unsichtbar.
+
 ### Das Symbol im Browser-Tab ändern
 
 *Design → Customizer → Website-Informationen → Website-Icon.* Ein quadratisches
@@ -159,6 +179,17 @@ Diese Dinge macht das Theme von allein – sie stehen nicht im Seiteninhalt:
 * Die Seite, auf der ein Porträtfoto steht
 
 ---
+
+## Die Liste im Backend
+
+Unter *Design → Lindenzauber* steht, was zur Einrichtung noch fehlt. Die Liste
+hakt sich selbst ab: Sie sieht nach, ob Logo, Symbol, Menüs, Förderer-Logos,
+Kurzbeschreibungen und das Plakat da sind. Steht die Zahl neben *Lindenzauber*
+auf null, ist alles erledigt.
+
+Ein Punkt kann auch später wieder aufgehen – zum Beispiel, wenn das Datum des
+Festes vorbei ist. Dann erinnert die Liste daran, die Termine auf das nächste
+Jahr umzustellen.
 
 ## Wenn etwas komisch aussieht
 

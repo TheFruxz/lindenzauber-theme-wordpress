@@ -336,3 +336,38 @@ ein Satz in der llms.txt werden beide sofort gemeldet.
 * **`/llms.txt` wurde auf `/llms.txt/` umgeleitet** – WordPress hängt an Adressen
   ohne Endung einen Schrägstrich an. Für diese eine Adresse bleibt die Umleitung
   jetzt aus.
+
+---
+
+# Sechste Runde – Backend
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 64 | „Kannst du die llms.txt über z. B. Theme-Einstellungen bearbeitbar machen? Sodass quasi nichts baked in ist“ | **Erledigt.** Unter *Design → Lindenzauber* steht der Text in einem großen Feld. **Leer heißt automatisch**: dann entsteht er bei jedem Aufruf aus den Eckdaten und kann nicht veralten – so kommt das Theme. Ein Knopf setzt den erzeugten Text zum Bearbeiten ein, damit Brigitta nicht vor einem leeren Feld sitzt; ein zweiter stellt den Automatikbetrieb wieder her. Im leeren Feld steht der aktuelle Text blass als Platzhalter, man sieht also immer, was ausgeliefert wird. |
+| 65 | „Ggf. ein Popup beim Einrichten, das deine Punkte ‚das sollte gemacht werden‘ anzeigt“ | **Erledigt, und besser als ein Popup.** Auf derselben Seite steht die Einrichtungsliste – aber sie **hakt sich selbst ab**: jeder der elf Punkte fragt WordPress nach seinem Stand (Logo gesetzt? Symbol? Menüs zugewiesen? Förderer-Widget gefüllt? Auszüge geschrieben? Plakat statt Platzhalter? Adressregeln da?). Nichts wird von Hand abgehakt, nichts kann falsch abgehakt werden. Neben jedem offenen Punkt steht ein Knopf, der genau dorthin führt. |
+| — | „Ich weiß nicht, ob man das über ein Theme sauber machen kann“ | **Ja.** `add_theme_page()` für die Seite, `admin_notices` für den Hinweis, `set_theme_mod()` für den Text – alles Bordmittel, kein Plugin, keine eigene Datenbanktabelle. Beim Wechsel auf ein anderes Theme verschwindet die Seite rückstandslos; der Text bleibt als Theme-Einstellung liegen und ist beim Zurückwechseln wieder da. |
+
+## Was die Seite noch kann
+
+* **Ein Hinweis im Backend**, solange etwas offen ist: „Lindenzauber – noch 4
+  Schritte bis alles steht.“ Er verschwindet von selbst, sobald nichts mehr
+  fehlt, und lässt sich vorher wegklicken, ohne wiederzukommen. Neben
+  *Lindenzauber* im Menü steht die Zahl der offenen Punkte.
+* **Ein Punkt kann wieder aufgehen.** Liegt der hinterlegte Termin in der
+  Vergangenheit, meldet die Liste das und erinnert daran, die Eckdaten auf das
+  nächste Fest umzustellen. Damit ist die Seite nicht nur eine
+  Einrichtungshilfe, sondern eine Erinnerung fürs nächste Jahr.
+* **Adressregeln erneuern** als Knopf – für den Fall, dass `/llms.txt` nach der
+  Installation noch nicht erreichbar ist. Vorher stand dafür in SETUP.md ein
+  Umweg über die Permalink-Einstellungen.
+
+## Geprüft wird das auch
+
+`tools/admin-check.mjs` (neu) meldet sich im Backend an und **klickt die Seite
+wirklich durch**: automatischen Text einsetzen, bearbeiten, speichern, nachsehen
+was unter `/llms.txt` ankommt, zurücksetzen, nachsehen ob wieder der
+automatische Text kommt, Adressregeln erneuern. Dazu wird geprüft, dass die
+Liste den tatsächlichen Stand zeigt.
+
+**Gegenprobe:** Ein Termin in der Vergangenheit lässt den Punkt „Termine des
+Festes“ sofort wieder aufgehen, mit dem passenden Hinweistext.
