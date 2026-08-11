@@ -91,8 +91,14 @@ Prüfwerkzeuge:
 ```bash
 node tools/block-check.mjs  <url> <benutzer> <passwort> inhalte/*.html   # gültige Kernblöcke?
 node tools/editor-check.mjs <url> <benutzer> <passwort> <seiten-id...>   # Warnungen im Editor?
+node tools/layout-check.mjs <url>                                       # Abstände, Klickflächen, Kontrast
 node tools/shot.mjs         <url> <ziel.png> [breite] [full]             # Screenshot
 ```
+
+`layout-check.mjs` geht alle Seiten in 390 px, 768 px und 1440 px durch und meldet
+fehlende Abstände zwischen Blöcken, außermittige Abschnitte, Flächen die klickbar
+aussehen aber keine sind, seitlichen Überlauf und zu schwachen Kontrast. Nach jeder
+Änderung an der Gestaltung einmal laufen lassen – es muss „Keine Befunde“ herauskommen.
 
 ---
 

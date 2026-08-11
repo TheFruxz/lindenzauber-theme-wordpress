@@ -20,10 +20,6 @@
 <h2 class="wp-block-heading has-text-align-center">Erst der Abend, dann der Nachmittag</h2>
 <!-- /wp:heading -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-festtag"} -->
 <div class="wp-block-column is-style-lz-festtag"><!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-mond"} -->

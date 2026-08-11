@@ -74,10 +74,6 @@
 <h2 class="wp-block-heading has-text-align-center">Erst der Abend, dann der Nachmittag</h2>
 <!-- /wp:heading -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-festtag"} -->
 <div class="wp-block-column is-style-lz-festtag"><!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-mond"} -->
@@ -130,27 +126,19 @@
 <h2 class="wp-block-heading has-text-align-center">Das Plakat zum Lindenzauber</h2>
 <!-- /wp:heading -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:image {"sizeSlug":"large","align":"center","linkDestination":"none","className":"is-style-lz-plakat"} -->
 <figure class="wp-block-image aligncenter size-large is-style-lz-plakat"><img src="/wp-content/themes/lindenzauber/assets/img/platzhalter-plakat.svg" alt="Plakat zum Lindenzauber – Märchenfest in Bassum am 26. und 27. September 2026"/><figcaption class="wp-element-caption">Gern ausdrucken und weitergeben – in Schulen, Kitas, Büchereien und Geschäften.</figcaption></figure>
 <!-- /wp:image --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"align":"full","className":"is-style-lz-panel","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:paragraph {"className":"is-style-lz-ueberzeile"} -->
-<p class="is-style-lz-ueberzeile">Gut zu wissen</p>
+<div class="wp-block-group alignfull is-style-lz-panel"><!-- wp:paragraph {"align":"center","className":"is-style-lz-ueberzeile"} -->
+<p class="has-text-align-center is-style-lz-ueberzeile">Gut zu wissen</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Was Sie vor Ort erwartet</h2>
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Was Sie vor Ort erwartet</h2>
 <!-- /wp:heading -->
-
-<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
-<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
 
 <!-- wp:list {"className":"is-style-lz-punkte"} -->
 <ul class="wp-block-list is-style-lz-punkte"><!-- wp:list-item -->
@@ -203,10 +191,6 @@
 <!-- wp:paragraph {"align":"center"} -->
 <p class="has-text-align-center">Weil diese vier gemeinsam tragen, was hier entsteht, ist der Eintritt an beiden Tagen frei.</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
 
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-foerderer"} -->

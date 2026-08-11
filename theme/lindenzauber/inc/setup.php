@@ -56,19 +56,20 @@ function lz_setup() {
 add_action( 'after_setup_theme', 'lz_setup' );
 
 /**
- * Das weiße Förderer-Band am Fuß der Seite.
+ * Der Förderer-Bereich im Fußbereich.
  *
  * Bewusst als Widget-Bereich: dort greift der normale Block-Editor, die Logos
  * lassen sich also mit Bild-Blöcken tauschen, verlinken und neu anordnen –
- * ohne eine Datei anzufassen. Ist der Bereich leer, wird das Band nicht
- * ausgegeben; es entsteht also nie ein halb fertiger Streifen.
+ * ohne eine Datei anzufassen. Ist der Bereich leer, wird er nicht ausgegeben;
+ * es entsteht also nie ein halb fertiger Streifen. Auf der Startseite bleibt
+ * er ebenfalls aus, weil die Förderer dort weiter oben groß gezeigt werden.
  */
 function lz_widget_bereiche() {
 	register_sidebar(
 		array(
-			'name'          => __( 'Förderer-Band (Fußzeile)', 'lindenzauber' ),
+			'name'          => __( 'Förderer (Fußbereich)', 'lindenzauber' ),
 			'id'            => 'lz-foerderband',
-			'description'   => __( 'Das weiße Band mit den Logos der Förderer, wie am Fuß des Plakats. Am besten ein Spalten-Block mit vier Bild-Blöcken, jedes Bild mit der Website des Förderers verlinkt.', 'lindenzauber' ),
+			'description'   => __( 'Die Logos der Förderer im Fußbereich, auf hellen Kacheln im Raster. Am besten ein Spalten-Block mit vier Bild-Blöcken, jedes Bild mit der Website des Förderers verlinkt. Auf der Startseite wird dieser Bereich nicht angezeigt – dort stehen die Förderer weiter oben in groß.', 'lindenzauber' ),
 			'before_widget' => '<div id="%1$s" class="lz-sponsorband__widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h2 class="screen-reader-text">',

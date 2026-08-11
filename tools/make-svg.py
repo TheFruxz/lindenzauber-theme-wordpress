@@ -63,7 +63,56 @@ def sterne(size, count, seed, rmin, rmax, opacity_min, opacity_max, sparkles=0):
 
 
 write("sterne-nah.svg", sterne(620, 130, 7, 0.5, 1.7, 0.30, 0.95, sparkles=7))
-write("sterne-fern.svg", sterne(340, 90, 21, 0.35, 1.0, 0.18, 0.55))
+
+
+# ------------------------------------------------- weichgezeichnete Sterne
+def sterne_weich(size=460, count=70, seed=404, unschaerfe=1.5):
+    """Sternenfeld mit bereits eingebackener Unschärfe.
+
+    Unterhalb des Kopfbereichs sollen die Sterne ruhig im Hintergrund
+    liegen. Ein CSS-Weichzeichner über diese Fläche würde auf schwachen
+    Geräten spürbar Leistung kosten; hier steckt die Unschärfe in der
+    Grafik und wird genau einmal berechnet.
+
+    Damit an den Kachelrändern keine Nähte entstehen, wird das Sternenfeld
+    neunmal versetzt gezeichnet und anschließend auf die Kachel beschnitten.
+    """
+    rnd = random.Random(seed)
+    punkte = []
+
+    for _ in range(count):
+        punkte.append(
+            '<circle cx="%.1f" cy="%.1f" r="%.2f" fill="%s" opacity="%.2f"/>'
+            % (
+                rnd.uniform(0, size),
+                rnd.uniform(0, size),
+                rnd.uniform(1.1, 2.8),
+                rnd.choice(["#ffffff", "#fff6dc", "#e6efff"]),
+                rnd.uniform(0.35, 0.9),
+            )
+        )
+
+    versatz = "".join(
+        '<use href="#lz-s" x="%d" y="%d"/>' % (dx * size, dy * size)
+        for dx in (-1, 0, 1)
+        for dy in (-1, 0, 1)
+    )
+
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="%(s)d" height="%(s)d" '
+        'viewBox="0 0 %(s)d %(s)d">'
+        '<defs>'
+        '<g id="lz-s">%(p)s</g>'
+        '<filter id="lz-weich" x="-20%%" y="-20%%" width="140%%" height="140%%">'
+        '<feGaussianBlur stdDeviation="%(b).1f"/></filter>'
+        '<clipPath id="lz-kachel"><rect width="%(s)d" height="%(s)d"/></clipPath>'
+        '</defs>'
+        '<g clip-path="url(#lz-kachel)"><g filter="url(#lz-weich)">%(v)s</g></g>'
+        '</svg>' % {"s": size, "p": "".join(punkte), "b": unschaerfe, "v": versatz}
+    )
+
+
+write("sterne-weich.svg", sterne_weich())
 
 
 # ---------------------------------------------------------------- Lindenbaum

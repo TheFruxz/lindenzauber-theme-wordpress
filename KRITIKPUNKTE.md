@@ -100,3 +100,53 @@ Live-Seite auf:
   Behoben und automatisch nachgeprüft (390 px, 768 px, 1440 px).
 * **Porträtfotos in drei verschiedenen Formaten** (hoch, quer, quadratisch) ließen
   die Seite unruhig wirken. Jetzt einheitlich 4:5 zugeschnitten.
+
+---
+
+# Zweite Runde – Cedrics Durchsicht
+
+## Die gemeinsame Wurzel der Abstandsfehler
+
+Fast alle gemeldeten Stellen hatten dieselbe Ursache. WordPress erzeugt den Abstand
+zwischen zwei Blöcken selbst, als `margin-block-start`. Zwölf Regeln im Theme haben
+diesen Rand auf null oder negativ gesetzt – und damit den Abstand gelöscht.
+
+Behoben wurde nicht Stelle für Stelle, sondern das Prinzip: **kein Blockstil setzt
+mehr `margin-block-start`.** Wo bewusst wenig Abstand gewollt ist, steht das an einer
+einzigen Stelle in `blocks.css`, Abschnitt 1, als Geschwisterregel. Damit kann derselbe
+Fehler nicht an anderer Stelle wieder auftauchen – auch nicht bei allem, was Brigitta
+später selbst einfügt.
+
+Zweite Ursache: `.entry-content` brachte eigenes Innenmaß mit, zusätzlich zu dem jedes
+Abschnitts. Oben und unten stand doppelte Luft.
+
+Dritte Ursache, dabei gefunden: WordPress hat die **Abstands-Skala des Themes mit
+seiner eigenen überschrieben**. Alle Abschnitte hatten dadurch 36 px statt der
+vorgesehenen 56–88 px. `defaultSpacingSizes: false` in der `theme.json` behebt das.
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 41 | „Zum Programm und Die Erzählenden sind unterschiedlich groß“ | **Erledigt.** Ursache: Der Kern-Stil „Kontur“ setzt eigene Innenabstände und einen 2 px breiten Rahmen und gewann gegen die Theme-Vorgabe. Beide Knöpfe haben jetzt exakt dieselben Maße, dazu Druck-Rückmeldung und sichtbaren Fokusring. |
+| 42 | „Häuserreihe schwebt mitten im Bild“ | **Erledigt.** Der Hintergrund war am Bildschirm festgenagelt, dadurch hatte die Silhouette keinen Boden. Jetzt: aufgehellter Himmel oben, darunter durchgehend derselbe Grundton, und die Häuser sitzen genau auf der Kante – mit Dunst hinter der Dachlinie und einem Rest Laternenlicht am Horizont. Es liest sich als Horizont. |
+| 43 | „Parallax sieht tot und ungewollt aus“ | **Erledigt.** `position: fixed` ist raus, alles scrollt mit. Geblieben ist ein Nachlauf von 4 % über die CSS-Scroll-Zeitleiste – auf der Grafikkarte, ohne JavaScript. Unterhalb des Kopfbereichs liegt eine **vorab weichgezeichnete** Sterntextur; die Unschärfe steckt in der Grafik, ein CSS-Weichzeichner über diese Fläche hätte Leistung gekostet. Bei „Bewegung reduzieren“ steht alles still. |
+| 44 | „Förderer sind nicht klickbar vom Aussehen“ | **Erledigt.** Echter Fund: Der Absatz war `position: relative`, dadurch spannte sich die Klickfläche nur über den Namen statt über die Kachel. Jetzt: Zeigefinger auf der ganzen Kachel, Link über allem, Hover mit Goldrahmen, Anheben, Schatten und größerem Logo, Druck-Rückmeldung, Fokusring und ein Pfeil als Hinweis. |
+| 45 | „Förderer nicht doppelt anzeigen“ | **Erledigt.** Das freistehende weiße Band entfällt. Der Fußbereich hat jetzt eine eigene erste Zeile mit den Logos auf hellen Kacheln im Raster. Auf der Startseite bleibt sie aus – dort stehen die Förderer weiter oben, größer als vorher (Logos bis 132 px statt 96 px). |
+| 46 | „Zwischen Titel und Boxen ist kein Gap“ (Bild 1) | **Erledigt**, siehe gemeinsame Wurzel oben. Nach jeder Überschrift steht jetzt verlässlich Luft. |
+| 47 | „Kurzfassung unter dem Namen hat kein Padding“ (Bild 2) | **Erledigt.** Der negative Rand ist weg; Name → Rolle → Text folgen einem festen Takt. |
+| 48 | „Mehr anzeigen ist zackig da“ | **Erledigt.** Der Text entfaltet sich jetzt über eine gemessene Höhe hinweg. Die Ausblendung ist eine Maske statt einer Farbfläche – dadurch passt sie auf jedem Hintergrund und es entsteht kein heller Kasten mehr. |
+| 49 | „Text unter Förderer ist nicht zentral in der Box“ (Bild 3) | **Erledigt**, siehe zweite Ursache oben. |
+| 50 | „Finde weitere Fehler dieser Art“ | **Erledigt und abgesichert.** `tools/layout-check.mjs` prüft alle Seiten in drei Breiten auf fehlende Abstände, außermittige Abschnitte, Klickflächen ohne Zeiger, seitlichen Überlauf und zu schwachen Kontrast. Ergebnis: **keine Befunde**. |
+
+## In dieser Runde zusätzlich gefunden
+
+* **Alle Abschnitte waren zu eng** – die Abstands-Skala des Themes wurde von
+  WordPress überschrieben (36 px statt 86 px).
+* **Die Ausblendung bei „Mehr anzeigen“ war als heller Kasten sichtbar**, weil die
+  Verlaufsfarbe den Hintergrund nicht traf.
+* **Auf dem Handy standen die Förderer-Kacheln untereinander statt 2 × 2** – die
+  Breitenrechnung passte um wenige Pixel nicht zum Spaltenabstand.
+* **Der Laternenschein klebte am Bildschirm**, statt zur Laterne zu gehören.
+* **„Gut zu wissen“ war als einziger Abschnitt der Startseite linksbündig** und wirkte
+  dadurch versehentlich. Jetzt mittig wie die übrigen.
+* **Der Festtitel hatte keinen Schattenwurf** – einzelne Sterne standen mitten in den
+  Buchstaben. Jetzt hebt sich der Text sauber ab.

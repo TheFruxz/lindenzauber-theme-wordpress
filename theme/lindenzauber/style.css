@@ -4,7 +4,7 @@ Theme URI: https://lindenzauber.de/
 Author: Mütter-Kinder-Zentrum Bassum e. V.
 Author URI: https://www.muekize-bassum.de/
 Description: Theme für das Märchenfest Lindenzauber in Bassum. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen.
-Version: 3.0.0
+Version: 3.1.0
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -29,6 +29,11 @@ Tags: one-column, custom-menu, custom-logo, block-patterns, block-styles, editor
 	--lz-muted: var(--wp--preset--color--blaugrau, #a9b8d2);
 	--lz-leaf: var(--wp--preset--color--laub, #24512a);
 
+	/* Der Grundton der ganzen Seite. Unterhalb des Kopfbereichs bleibt er
+	   überall gleich – dadurch wirkt die Dorfsilhouette als Horizont und
+	   nicht als schwebende Häuserreihe. */
+	--lz-grund: #080f1e;
+
 	--lz-hairline: rgba(240, 200, 104, 0.22);
 	--lz-hairline-soft: rgba(240, 200, 104, 0.12);
 	--lz-glow: 242, 168, 60;
@@ -39,6 +44,13 @@ Tags: one-column, custom-menu, custom-logo, block-patterns, block-styles, editor
 
 	--lz-ui: var(--wp--preset--font-family--sans, Lato, system-ui, sans-serif);
 	--lz-script: var(--wp--preset--font-family--schwung, "Great Vibes", cursive);
+
+	--lz-dauer: 180ms;
+	--lz-dauer-lang: 340ms;
+	--lz-kurve: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+	/* Höhe des aufgehellten Himmels ganz oben. */
+	--lz-himmel: 46rem;
 }
 
 /* ===============================================================
@@ -53,12 +65,12 @@ Tags: one-column, custom-menu, custom-logo, block-patterns, block-styles, editor
 html {
 	-webkit-text-size-adjust: 100%;
 	scroll-behavior: smooth;
-	background-color: #060b18;
+	background-color: var(--lz-grund);
 }
 
 body {
 	margin: 0;
-	background-color: var(--lz-night);
+	background-color: var(--lz-grund);
 	overflow-x: hidden;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -106,7 +118,7 @@ img {
 	font-weight: 700;
 	letter-spacing: 0.08em;
 	text-decoration: none;
-	transition: top 0.2s ease;
+	transition: top var(--lz-dauer) var(--lz-kurve);
 }
 
 .skip-link:focus {
@@ -115,67 +127,77 @@ img {
 }
 
 /* ===============================================================
-   3. Nachthimmel – die Atmosphäre vom Plakat
-   Liegt komplett im Theme. Im Editor kommt sie nicht vor, damit
-   dort nichts verrutscht.
+   3. Nachthimmel
+   Alles hier scrollt mit der Seite. Nichts steht fest am Bildschirm –
+   ein feststehender Hintergrund wirkt tot und war ausdrücklich unerwünscht.
    =============================================================== */
-.lz-atmosphere {
-	position: fixed;
-	inset: 0;
+
+/* Der aufgehellte Himmel oben, der in den Grundton übergeht. */
+.site::before {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: 0;
+	height: var(--lz-himmel);
 	z-index: 0;
 	pointer-events: none;
-	overflow: hidden;
+	background:
+		radial-gradient(120% 90% at 76% -20%, rgba(41, 63, 110, 0.55) 0%, rgba(14, 24, 48, 0) 62%),
+		linear-gradient(180deg, #060c1c 0%, #101c39 34%, #16233e 62%, var(--lz-grund) 100%);
 }
 
-.lz-atmosphere > * {
+/* Sterne über der ganzen Seite – weichgezeichnet, damit sie hinter dem
+   Inhalt ruhig bleiben. Die Unschärfe steckt schon in der Grafik; ein
+   CSS-Weichzeichner über diese Fläche würde spürbar Leistung kosten. */
+.lz-sterne {
 	position: absolute;
-	inset: 0;
-}
-
-/* Grundverlauf des Himmels */
-.lz-atmosphere__sky {
-	background:
-		radial-gradient(120% 80% at 78% -10%, rgba(35, 56, 100, 0.6) 0%, rgba(14, 24, 48, 0) 60%),
-		linear-gradient(180deg, #050a16 0%, #0d1730 38%, #16233e 72%, #0a1224 100%);
-}
-
-/* Sterne – zwei Ebenen, unterschiedlich groß und hell */
-.lz-atmosphere__stars,
-.lz-atmosphere__stars--far {
+	inset-inline: 0;
+	inset-block-start: 0;
+	height: 104%;
+	z-index: 0;
+	pointer-events: none;
+	background-image: url("assets/img/sterne-weich.svg");
 	background-repeat: repeat;
-}
-
-.lz-atmosphere__stars {
-	background-image: url("assets/img/sterne-nah.svg");
-	background-size: 620px 620px;
-	opacity: 0.85;
-}
-
-.lz-atmosphere__stars--far {
-	background-image: url("assets/img/sterne-fern.svg");
-	background-size: 340px 340px;
+	background-size: 460px 460px;
 	opacity: 0.5;
-	animation: lz-drift 220s linear infinite;
+	will-change: transform;
 }
 
-@keyframes lz-drift {
+/* Nur im Kopfbereich stehen die Sterne scharf – dort schaut man hin. */
+.lz-sterne__klar {
+	position: absolute;
+	inset-inline: 0;
+	inset-block-start: 0;
+	height: var(--lz-himmel);
+	z-index: 0;
+	pointer-events: none;
+	background-image: url("assets/img/sterne-nah.svg");
+	background-repeat: repeat;
+	background-size: 620px 620px;
+	opacity: 0.9;
+	-webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+	mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+}
+
+/* Der Nachlauf beim Scrollen: gerade so viel, dass es lebendig wirkt.
+   Läuft über die Scroll-Zeitleiste auf der Grafikkarte, ohne JavaScript.
+   Wo der Browser das nicht kennt, steht der Hintergrund einfach still. */
+@keyframes lz-nachlauf {
 	from { transform: translate3d(0, 0, 0); }
-	to   { transform: translate3d(-340px, -170px, 0); }
+	to   { transform: translate3d(0, 4%, 0); }
 }
 
-/* Der warme Laternenschein unten links */
-.lz-atmosphere__glow {
-	background:
-		radial-gradient(46rem 40rem at 14% 74%, rgba(var(--lz-glow), 0.20) 0%, rgba(var(--lz-glow), 0.07) 38%, rgba(var(--lz-glow), 0) 68%),
-		radial-gradient(22rem 20rem at 10% 62%, rgba(var(--lz-glow), 0.16) 0%, rgba(var(--lz-glow), 0) 70%);
+@supports (animation-timeline: scroll()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.lz-sterne {
+			animation: lz-nachlauf linear both;
+			animation-timeline: scroll(root block);
+		}
+	}
 }
 
-/* Abdunklung an den Rändern, wie beim Plakat */
-.lz-atmosphere__vignette {
-	background: radial-gradient(120% 100% at 50% 40%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-/* Lindenbaum und Dorf liegen im Fluss der Seite, nicht fixiert */
+/* Lindenbaum mit Laterne und ihrem Lichtschein – gehört zusammen und
+   scrollt deshalb auch gemeinsam mit der Seite. */
 .lz-scene {
 	position: absolute;
 	inset-inline-start: 0;
@@ -186,7 +208,23 @@ img {
 	user-select: none;
 }
 
+.lz-scene::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: -18%;
+	inset-block-start: 26%;
+	width: 130%;
+	aspect-ratio: 1;
+	background: radial-gradient(
+		circle at 40% 45%,
+		rgba(var(--lz-glow), 0.22) 0%,
+		rgba(var(--lz-glow), 0.08) 34%,
+		rgba(var(--lz-glow), 0) 66%
+	);
+}
+
 .lz-scene__tree {
+	position: relative;
 	display: block;
 	width: 100%;
 	height: auto;
@@ -229,7 +267,7 @@ img {
 	position: relative;
 	z-index: 30;
 	border-bottom: 1px solid var(--lz-hairline-soft);
-	background: linear-gradient(180deg, rgba(6, 11, 24, 0.92) 0%, rgba(6, 11, 24, 0.62) 100%);
+	background: linear-gradient(180deg, rgba(6, 11, 24, 0.9) 0%, rgba(6, 11, 24, 0.55) 100%);
 	backdrop-filter: blur(8px);
 	-webkit-backdrop-filter: blur(8px);
 }
@@ -311,6 +349,11 @@ img {
 	color: var(--lz-cream);
 	cursor: pointer;
 	flex: none;
+	transition: border-color var(--lz-dauer) var(--lz-kurve);
+}
+
+.nav-toggle:hover {
+	border-color: var(--lz-gold);
 }
 
 .nav-toggle__bars {
@@ -319,7 +362,7 @@ img {
 	width: 18px;
 	height: 2px;
 	background: var(--lz-gold);
-	transition: background 0.2s ease;
+	transition: background var(--lz-dauer) var(--lz-kurve);
 }
 
 .nav-toggle__bars::before,
@@ -330,7 +373,9 @@ img {
 	width: 18px;
 	height: 2px;
 	background: var(--lz-gold);
-	transition: transform 0.2s ease, top 0.2s ease;
+	transition:
+		transform var(--lz-dauer) var(--lz-kurve),
+		top var(--lz-dauer) var(--lz-kurve);
 }
 
 .nav-toggle__bars::before { top: -6px; }
@@ -362,7 +407,7 @@ img {
 	text-transform: uppercase;
 	text-decoration: none;
 	color: var(--lz-muted);
-	transition: color 0.2s ease;
+	transition: color var(--lz-dauer) var(--lz-kurve);
 }
 
 .main-nav a::after {
@@ -375,7 +420,7 @@ img {
 	background: var(--lz-gold);
 	transform: scaleX(0);
 	transform-origin: left;
-	transition: transform 0.25s ease;
+	transition: transform 250ms var(--lz-kurve);
 }
 
 .main-nav a:hover,
@@ -433,7 +478,7 @@ img {
 .entry-header {
 	max-width: var(--lz-wrap);
 	margin-inline: auto;
-	padding: clamp(3.5rem, 8vw, 6rem) var(--lz-gutter) 0;
+	padding: clamp(3.5rem, 8vw, 5.5rem) var(--lz-gutter) 0;
 	text-align: center;
 }
 
@@ -455,6 +500,7 @@ img {
 	font-size: var(--wp--preset--font-size--ueberschrift-gross, 3rem);
 	line-height: 1.12;
 	color: var(--lz-white);
+	text-shadow: 0 2px 16px rgba(5, 10, 22, 0.7);
 }
 
 .entry-header h1 em,
@@ -476,17 +522,19 @@ img {
 
 /* ===============================================================
    7. Inhalt
+   Die Abschnitte bringen ihren eigenen Abstand mit. Der Inhaltsbereich
+   darf deshalb keinen zusätzlichen setzen – sonst steht oben und unten
+   doppelte Luft und der letzte Abschnitt wirkt nach unten verrutscht.
    =============================================================== */
 .entry-content {
 	position: relative;
-	padding-block: clamp(2.5rem, 5vw, 4rem) clamp(3.5rem, 7vw, 6rem);
 }
 
 /* Seiten ohne eigenes Layout (Impressum, Datenschutz …) */
 .page-schlicht .entry-content {
 	max-width: 46rem;
 	margin-inline: auto;
-	padding-inline: var(--lz-gutter);
+	padding: clamp(2.5rem, 5vw, 3.5rem) var(--lz-gutter) clamp(4rem, 8vw, 6rem);
 }
 
 .page-schlicht .entry-content h2 {
@@ -501,16 +549,11 @@ img {
 	border-top: 0;
 }
 
-/* Startseite: kein Titelkopf, der Hero übernimmt */
-.page-startseite .entry-content {
-	padding-block-start: 0;
-}
-
 /* Beitragsliste (falls doch mal Beiträge genutzt werden) */
 .lz-postlist {
 	max-width: 46rem;
 	margin-inline: auto;
-	padding-inline: var(--lz-gutter);
+	padding: clamp(2.5rem, 5vw, 3.5rem) var(--lz-gutter) clamp(4rem, 8vw, 6rem);
 	list-style: none;
 }
 
@@ -542,70 +585,41 @@ img {
 }
 
 /* ===============================================================
-   8. Förderer-Band (weiß, wie der Fuß des Plakats)
+   8. Der Horizont: Dorfsilhouette am unteren Rand des Kopfbereichs
+   Sie sitzt genau auf der Kante zwischen Himmel und Grundton – dadurch
+   liest sie sich als Horizont und nicht als schwebende Häuserreihe.
    =============================================================== */
-.lz-sponsorband {
-	position: relative;
-	z-index: 2;
-	background: #ffffff;
-	padding: clamp(1.75rem, 3.5vw, 2.75rem) var(--lz-gutter);
+.wp-block-group.is-style-lz-hero::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 100vw;
+	max-width: none;
+	transform: translateX(-50%);
+	height: clamp(120px, 15vw, 230px);
+	z-index: 1;
+	pointer-events: none;
+	background:
+		/* Die Häuser stehen auf dem Boden … */
+		url("assets/img/dorf.svg") repeat-x bottom center / auto 100%,
+		/* … davor ein heller Dunst, damit sich die Dachlinie abzeichnet … */
+		linear-gradient(
+			180deg,
+			rgba(30, 50, 92, 0) 0%,
+			rgba(34, 56, 100, 0.42) 40%,
+			rgba(20, 34, 64, 0.55) 62%,
+			rgba(8, 15, 30, 0.92) 84%,
+			var(--lz-grund) 100%
+		),
+		/* … und ein Rest Laternenlicht am linken Horizont. */
+		radial-gradient(60% 90% at 16% 100%, rgba(var(--lz-glow), 0.16) 0%, rgba(var(--lz-glow), 0) 70%);
 }
 
-.lz-sponsorband__inner {
-	max-width: var(--lz-wrap);
-	margin-inline: auto;
-}
-
-.lz-sponsorband__label {
-	margin: 0 0 1.5rem;
-	font-family: var(--lz-ui);
-	font-size: 0.68rem;
-	font-weight: 700;
-	letter-spacing: 0.24em;
-	text-transform: uppercase;
-	color: #64708a;
-	text-align: center;
-}
-
-/* Die Logos kommen als Block-Inhalt aus dem Widget-Bereich. */
-.lz-sponsorband .wp-block-columns {
-	align-items: center;
-	gap: clamp(1.25rem, 3vw, 2.5rem);
-	margin-block: 0;
-	flex-wrap: wrap;
-}
-
-.lz-sponsorband .wp-block-column {
-	flex-basis: 0;
-	flex-grow: 1;
-	/* Ohne min-width: 0 können Flex-Spalten nicht unter ihre Bildbreite
-	   schrumpfen – auf dem Handy entstünde sonst seitlicher Überlauf. */
-	min-width: 0;
-}
-
-.lz-sponsorband figure { margin: 0; }
-
-.lz-sponsorband img {
-	max-height: 104px;
-	width: auto;
-	margin-inline: auto;
-	object-fit: contain;
-	transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.lz-sponsorband a { display: block; }
-
-.lz-sponsorband a:hover img,
-.lz-sponsorband a:focus-visible img {
-	transform: translateY(-3px) scale(1.02);
-}
-
-.lz-sponsorband p { margin: 0; }
-
-@media (max-width: 780px) {
-	.lz-sponsorband { padding-inline: 1rem; }
-	.lz-sponsorband .wp-block-columns { gap: 0.75rem; }
-	.lz-sponsorband img { max-height: 56px; }
+/* Ganz unten schließt der Kopfbereich mit dem Grundton ab, damit unter der
+   Dachlinie keine Kante entsteht. */
+.wp-block-group.is-style-lz-hero {
+	background: linear-gradient(180deg, rgba(8, 15, 30, 0) 62%, var(--lz-grund) 100%);
 }
 
 /* ===============================================================
@@ -620,13 +634,14 @@ img {
 	font-family: var(--lz-ui);
 	font-size: 0.9375rem;
 	line-height: 1.7;
-	padding-block: clamp(3rem, 6vw, 4.5rem) 1.75rem;
+	padding-block: 0 1.75rem;
 }
 
 .site-footer a {
 	color: var(--lz-muted);
 	text-decoration-color: rgba(169, 184, 210, 0.35);
 	text-underline-offset: 0.2em;
+	transition: color var(--lz-dauer) var(--lz-kurve);
 }
 
 .site-footer a:hover,
@@ -634,10 +649,98 @@ img {
 	color: var(--lz-gold-light);
 }
 
+/* --- Förderer als eigener Bereich im Fußbereich ------------------ */
+.site-footer__foerderer {
+	max-width: var(--lz-wrap);
+	margin-inline: auto;
+	padding: clamp(2.25rem, 4vw, 3.25rem) var(--lz-gutter);
+	border-bottom: 1px solid rgba(169, 184, 210, 0.16);
+}
+
+.site-footer__foerderer-titel {
+	margin: 0 0 1.5rem;
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--lz-gold-deep);
+	text-align: center;
+}
+
+/* Die Logos kommen als Block-Inhalt aus dem Widget-Bereich und stehen auf
+   hellen Kacheln – die vorhandenen Logodateien sind mehrfarbig auf Weiß
+   und wären auf dunklem Grund nicht lesbar. */
+.site-footer__foerderer .wp-block-columns {
+	align-items: stretch;
+	gap: clamp(0.75rem, 1.6vw, 1.25rem);
+	margin-block: 0;
+	flex-wrap: wrap;
+}
+
+.site-footer__foerderer .wp-block-column {
+	flex-basis: 0;
+	flex-grow: 1;
+	/* Ohne min-width: 0 können Flex-Spalten nicht unter ihre Bildbreite
+	   schrumpfen – auf dem Handy entstünde sonst seitlicher Überlauf. */
+	min-width: 0;
+}
+
+.site-footer__foerderer figure {
+	margin: 0;
+	height: 100%;
+}
+
+.site-footer__foerderer a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	min-height: 6rem;
+	padding: 0.8rem 0.9rem;
+	background: rgba(255, 255, 255, 0.94);
+	border: 1px solid transparent;
+	border-radius: 6px;
+	transition:
+		transform var(--lz-dauer) var(--lz-kurve),
+		background var(--lz-dauer) var(--lz-kurve),
+		border-color var(--lz-dauer) var(--lz-kurve),
+		box-shadow var(--lz-dauer) var(--lz-kurve);
+}
+
+.site-footer__foerderer a:hover,
+.site-footer__foerderer a:focus-visible {
+	background: #ffffff;
+	border-color: var(--lz-gold);
+	transform: translateY(-3px);
+	box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.9);
+}
+
+.site-footer__foerderer a:active {
+	transform: translateY(-1px);
+}
+
+.site-footer__foerderer img {
+	max-height: 88px;
+	width: auto;
+	margin-inline: auto;
+	object-fit: contain;
+}
+
+.site-footer__foerderer p { margin: 0; }
+
+@media (max-width: 780px) {
+	.site-footer__foerderer .wp-block-column {
+		flex-basis: calc(50% - 0.75rem) !important;
+	}
+
+	.site-footer__foerderer img { max-height: 68px; }
+}
+
+/* --- Die Spalten des Fußbereichs --------------------------------- */
 .site-footer__grid {
 	max-width: var(--lz-wrap);
 	margin-inline: auto;
-	padding-inline: var(--lz-gutter);
+	padding: clamp(2.75rem, 5vw, 4rem) var(--lz-gutter) 0;
 	display: grid;
 	gap: 2.5rem clamp(1.5rem, 4vw, 3rem);
 	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
@@ -691,12 +794,10 @@ img {
 }
 
 /* ===============================================================
-   10. Bewegung, Druck, hoher Kontrast
+   10. Bewegung, Druck
    =============================================================== */
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
-
-	.lz-atmosphere__stars--far { animation: none; }
 
 	*,
 	*::before,
@@ -708,8 +809,10 @@ img {
 }
 
 @media print {
-	.lz-atmosphere,
+	.lz-sterne,
+	.lz-sterne__klar,
 	.lz-scene,
+	.site::before,
 	.site-header,
 	.site-footer,
 	.nav-toggle,
@@ -721,4 +824,6 @@ img {
 	.entry-header { color: #000 !important; }
 
 	a { color: #000 !important; text-decoration: underline; }
+
+	.lz-mehr__inhalt { height: auto !important; overflow: visible !important; }
 }

@@ -12,16 +12,22 @@
 ?>
 	</main><!-- .site-main -->
 
-	<?php if ( is_active_sidebar( 'lz-foerderband' ) ) : ?>
-		<aside class="lz-sponsorband" aria-label="<?php esc_attr_e( 'Förderer', 'lindenzauber' ); ?>">
-			<div class="lz-sponsorband__inner">
-				<p class="lz-sponsorband__label"><?php esc_html_e( 'Mit freundlicher Unterstützung von', 'lindenzauber' ); ?></p>
-				<?php dynamic_sidebar( 'lz-foerderband' ); ?>
-			</div>
-		</aside>
-	<?php endif; ?>
-
 	<footer class="site-footer">
+
+		<?php
+		/*
+		 * Die Förderer stehen im Fußbereich – auf jeder Seite, als eigener
+		 * Bereich mit Raster. Nur auf der Startseite nicht: dort werden sie
+		 * weiter oben groß gezeigt, und zweimal untereinander wäre doppelt.
+		 */
+		if ( ! is_front_page() && is_active_sidebar( 'lz-foerderband' ) ) :
+			?>
+			<section class="site-footer__foerderer" aria-label="<?php esc_attr_e( 'Förderer', 'lindenzauber' ); ?>">
+				<p class="site-footer__foerderer-titel"><?php esc_html_e( 'Mit freundlicher Unterstützung von', 'lindenzauber' ); ?></p>
+				<?php dynamic_sidebar( 'lz-foerderband' ); ?>
+			</section>
+		<?php endif; ?>
+
 		<div class="site-footer__grid">
 
 			<div>

@@ -18,8 +18,6 @@
 
 <a class="skip-link" href="#inhalt"><?php esc_html_e( 'Zum Inhalt springen', 'lindenzauber' ); ?></a>
 
-<?php lz_atmosphaere(); ?>
-
 <div class="site">
 
 	<?php lz_szene(); ?>

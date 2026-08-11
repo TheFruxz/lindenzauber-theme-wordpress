@@ -59,6 +59,7 @@
 		"spacing": {
 			"customSpacingSize": true,
 			"units": [ "px", "rem", "em", "%", "vw", "vh" ],
+			"defaultSpacingSizes": false,
 			"spacingSizes": [
 				{ "slug": "20", "size": "0.75rem", "name": "1 – Sehr eng" },
 				{ "slug": "30", "size": "1.25rem", "name": "2 – Eng" },

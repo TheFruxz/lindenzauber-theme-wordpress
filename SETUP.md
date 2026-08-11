@@ -98,9 +98,9 @@ Beide Menüs unter *Positionen des Menüs* dem passenden Platz zuweisen.
 > Wenn kein Menü zugewiesen ist, zeigt das Theme automatisch eine sinnvolle
 > Linkliste. Es sieht also nie kaputt aus.
 
-## 8. Förderer-Band in der Fußzeile
+## 8. Förderer im Fußbereich
 
-*Design → Widgets → Förderer-Band (Fußzeile)*
+*Design → Widgets → Förderer (Fußbereich)*
 
 Der bequemste Weg: auf **+** klicken, oben nach *Lindenzauber* suchen und das Muster
 **„Förderer-Band (für die Fußzeile)“** einfügen. Fertig.
@@ -111,6 +111,10 @@ Blockcode und macht daraus vier Bild-Blöcke.
 
 Die Logos zeigen zunächst auf die vorhandenen Dateien in der Mediathek. Zum
 Austauschen genügt ein Klick auf das jeweilige Logo → *Ersetzen*.
+
+Die Logos erscheinen dann auf hellen Kacheln als erste Zeile im Fußbereich –
+auf allen Seiten **außer der Startseite**. Dort stehen die Förderer weiter oben
+groß und präsent; zweimal untereinander wäre doppelt.
 
 Ist der Bereich leer, wird das weiße Band einfach nicht angezeigt – es entsteht
 kein halb fertiger Streifen.

@@ -24,10 +24,6 @@
 <p class="has-text-align-center">Am schnellsten geht es per E-Mail oder WhatsApp. Wir antworten in der Regel innerhalb weniger Tage.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
-<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="mailto:info@lindenzauber.de">E-Mail schreiben</a></div>

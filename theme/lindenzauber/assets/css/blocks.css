@@ -6,6 +6,17 @@
  * Eltern-Containern wie ".entry-content". Nur so sieht die Vorschau im
  * Editor genauso aus wie die fertige Seite – und nur so kann keine
  * Regel eine andere unbeabsichtigt überschreiben.
+ *
+ * ZUM ABSTAND – bitte beim Ändern beachten:
+ * WordPress erzeugt den Abstand zwischen zwei Blöcken selbst, als
+ * margin-block-start auf jedem Block, der einen Vorgänger hat. Wer in einem
+ * Blockstil margin-block-start (oder margin-block: 0 …) setzt, löscht diesen
+ * Abstand – und die Überschrift klebt am Folgeblock. Deshalb gilt hier:
+ *
+ *   Ein Abstand gehört immer dem Element, das FOLGT,
+ *   und wird über eine Geschwisterregel gesetzt: "A + B { margin-block-start }".
+ *
+ * Alle bewussten Abweichungen stehen gesammelt in Abschnitt 1. Sonst nirgends.
  */
 
 /* ===============================================================
@@ -26,10 +37,71 @@
 	--lzb-radius: 3px;
 	--lzb-ui: var(--wp--preset--font-family--sans, Lato, system-ui, sans-serif);
 	--lzb-script: var(--wp--preset--font-family--schwung, "Great Vibes", cursive);
+
+	/* Takt: die drei erlaubten Abstände zwischen zwei Blöcken. */
+	--lz-takt-eng: 0.55rem;
+	--lz-takt: var(--wp--style--block-gap, 1.5rem);
+	--lz-takt-weit: clamp(1.75rem, 2.6vw, 2.5rem);
+
+	/* Übergänge: eine Dauer, eine Kurve, überall dieselbe. */
+	--lz-dauer: 180ms;
+	--lz-dauer-lang: 340ms;
+	--lz-kurve: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* ===============================================================
-   1. Abschnitte (Gruppe)
+   1. Takt – die einzigen Stellen, an denen Abstände gesetzt werden
+   =============================================================== */
+
+/* Nach einer Überschrift darf es atmen. */
+:root .wp-block-heading + * {
+	margin-block-start: var(--lz-takt-weit);
+}
+
+/* Bewusst enge Paare: was zusammengehört, steht auch zusammen. */
+:root .is-style-lz-festtitel + * {
+	margin-block-start: 0.25rem;
+}
+
+:root .is-style-lz-untertitel + * {
+	margin-block-start: 1.1rem;
+}
+
+/* Die Überzeile führt zur Überschrift hin. */
+:root .is-style-lz-ueberzeile + * {
+	margin-block-start: 0.5rem;
+}
+
+/* Name → Rolle → Text */
+:root .wp-block-heading + .is-style-lz-rolle,
+:root .wp-block-heading + .is-style-lz-zeitangabe {
+	margin-block-start: 0.5rem;
+}
+
+:root .is-style-lz-rolle + *,
+:root .is-style-lz-zeitangabe + * {
+	margin-block-start: 1.15rem;
+}
+
+/* Banderole und ihr Hinweis. */
+:root .is-style-lz-banderole + .is-style-lz-hinweis {
+	margin-block-start: 1rem;
+}
+
+/* In Karten ist weniger Luft angemessen – sie sind klein. */
+:root .wp-block-column.is-style-lz-karte .wp-block-heading + *,
+:root .wp-block-column.is-style-lz-festtag .wp-block-heading + * {
+	margin-block-start: var(--lz-takt-eng);
+}
+
+/* Der ausklappbare Textteil ist ein einfaches div und bekommt vom
+   Blockeditor keinen Takt – hier wird er nachgereicht. */
+.lz-mehr__inhalt > * + * {
+	margin-block-start: var(--lz-takt);
+}
+
+/* ===============================================================
+   2. Abschnitte (Gruppe)
    =============================================================== */
 
 /* Standard-Abschnitt: nur Luft nach oben und unten */
@@ -41,37 +113,21 @@
 .wp-block-group.is-style-lz-panel {
 	position: relative;
 	padding-block: var(--wp--preset--spacing--60, clamp(3.5rem, 6vw, 5.5rem));
-	background: linear-gradient(180deg, rgba(22, 35, 62, 0.72) 0%, rgba(16, 26, 48, 0.82) 100%);
+	background: linear-gradient(180deg, rgba(22, 35, 62, 0.55) 0%, rgba(18, 29, 52, 0.72) 100%);
 	border-block: 1px solid var(--lzb-hair-soft);
 }
 
-/* Kopfbereich der Startseite */
+/* Kopfbereich der Startseite. Die Dorfsilhouette am unteren Rand steht in
+   der style.css, weil sie zum Himmel gehört und nicht zum Inhalt. */
 .wp-block-group.is-style-lz-hero {
 	position: relative;
-	padding-block: clamp(3.5rem, 9vw, 7rem) clamp(6rem, 12vw, 10rem);
+	padding-block: clamp(3rem, 7vw, 5.5rem) clamp(7rem, 14vw, 12rem);
 	text-align: center;
-}
-
-/* Dorfsilhouette am unteren Rand des Kopfbereichs, wie auf dem Plakat */
-.wp-block-group.is-style-lz-hero::after {
-	content: "";
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	width: 100vw;
-	max-width: none;
-	transform: translateX(-50%);
-	height: clamp(90px, 12vw, 190px);
-	background: url("../img/dorf.svg") repeat-x bottom center / auto 100%;
-	opacity: 0.75;
-	pointer-events: none;
-	-webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-	mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
 }
 
 .wp-block-group.is-style-lz-hero > * {
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 }
 
 /* Ruhiger Kasten mit goldenem Rahmen */
@@ -83,7 +139,7 @@
 }
 
 /* ===============================================================
-   2. Überschriften
+   3. Überschriften
    =============================================================== */
 
 /* Kursiv in einer Überschrift = Schwungschrift wie auf dem Plakat.
@@ -112,8 +168,9 @@ h1 i, h2 i, h3 i, h4 i,
 	line-height: 0.98;
 	letter-spacing: 0.005em;
 	color: var(--lzb-gold-light);
-	margin-block-end: 0.1em;
-	text-shadow: 0 0 44px rgba(240, 200, 104, 0.28);
+	text-shadow:
+		0 0 44px rgba(240, 200, 104, 0.28),
+		0 2px 18px rgba(5, 10, 22, 0.75);
 }
 
 .wp-block-heading.is-style-lz-festtitel em,
@@ -132,7 +189,7 @@ p.is-style-lz-untertitel {
 	text-transform: uppercase;
 	line-height: 1.3;
 	color: #ffffff;
-	margin-block: 0 0.4rem;
+	text-shadow: 0 2px 14px rgba(5, 10, 22, 0.8);
 }
 
 /* Überschriften mit Gold-Zeichen (Mond, Familie, Ort, Zeit, Blatt) */
@@ -141,7 +198,7 @@ p.is-style-lz-untertitel {
 	display: block;
 	width: clamp(2.1rem, 3.4vw, 2.9rem);
 	height: clamp(2.1rem, 3.4vw, 2.9rem);
-	margin-block-end: 0.75rem;
+	margin-block-end: 0.9rem;
 	background-color: var(--lzb-gold);
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
@@ -162,13 +219,12 @@ p.is-style-lz-untertitel {
 }
 
 /* ===============================================================
-   3. Absätze
+   4. Absätze
    =============================================================== */
 
 /* Überzeile über einer Überschrift */
 .wp-block-paragraph.is-style-lz-ueberzeile,
 p.is-style-lz-ueberzeile {
-	margin-block-end: 0.8rem;
 	font-family: var(--lzb-ui);
 	font-size: 0.72rem;
 	font-weight: 700;
@@ -189,13 +245,24 @@ p.is-style-lz-lead {
 /* Zeitangabe unter einer Überschrift */
 .wp-block-paragraph.is-style-lz-zeitangabe,
 p.is-style-lz-zeitangabe {
-	margin-block: 0 1.1rem;
 	font-family: var(--lzb-ui);
 	font-size: 0.78rem;
 	font-weight: 700;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	color: var(--lzb-gold);
+}
+
+/* Rolle / Kurzbeschreibung unter dem Namen */
+.wp-block-paragraph.is-style-lz-rolle,
+p.is-style-lz-rolle {
+	font-family: var(--lzb-ui);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	line-height: 1.5;
+	text-transform: uppercase;
+	color: var(--lzb-muted);
 }
 
 /* Die Banderole "Eintritt frei" mit Laub an den Enden */
@@ -206,7 +273,6 @@ p.is-style-lz-banderole {
 	width: fit-content;
 	max-width: 100%;
 	margin-inline: auto;
-	margin-block: 1.75rem;
 	padding: 0.9rem clamp(2.2rem, 5vw, 3.6rem);
 	font-family: var(--lzb-ui);
 	font-size: clamp(0.9rem, 1.7vw, 1.15rem);
@@ -247,7 +313,7 @@ p.is-style-lz-banderole::after {
 	pointer-events: none;
 }
 
-/* Hinweiszeile mit Blatt davor */
+/* Hinweiszeile mit Funkelzeichen davor */
 .wp-block-paragraph.is-style-lz-hinweis,
 p.is-style-lz-hinweis {
 	display: flex;
@@ -258,6 +324,7 @@ p.is-style-lz-hinweis {
 	font-size: 0.82rem;
 	font-weight: 700;
 	letter-spacing: 0.18em;
+	line-height: 1.5;
 	text-transform: uppercase;
 	color: var(--lzb-gold-light);
 }
@@ -274,22 +341,18 @@ p.is-style-lz-hinweis::before {
 }
 
 /* ===============================================================
-   4. Spalten
+   5. Spalten
    =============================================================== */
 
 /* Info-Karte */
 .wp-block-column.is-style-lz-karte {
-	padding: clamp(1.4rem, 2.6vw, 2rem);
+	padding: clamp(1.5rem, 2.6vw, 2.1rem);
 	border: 1px solid var(--lzb-hair-soft);
 	border-radius: var(--lzb-radius);
 	background: rgba(22, 35, 62, 0.55);
 }
 
-.wp-block-column.is-style-lz-karte > *:first-child { margin-block-start: 0; }
-.wp-block-column.is-style-lz-karte > *:last-child  { margin-block-end: 0; }
-
 .wp-block-column.is-style-lz-karte :is(h2, h3, h4) {
-	margin-block-end: 0.5rem;
 	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.22em;
@@ -302,7 +365,7 @@ p.is-style-lz-hinweis::before {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	padding: clamp(1.8rem, 3.4vw, 2.75rem);
+	padding: clamp(1.9rem, 3.4vw, 2.75rem);
 	border: 1px solid var(--lzb-hair);
 	border-radius: var(--lzb-radius);
 	background:
@@ -323,69 +386,150 @@ p.is-style-lz-hinweis::before {
 	opacity: 0.75;
 }
 
-.wp-block-column.is-style-lz-festtag > *:last-child { margin-block-end: 0; }
-
+/* Der Knopf sitzt immer unten, damit beide Karten gleich wirken. */
 .wp-block-column.is-style-lz-festtag .wp-block-buttons {
 	margin-block-start: auto;
-	padding-block-start: 1.4rem;
+	padding-block-start: var(--lz-takt-weit);
 }
 
-/* Förderer-Kachel: weiß wie das Plakat-Fußband, komplett anklickbar */
+/* ===============================================================
+   6. Förderer-Kacheln
+   =============================================================== */
 .wp-block-column.is-style-lz-foerderer {
+	container: lz-kachel / inline-size;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 1rem;
+	gap: 1.1rem;
 	min-height: 13rem;
-	padding: clamp(1.4rem, 3vw, 2.1rem);
+	padding: clamp(1.4rem, 3vw, 2.2rem);
 	background: #ffffff;
-	border-radius: var(--lzb-radius);
+	border: 1px solid transparent;
+	border-radius: 6px;
 	text-align: center;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	/* Deutlich machen, dass die ganze Kachel ein Link ist. */
+	cursor: pointer;
+	transition:
+		transform var(--lz-dauer) var(--lz-kurve),
+		box-shadow var(--lz-dauer) var(--lz-kurve),
+		border-color var(--lz-dauer) var(--lz-kurve);
 }
 
-.wp-block-column.is-style-lz-foerderer:hover,
-.wp-block-column.is-style-lz-foerderer:focus-within {
-	transform: translateY(-3px);
-	box-shadow: 0 22px 44px -26px rgba(0, 0, 0, 0.9);
+.wp-block-column.is-style-lz-foerderer figure {
+	margin: 0;
 }
-
-.wp-block-column.is-style-lz-foerderer figure { margin: 0; }
 
 .wp-block-column.is-style-lz-foerderer img {
-	max-height: 96px;
+	max-height: 76px;
 	width: auto;
 	margin-inline: auto;
 	object-fit: contain;
+	transition: transform var(--lz-dauer) var(--lz-kurve);
+}
+
+/* Je mehr Platz die Kachel hat, desto größer das Logo. Dadurch ist derselbe
+   Stil auf der Startseite groß und im Footer kompakt – ohne zweiten Stil. */
+@container lz-kachel (min-width: 150px) {
+	.wp-block-column.is-style-lz-foerderer img { max-height: 104px; }
+}
+
+/* Viel Platz – etwa unten auf der Startseite: dort dürfen die Förderer
+   richtig groß und präsent stehen. */
+@container lz-kachel (min-width: 200px) {
+	.wp-block-column.is-style-lz-foerderer {
+		min-height: 16.5rem;
+		gap: 1.5rem;
+	}
+
+	.wp-block-column.is-style-lz-foerderer img { max-height: 132px; }
+	.wp-block-column.is-style-lz-foerderer p { font-size: 0.92rem; }
 }
 
 .wp-block-column.is-style-lz-foerderer p {
-	margin: 0;
 	font-family: var(--lzb-ui);
 	font-size: 0.82rem;
 	font-weight: 700;
 	letter-spacing: 0.08em;
+	line-height: 1.4;
 	color: #26304a;
 }
 
 .wp-block-column.is-style-lz-foerderer a {
 	color: #26304a;
-	text-decoration-color: rgba(38, 48, 74, 0.35);
+	text-decoration: none;
+	transition: color var(--lz-dauer) var(--lz-kurve);
 }
 
-.wp-block-column.is-style-lz-foerderer a:hover,
-.wp-block-column.is-style-lz-foerderer a:focus {
-	color: #000000;
+/* Kleiner Pfeil als Hinweis, dass es weitergeht. */
+.wp-block-column.is-style-lz-foerderer a::before {
+	content: "→";
+	display: inline-block;
+	margin-inline-end: 0.4em;
+	opacity: 0;
+	transform: translateX(-0.35em);
+	transition:
+		opacity var(--lz-dauer) var(--lz-kurve),
+		transform var(--lz-dauer) var(--lz-kurve);
 }
 
-/* Ein Klick auf die ganze Kachel folgt dem Link. */
+/* Der Link deckt die ganze Kachel ab und liegt über allem – sonst greift
+   der Zeiger über dem Logo ins Leere. */
 .wp-block-column.is-style-lz-foerderer a::after {
 	content: "";
 	position: absolute;
 	inset: 0;
-	border-radius: var(--lzb-radius);
+	z-index: 3;
+	border-radius: inherit;
+}
+
+.wp-block-column.is-style-lz-foerderer :is(figure, img) {
+	pointer-events: none;
+}
+
+.wp-block-column.is-style-lz-foerderer:hover,
+.wp-block-column.is-style-lz-foerderer:focus-within {
+	transform: translateY(-4px);
+	border-color: var(--lzb-gold);
+	box-shadow:
+		0 24px 48px -26px rgba(0, 0, 0, 0.85),
+		0 0 0 3px rgba(240, 200, 104, 0.28);
+}
+
+.wp-block-column.is-style-lz-foerderer:hover img,
+.wp-block-column.is-style-lz-foerderer:focus-within img {
+	transform: scale(1.04);
+}
+
+.wp-block-column.is-style-lz-foerderer:hover a,
+.wp-block-column.is-style-lz-foerderer:focus-within a {
+	color: #0d1424;
+	text-decoration: underline;
+	text-underline-offset: 0.25em;
+	text-decoration-color: rgba(13, 20, 36, 0.4);
+}
+
+.wp-block-column.is-style-lz-foerderer:hover a::before,
+.wp-block-column.is-style-lz-foerderer:focus-within a::before {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+/* Klick bestätigen. */
+.wp-block-column.is-style-lz-foerderer:active {
+	transform: translateY(-1px);
+	box-shadow: 0 10px 22px -16px rgba(0, 0, 0, 0.85);
+}
+
+/* Tastaturbedienung sichtbar machen. */
+.wp-block-column.is-style-lz-foerderer:has(a:focus-visible) {
+	outline: 3px solid var(--lzb-gold);
+	outline-offset: 3px;
+}
+
+.wp-block-column.is-style-lz-foerderer a:focus-visible {
+	outline: none;
 }
 
 /* Auf dem Handy zwei Kacheln nebeneinander statt vier untereinander.
@@ -393,35 +537,37 @@ p.is-style-lz-hinweis::before {
    von WordPress, die dort sonst 100 % Breite erzwingt. */
 @media (max-width: 781px) {
 	.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column.is-style-lz-foerderer {
-		flex-basis: calc(50% - 0.6rem) !important;
+		/* Genau die halbe Lücke abziehen, sonst passen zwei Kacheln um
+		   wenige Pixel nicht mehr nebeneinander und rutschen untereinander. */
+		flex-basis: calc(50% - var(--wp--style--block-gap, 1.5rem) / 2) !important;
 	}
 
 	.wp-block-column.is-style-lz-foerderer {
-		min-height: 9.5rem;
-		gap: 0.7rem;
-		padding: 1rem;
+		min-height: 10.5rem;
+		gap: 0.8rem;
+		padding: 1.1rem;
 	}
 
-	.wp-block-column.is-style-lz-foerderer img { max-height: 56px; }
-
-	.wp-block-column.is-style-lz-foerderer p { font-size: 0.72rem; }
+	.wp-block-column.is-style-lz-foerderer p { font-size: 0.74rem; }
 }
 
 /* ===============================================================
-   5. Porträts der Erzählenden
+   7. Porträts der Erzählenden
    =============================================================== */
 .wp-block-columns.is-style-lz-portraet {
 	align-items: flex-start;
 	gap: clamp(1.5rem, 3.4vw, 3.25rem) !important;
-	padding-block-end: clamp(2rem, 4vw, 3.25rem);
-	margin-block-end: clamp(2rem, 4vw, 3.25rem);
+	padding-block-end: clamp(2.25rem, 4vw, 3.5rem);
 	border-block-end: 1px solid var(--lzb-hair-soft);
+}
+
+:root .wp-block-columns.is-style-lz-portraet + .wp-block-columns.is-style-lz-portraet {
+	margin-block-start: clamp(2.25rem, 4vw, 3.5rem);
 }
 
 .wp-block-columns.is-style-lz-portraet:last-of-type {
 	border-block-end: 0;
 	padding-block-end: 0;
-	margin-block-end: 0;
 }
 
 /* Bild abwechselnd links und rechts – ohne dass jemand etwas einstellen muss.
@@ -443,7 +589,9 @@ p.is-style-lz-hinweis::before {
 	}
 }
 
-.wp-block-columns.is-style-lz-portraet figure { margin: 0; }
+.wp-block-columns.is-style-lz-portraet figure {
+	margin: 0;
+}
 
 /* Alle Porträts im gleichen Format – sonst wirkt die Seite unruhig,
    weil die Fotos hoch, quer und quadratisch gemischt sind.
@@ -460,7 +608,6 @@ p.is-style-lz-hinweis::before {
 }
 
 .wp-block-columns.is-style-lz-portraet :is(h2, h3) {
-	margin-block-start: 0;
 	color: var(--lzb-gold-light);
 }
 
@@ -468,18 +615,6 @@ p.is-style-lz-hinweis::before {
 .wp-block-columns.is-style-lz-portraet .wp-block-column > *,
 .wp-block-columns.is-style-lz-portraet .lz-mehr {
 	max-width: 42rem;
-}
-
-/* Rolle / Kurzbeschreibung unter dem Namen */
-.wp-block-paragraph.is-style-lz-rolle,
-p.is-style-lz-rolle {
-	margin-block: -0.3rem 1.1rem;
-	font-family: var(--lzb-ui);
-	font-size: 0.74rem;
-	font-weight: 700;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
-	color: var(--lzb-muted);
 }
 
 /* Platzhalter statt Foto: das Lindenblatt */
@@ -504,46 +639,42 @@ p.is-style-lz-rolle {
 	mask: url("../img/icon-blatt.svg") no-repeat center / contain;
 }
 
-/* „Mehr anzeigen“ – wird von assets/js/mehr-anzeigen.js gesetzt.
-   Ohne JavaScript steht der ganze Text da; es geht also nichts verloren. */
-.lz-mehr {
-	--lz-mehr-grund: var(--lzb-night);
-}
-
-/* Innerhalb eines abgesetzten Abschnitts ist der Grund etwas heller. */
-.wp-block-group.is-style-lz-panel .lz-mehr {
-	--lz-mehr-grund: #131f38;
-}
-
+/* ===============================================================
+   8. „Mehr anzeigen“
+   Wird von assets/js/mehr-anzeigen.js gesetzt. Ohne JavaScript steht der
+   ganze Text da; es geht also nichts verloren.
+   =============================================================== */
 .lz-mehr__inhalt {
 	position: relative;
-}
-
-.lz-mehr[data-lz-mehr="zu"] .lz-mehr__inhalt {
-	max-height: var(--lz-mehr-hoehe, 14rem);
 	overflow: hidden;
+	/* Die Höhe setzt das Skript. Der Übergang macht daraus ein Entfalten
+	   statt eines Sprungs. */
+	transition: height var(--lz-dauer-lang) var(--lz-kurve);
 }
 
-.lz-mehr[data-lz-mehr="zu"] .lz-mehr__inhalt::after {
-	content: "";
-	position: absolute;
-	inset-inline: 0;
-	inset-block-end: 0;
-	height: 5.5rem;
-	background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--lz-mehr-grund) 92%);
-	pointer-events: none;
+/* Der Text blendet nach unten aus – als Maske, nicht als Farbfläche darüber.
+   Eine Farbfläche müsste den Hintergrund exakt treffen und würde als heller
+   Kasten sichtbar, sobald darunter ein Verlauf oder die Sterne liegen. */
+.lz-mehr[data-lz-mehr="zu"] .lz-mehr__inhalt {
+	-webkit-mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
+	mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 96%);
 }
 
-.lz-mehr[data-lz-mehr="auf"] .lz-mehr__inhalt > *:last-child {
-	margin-block-end: 0;
+/* Beim vollständig geöffneten Text darf die Höhe wieder frei sein, damit
+   ein späterer Umbruch (Fenster schmaler ziehen) nichts abschneidet.
+   "overflow: hidden" bleibt bestehen: würde es hier auf sichtbar wechseln,
+   fiele der untere Rand des letzten Absatzes aus der Höhenrechnung und die
+   Bewegung ruckte am Ende sichtbar zurück. */
+.lz-mehr[data-lz-mehr="auf"].is-fertig .lz-mehr__inhalt {
+	height: auto;
 }
 
 .lz-mehr__schalter {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.5rem;
-	margin-block-start: 0.9rem;
-	padding: 0.45rem 0;
+	gap: 0.55rem;
+	margin-block-start: 1.25rem;
+	padding: 0.5rem 0;
 	background: none;
 	border: 0;
 	border-bottom: 1px solid var(--lzb-hair);
@@ -554,7 +685,9 @@ p.is-style-lz-rolle {
 	text-transform: uppercase;
 	color: var(--lzb-gold);
 	cursor: pointer;
-	transition: color 0.2s ease, border-color 0.2s ease;
+	transition:
+		color var(--lz-dauer) var(--lz-kurve),
+		border-color var(--lz-dauer) var(--lz-kurve);
 }
 
 .lz-mehr__schalter:hover,
@@ -565,12 +698,12 @@ p.is-style-lz-rolle {
 
 .lz-mehr__schalter::after {
 	content: "";
-	width: 0.6rem;
-	height: 0.6rem;
+	width: 0.55rem;
+	height: 0.55rem;
 	border-right: 1.5px solid currentColor;
 	border-bottom: 1.5px solid currentColor;
 	transform: rotate(45deg) translate(-2px, -2px);
-	transition: transform 0.2s ease;
+	transition: transform var(--lz-dauer-lang) var(--lz-kurve);
 }
 
 .lz-mehr[data-lz-mehr="auf"] .lz-mehr__schalter::after {
@@ -578,7 +711,7 @@ p.is-style-lz-rolle {
 }
 
 /* ===============================================================
-   6. Listen
+   9. Listen
    =============================================================== */
 
 /* Erzählzeiten als goldene Chips */
@@ -588,7 +721,6 @@ p.is-style-lz-rolle {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.65rem;
-	margin-block: 0 1.5rem;
 }
 
 .wp-block-list.is-style-lz-chips > li {
@@ -613,7 +745,6 @@ p.is-style-lz-rolle {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
 	gap: 1rem;
-	margin-block: 0 2rem;
 }
 
 .wp-block-list.is-style-lz-kacheln > li {
@@ -625,19 +756,19 @@ p.is-style-lz-rolle {
 	text-align: center;
 	font-size: var(--wp--preset--font-size--gross, 1.3125rem);
 	font-weight: 300;
+	line-height: 1.35;
 	color: #ffffff;
 }
 
 .wp-block-list.is-style-lz-kacheln > li::marker { content: ""; }
 
-/* Die guten Gründe – Punkte mit goldenem Blatt */
+/* Die guten Gründe – Punkte mit Funkelzeichen */
 .wp-block-list.is-style-lz-punkte {
 	list-style: none;
 	padding-inline-start: 0;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-	gap: 0.9rem 2rem;
-	margin-block: 0;
+	gap: 1.1rem 2rem;
 }
 
 .wp-block-list.is-style-lz-punkte > li {
@@ -646,7 +777,7 @@ p.is-style-lz-rolle {
 	padding-inline-start: 1.9rem;
 	font-family: var(--lzb-ui);
 	font-size: 0.98rem;
-	line-height: 1.5;
+	line-height: 1.55;
 	color: var(--lzb-cream);
 }
 
@@ -656,7 +787,7 @@ p.is-style-lz-rolle {
 	content: "";
 	position: absolute;
 	inset-inline-start: 0;
-	inset-block-start: 0.15em;
+	inset-block-start: 0.2em;
 	width: 0.95rem;
 	height: 0.95rem;
 	background-color: var(--lzb-gold);
@@ -668,15 +799,14 @@ p.is-style-lz-rolle {
 .wp-block-list.is-style-lz-fakten {
 	list-style: none;
 	padding-inline-start: 0;
-	margin-block: 0;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-	gap: 0;
+	gap: 0 clamp(1.5rem, 4vw, 3rem);
 }
 
 .wp-block-list.is-style-lz-fakten > li {
 	margin: 0;
-	padding-block: 1rem;
+	padding-block: 1.1rem;
 	border-block-end: 1px solid var(--lzb-hair-soft);
 	line-height: 1.6;
 }
@@ -685,7 +815,7 @@ p.is-style-lz-rolle {
 
 .wp-block-list.is-style-lz-fakten > li strong {
 	display: block;
-	margin-block-end: 0.25rem;
+	margin-block-end: 0.3rem;
 	font-family: var(--lzb-ui);
 	font-size: 0.7rem;
 	font-weight: 700;
@@ -695,14 +825,13 @@ p.is-style-lz-rolle {
 }
 
 /* ===============================================================
-   7. Trenner, Bilder, Galerie, Zitat
+   10. Trenner, Bilder, Galerie, Zitat
    =============================================================== */
 .wp-block-separator.is-style-lz-ornament {
 	border: 0;
 	height: 34px;
 	max-width: 320px;
 	margin-inline: auto;
-	margin-block: clamp(1.5rem, 3vw, 2.5rem);
 	background-color: var(--lzb-gold-deep);
 	opacity: 1;
 	-webkit-mask: url("../img/ornament.svg") no-repeat center / contain;
@@ -731,6 +860,7 @@ p.is-style-lz-rolle {
 .wp-block-image.is-style-lz-plakat figcaption {
 	max-width: 34rem;
 	margin-inline: auto;
+	margin-block-start: 1.1rem;
 	text-align: center;
 }
 
@@ -739,6 +869,10 @@ p.is-style-lz-rolle {
 	border: 1px solid var(--lzb-hair);
 	border-radius: var(--lzb-radius);
 	box-shadow: 0 30px 60px -38px rgba(0, 0, 0, 0.95);
+}
+
+.wp-block-image figcaption {
+	margin-block-start: 0.8rem;
 }
 
 /* Hinweis: Ein Bild-Block ohne ausgewähltes Bild wird von WordPress beim
@@ -750,7 +884,9 @@ p.is-style-lz-rolle {
 .wp-block-gallery.is-style-lz-nachtraster img {
 	border-radius: var(--lzb-radius);
 	border: 1px solid var(--lzb-hair-soft);
-	transition: transform 0.25s ease, border-color 0.25s ease;
+	transition:
+		transform var(--lz-dauer) var(--lz-kurve),
+		border-color var(--lz-dauer) var(--lz-kurve);
 }
 
 .wp-block-gallery.is-style-lz-nachtraster .wp-block-image:hover img {
@@ -796,16 +932,29 @@ p.is-style-lz-rolle {
 }
 
 /* ===============================================================
-   8. Schaltflächen
+   11. Schaltflächen
    =============================================================== */
-.wp-block-button__link {
-	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+/* Gefüllt und Kontur müssen exakt gleich groß sein. Der Kern-Stil von
+   WordPress setzt für "is-style-outline" eigene Innenabstände und einen
+   2 px breiten Rahmen – beides wird hier auf die Theme-Maße zurückgeholt. */
+.wp-block-button__link,
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	box-sizing: border-box;
+	padding: 0.95rem 1.9rem;
+	border-width: 1px;
+	border-style: solid;
+	transition:
+		background-color var(--lz-dauer) var(--lz-kurve),
+		border-color var(--lz-dauer) var(--lz-kurve),
+		color var(--lz-dauer) var(--lz-kurve),
+		transform var(--lz-dauer) var(--lz-kurve);
 }
 
 .wp-block-button.is-style-outline > .wp-block-button__link {
 	background-color: transparent;
 	color: var(--lzb-gold);
-	border: 1px solid rgba(240, 200, 104, 0.45);
+	border-color: rgba(240, 200, 104, 0.45);
 }
 
 .wp-block-button.is-style-outline > .wp-block-button__link:hover,
@@ -815,18 +964,30 @@ p.is-style-lz-rolle {
 	color: var(--lzb-gold-light);
 }
 
+.wp-block-button__link:active {
+	transform: translateY(1px);
+}
+
+.wp-block-button__link:focus-visible {
+	outline: 3px solid var(--lzb-gold);
+	outline-offset: 3px;
+}
+
 /* Dezente Variante: wirkt wie ein Textlink mit Pfeil */
 .wp-block-button.is-style-lz-leise > .wp-block-button__link {
 	background: none;
 	border: 0;
 	border-bottom: 1px solid var(--lzb-hair);
 	border-radius: 0;
-	padding: 0.45rem 0;
+	padding: 0.5rem 0;
 	color: var(--lzb-gold);
 }
 
 .wp-block-button.is-style-lz-leise > .wp-block-button__link::after {
-	content: " →";
+	content: "→";
+	display: inline-block;
+	margin-inline-start: 0.5em;
+	transition: transform var(--lz-dauer) var(--lz-kurve);
 }
 
 .wp-block-button.is-style-lz-leise > .wp-block-button__link:hover,
@@ -836,8 +997,17 @@ p.is-style-lz-rolle {
 	border-bottom-color: var(--lzb-gold);
 }
 
+.wp-block-button.is-style-lz-leise > .wp-block-button__link:hover::after,
+.wp-block-button.is-style-lz-leise > .wp-block-button__link:focus::after {
+	transform: translateX(0.25em);
+}
+
+.wp-block-buttons {
+	gap: 0.9rem;
+}
+
 /* ===============================================================
-   9. Tabellen
+   12. Tabellen
    =============================================================== */
 .wp-block-table table {
 	width: 100%;
@@ -861,19 +1031,21 @@ p.is-style-lz-rolle {
 }
 
 /* ===============================================================
-   10. Kleinigkeiten
+   13. Kleinigkeiten
    =============================================================== */
 .wp-block-list > li::marker {
 	color: var(--lzb-gold-deep);
 }
 
-figure.wp-block-image { margin-block: 0; }
-
-.wp-block-buttons {
-	gap: 0.85rem;
-}
-
 /* Sprungmarken sollen nicht unter dem Kopfbereich verschwinden */
 :target {
 	scroll-margin-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lz-mehr__inhalt,
+	.lz-mehr__inhalt::after,
+	.lz-mehr__schalter::after {
+		transition: none;
+	}
 }

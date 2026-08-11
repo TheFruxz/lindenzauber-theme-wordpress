@@ -38,10 +38,6 @@
 <h2 class="wp-block-heading has-text-align-center">Die beiden Tage</h2>
 <!-- /wp:heading -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-festtag"} -->
 <div class="wp-block-column is-style-lz-festtag"><!-- wp:heading {"level":3,"className":"is-style-lz-zeichen-mond"} -->
@@ -82,10 +78,6 @@
 <h2 class="wp-block-heading">Alles Wichtige in Kürze</h2>
 <!-- /wp:heading -->
 
-<!-- wp:spacer {"height":"var:preset|spacing|30"} -->
-<div style="height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
-
 <!-- wp:list {"className":"is-style-lz-fakten"} -->
 <ul class="wp-block-list is-style-lz-fakten"><!-- wp:list-item -->
 <li><strong>Ort</strong>Kindergarten KinderReich, Bürgermeister-Lienhop-Straße 1A, 27211 Bassum</li>
@@ -125,10 +117,6 @@
 <!-- wp:paragraph {"align":"center"} -->
 <p class="has-text-align-center">Der Lindenzauber entsteht im Zusammenspiel von drei Beteiligten: einem Verein, einem Kindergarten und einer Erzählerin.</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
-<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
 
 <!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"className":"is-style-lz-karte"} -->

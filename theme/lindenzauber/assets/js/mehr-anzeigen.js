@@ -8,6 +8,10 @@
  * 2. Ist ein Porträttext länger als etwa acht Zeilen, wird er weich
  *    ausgeblendet und bekommt einen Schalter "Mehr anzeigen".
  *
+ * Das Auf- und Zuklappen läuft als Übergang von einer gemessenen Höhe zur
+ * anderen. Danach wird die Höhe wieder freigegeben, damit ein späterer
+ * Umbruch – etwa beim Schmalerziehen des Fensters – nichts abschneidet.
+ *
  * Ohne JavaScript passiert nichts davon – dann steht schlicht der
  * vollständige Text da. Es geht also nie Inhalt verloren.
  */
@@ -18,6 +22,8 @@
 	var GRENZE = 19 * 16; // ab dieser Höhe in Pixeln wird eingeklappt
 	var HOEHE = 17 * 16;  // sichtbare Höhe im eingeklappten Zustand
 	var zaehler = 0;
+
+	var ruhig = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 
 	function istUeberschrift( element ) {
 		return /^H[1-6]$/.test( element.tagName );
@@ -37,6 +43,45 @@
 		}
 
 		return null;
+	}
+
+	/**
+	 * Klappt sanft auf oder zu.
+	 *
+	 * @param {HTMLElement} huelle  Der Rahmen mit dem Zustand.
+	 * @param {HTMLElement} inhalt  Der Textteil, dessen Höhe sich ändert.
+	 * @param {boolean}     oeffnen true = aufklappen.
+	 */
+	function umschalten( huelle, inhalt, oeffnen ) {
+		var von = inhalt.getBoundingClientRect().height;
+
+		// Für die Messung kurz freigeben, dann sofort zurücksetzen.
+		// Gemessen wird die tatsächliche Höhe im Layout – scrollHeight liegt
+		// hier daneben, weil es Ränder der letzten Zeile mitzählt, und die
+		// Bewegung würde am Ende sichtbar zurückspringen.
+		huelle.classList.remove( 'is-fertig' );
+		inhalt.style.height = 'auto';
+		var nach = oeffnen ? inhalt.getBoundingClientRect().height : HOEHE;
+		inhalt.style.height = von + 'px';
+
+		huelle.setAttribute( 'data-lz-mehr', oeffnen ? 'auf' : 'zu' );
+
+		if ( ruhig ) {
+			inhalt.style.height = oeffnen ? 'auto' : HOEHE + 'px';
+
+			if ( oeffnen ) {
+				huelle.classList.add( 'is-fertig' );
+			}
+
+			return;
+		}
+
+		// Ein Bildaufbau abwarten, sonst springt der Browser direkt zum Ziel.
+		requestAnimationFrame( function () {
+			requestAnimationFrame( function () {
+				inhalt.style.height = nach + 'px';
+			} );
+		} );
 	}
 
 	/**
@@ -76,11 +121,15 @@
 
 		// Erst jetzt messen – vorher steht der Text noch woanders.
 		if ( inhalt.scrollHeight <= GRENZE ) {
+			huelle.classList.add( 'is-fertig' );
+			huelle.setAttribute( 'data-lz-mehr', 'auf' );
+			inhalt.style.height = 'auto';
+
 			return;
 		}
 
-		huelle.style.setProperty( '--lz-mehr-hoehe', HOEHE + 'px' );
 		huelle.setAttribute( 'data-lz-mehr', 'zu' );
+		inhalt.style.height = HOEHE + 'px';
 
 		var schalter = document.createElement( 'button' );
 		schalter.type = 'button';
@@ -92,17 +141,30 @@
 		schalter.addEventListener( 'click', function () {
 			var offen = 'auf' === huelle.getAttribute( 'data-lz-mehr' );
 
-			huelle.setAttribute( 'data-lz-mehr', offen ? 'zu' : 'auf' );
+			umschalten( huelle, inhalt, ! offen );
 			schalter.setAttribute( 'aria-expanded', offen ? 'false' : 'true' );
 			schalter.textContent = offen ? TEXTE.mehr : TEXTE.weniger;
 
 			if ( offen ) {
-				// Beim Zuklappen wieder an den Anfang des Porträts springen.
+				// Beim Zuklappen den Anfang des Porträts wieder ins Bild holen.
 				var oben = huelle.getBoundingClientRect().top;
 
 				if ( oben < 0 ) {
-					huelle.scrollIntoView( { block: 'start', behavior: 'smooth' } );
+					huelle.scrollIntoView( { block: 'start', behavior: ruhig ? 'auto' : 'smooth' } );
 				}
+			}
+		} );
+
+		// Nach dem Aufklappen die Höhe freigeben, damit späteres Umbrechen
+		// den Text nicht abschneidet.
+		inhalt.addEventListener( 'transitionend', function ( ereignis ) {
+			if ( 'height' !== ereignis.propertyName ) {
+				return;
+			}
+
+			if ( 'auf' === huelle.getAttribute( 'data-lz-mehr' ) ) {
+				huelle.classList.add( 'is-fertig' );
+				inhalt.style.height = 'auto';
 			}
 		} );
 

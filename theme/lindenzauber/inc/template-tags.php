@@ -10,30 +10,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Der Nachthimmel mit Sternen, Laternenschein und Lindenbaum.
+ * Nachthimmel und Lindenbaum.
+ *
+ * Alles davon scrollt mit der Seite. Nichts steht fest am Bildschirm – ein
+ * feststehender Hintergrund wirkt tot. Der Himmelsverlauf selbst kommt aus
+ * der style.css (.site::before), hier stehen nur die Ebenen, die eigenes
+ * Markup brauchen.
  *
  * Liegt komplett im Theme, damit im Editor nichts verrutschen kann.
  */
-function lz_atmosphaere() {
-	?>
-	<div class="lz-atmosphere" aria-hidden="true">
-		<div class="lz-atmosphere__sky"></div>
-		<div class="lz-atmosphere__stars--far"></div>
-		<div class="lz-atmosphere__stars"></div>
-		<div class="lz-atmosphere__glow"></div>
-		<div class="lz-atmosphere__vignette"></div>
-	</div>
-	<?php
-}
-
-/**
- * Der Lindenbaum mit der Laterne am linken Rand.
- *
- * Steht bewusst innerhalb von .site: nur dort wird er seitlich abgeschnitten,
- * sodass sich die Seite auf dem Handy nicht seitlich verschieben lässt.
- */
 function lz_szene() {
 	?>
+	<div class="lz-sterne" aria-hidden="true"></div>
+	<div class="lz-sterne__klar" aria-hidden="true"></div>
 	<div class="lz-scene" aria-hidden="true">
 		<img class="lz-scene__tree" src="<?php echo esc_url( LZ_URI . '/assets/img/linde.svg' ); ?>" alt="" width="900" height="1180" loading="eager" fetchpriority="low">
 	</div>
