@@ -410,3 +410,34 @@ statt des Bildes.
 Damit so etwas nicht mehr am Zufall hängt, meldet `layout-check.mjs` jetzt auch
 **Bilder, die nicht laden**. Gegenprobe mit einer erfundenen Adresse: wird sofort
 gemeldet.
+
+---
+
+# Abnahme – Probelauf der Einrichtung
+
+Vor der Übergabe wurde die Einrichtung einmal komplett durchgespielt, so wie
+Cedric sie machen wird: **frisches WordPress, Theme aus `dist/lindenzauber.zip`
+installiert** (nicht der Quellordner kopiert – so fällt auf, wenn im Paket eine
+Datei fehlt), Seiten angelegt, Auszüge eingetragen, Menüs zugewiesen,
+Förderer-Logos eingefügt. `tools/wp-probelauf.sh` macht das wiederholbar.
+
+Ergebnis: Von den elf Punkten der Einrichtungsliste standen danach neun auf
+erledigt. Die beiden offenen sind genau die, die Handarbeit brauchen und die
+niemand automatisieren kann:
+
+* **Plakat einsetzen** – die Datei hat nur Brigitta.
+* **Kurzbeschreibung der „Beispielseite“** – WordPress' eigene Musterseite. Auf
+  lindenzauber.de kann sie gelöscht werden.
+
+Alle Werkzeuge liefen anschließend gegen diese frisch eingerichtete Instanz:
+Abstände und Klickflächen, Metadaten und strukturierte Daten, Backend, Blöcke –
+keine Befunde. Keine fehlenden Bilder, keine fehlgeschlagenen Anfragen, in
+1440 px und 393 px.
+
+**Dabei gefunden und behoben:**
+
+* Der von mir selbst vorgeschlagene Auszug für das Impressum war mit 48 Zeichen
+  kürzer als das Mindestmaß, das die eigene Prüfung verlangt. Neu formuliert.
+* Die Einrichtungsseite ließ sich nicht von der Kommandozeile abfragen, weil sie
+  nur im Backend geladen wurde. Jetzt lädt sie auch für WP-CLI – damit lässt
+  sich der Stand der Einrichtung ohne Anmeldung prüfen.

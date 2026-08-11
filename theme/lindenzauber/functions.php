@@ -30,6 +30,9 @@ require_once LZ_DIR . '/inc/meta.php';
 require_once LZ_DIR . '/inc/llms.php';
 require_once LZ_DIR . '/inc/menus.php';
 
-if ( is_admin() ) {
+// Die Einrichtungsseite wird auf der Website selbst nicht gebraucht. Für
+// WP-CLI wird sie trotzdem geladen – so lässt sich der Stand der Einrichtung
+// auch von der Kommandozeile abfragen, ohne sich einzuloggen.
+if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	require_once LZ_DIR . '/inc/einrichtung.php';
 }

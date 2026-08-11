@@ -96,7 +96,7 @@ Je Seite: *Bearbeiten* → rechte Leiste → Reiter **Seite** → Feld **Auszug*
 | Über Lindenzauber | Wie aus einer Idee ein Märchenfest wurde: die Menschen dahinter, die beiden Festtage und alles Wichtige in Kürze. |
 | Förderer | Vier Förderer machen den Lindenzauber möglich – deshalb ist der Eintritt an beiden Tagen frei. |
 | Kontakt | Fragen zum Lindenzauber? Brigitta Wortmann ist per E-Mail, Telefon und WhatsApp erreichbar. |
-| Impressum | Pflichtangaben nach § 5 DDG für lindenzauber.de. |
+| Impressum | Pflichtangaben nach § 5 DDG: Anbieter, Kontakt und inhaltlich Verantwortliche für die Website lindenzauber.de. |
 
 ## 5b. Symbol für den Browser-Tab
 

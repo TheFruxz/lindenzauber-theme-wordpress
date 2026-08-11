@@ -104,6 +104,10 @@ node tools/vorschau-check.mjs <ordner>                                  # das Vo
 node tools/meta-check.mjs     <url>                                     # Metadaten, strukturierte Daten, llms.txt
 node tools/admin-check.mjs    <url> <benutzer> <passwort>               # die Seite Design → Lindenzauber
 node tools/make-screenshot.mjs <url>                                    # Vorschaubild des Themes erneuern
+
+# Probelauf der Einrichtung: frisches WordPress, Theme aus dem fertigen ZIP,
+# SETUP.md Schritt für Schritt. Findet auch Dateien, die im Paket fehlen.
+LZ_WORK=/pfad/zum/arbeitsordner bash tools/wp-probelauf.sh
 node tools/shot.mjs           <url> <ziel.png> [breite] [full]          # Screenshot
 ```
 
