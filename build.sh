@@ -38,6 +38,14 @@ rm -f dist/lindenzauber.zip
 	-x '*.DS_Store' -x '__MACOSX/*' )
 echo "  dist/lindenzauber.zip ($(du -h dist/lindenzauber.zip | cut -f1))"
 
+echo "== Inhalte-Paket =="
+# Die Seiteninhalte gehören zur Auslieferung wie das Theme selbst – sonst
+# lädt man zwei ZIPs herunter und muss die Inhalte trotzdem einzeln aus dem
+# Repository fischen.
+rm -f dist/lindenzauber-inhalte.zip
+( cd inhalte && zip -q -r "../dist/lindenzauber-inhalte.zip" . -x '*.DS_Store' )
+echo "  dist/lindenzauber-inhalte.zip ($(du -h dist/lindenzauber-inhalte.zip | cut -f1))"
+
 if [ -z "${LZ_WORK:-}" ] || [ ! -f "${LZ_WORK}/wordpress.zip" ]; then
 	echo
 	echo "Hinweis: LZ_WORK ist nicht gesetzt (oder unvollständig)."

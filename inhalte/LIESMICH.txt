@@ -1,0 +1,35 @@
+Seiteninhalte für lindenzauber.de
+=================================
+
+Diese Dateien werden einmal in WordPress eingefügt. Danach wird alles im
+visuellen Editor bearbeitet – der Code-Editor wird nie wieder gebraucht.
+
+So geht es, für jede Seite einmal:
+
+  1. Seiten -> die Seite -> Bearbeiten
+  2. Oben rechts auf die drei Punkte (⋮) -> Code-Editor
+  3. Alles markieren und löschen
+  4. Den kompletten Inhalt der passenden Datei hier einfügen
+  5. Über ⋮ zurück auf Visueller Editor
+  6. Aktualisieren
+
+  01-startseite.html          -> Startseite
+  02-programm.html            -> Programm
+  03-die-erzaehlenden.html    -> Die Erzählenden
+  04-ueber-lindenzauber.html  -> Über Lindenzauber
+  05-foerderer.html           -> Förderer
+  06-kontakt.html             -> Kontakt
+  07-impressum.html           -> Impressum
+  08-fotogalerie.html         -> Fotogalerie (neu anlegen, als Entwurf)
+
+  09-foerderband-widget.html  -> kein Seiteninhalt, sondern für
+                                 Design -> Widgets -> Förderer (Fußbereich)
+
+ACHTUNG: Auf der bestehenden Website stehen Kontakt und Impressum vertauscht.
+Mit diesen Dateien wird das richtiggestellt – bitte nicht verwechseln.
+
+Ohne Copy-und-Paste geht es auch: Bei einer leeren Seite bietet WordPress
+unten "Muster wählen" an. Dort liegen dieselben Seiten unter "Lindenzauber"
+bereit ("Seite: Startseite", "Seite: Programm" …). Ein Klick genügt.
+
+Die ausführliche Anleitung steht in SETUP.md.

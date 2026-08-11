@@ -15,6 +15,7 @@ WordPress-Editor bearbeitbar** – ohne Code, ohne Plugins, ohne Umwege.
 |---|---|
 | `dist/lindenzauber.zip` | **Das Theme.** In WordPress unter *Design → Themes → Theme hochladen* installieren. |
 | `dist/lindenzauber-vorschau.zip` | **Die Vorschau.** Entpacken, `index.html` doppelklicken – die ganze Website ohne WordPress anschauen. |
+| `dist/lindenzauber-inhalte.zip` | **Die Seiteninhalte.** Dieselben Dateien wie in `inhalte/`, als ein Download. |
 | `inhalte/` | Der Blockcode für jede Seite, zum einmaligen Einfügen. Siehe [SETUP.md](SETUP.md). |
 | `theme/lindenzauber/` | Der Quellcode des Themes. |
 | `tools/` | Hilfsskripte zum Bauen und Prüfen. Werden für den Betrieb nicht gebraucht. |

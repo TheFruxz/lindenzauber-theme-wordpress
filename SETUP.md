@@ -53,7 +53,8 @@ Für jede Seite einmal:
 1. Seite öffnen: *Seiten → die Seite → Bearbeiten*
 2. Oben rechts auf **⋮** (die drei Punkte) → **Code-Editor**
 3. Alles markieren und löschen
-4. Den kompletten Inhalt der passenden Datei aus `inhalte/` einfügen
+4. Den kompletten Inhalt der passenden Datei aus `dist/lindenzauber-inhalte.zip`
+   (entpackt; dieselben Dateien liegen im Repository unter `inhalte/`) einfügen
 5. Über **⋮** zurück auf **Visueller Editor**
 6. *Aktualisieren*
 
