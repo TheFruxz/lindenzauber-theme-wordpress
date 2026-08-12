@@ -104,6 +104,34 @@ const pruefung = () => {
 		}
 	});
 
+	/* --------------------------------- 2b. Mittig gesetzt, aber nicht mittig */
+	// Ein Bild mit der Ausrichtung „Mitte" zentriert sich bei WordPress
+	// dadurch, dass es nur so breit ist wie sein Inhalt. Wird ihm von außen
+	// eine Breite aufgezwungen, rutscht es an den linken Rand – sichtbar,
+	// aber von keiner der anderen Prüfungen bemerkt.
+	document.querySelectorAll('figure.wp-block-image.aligncenter').forEach((figur) => {
+		const bild = figur.querySelector('img');
+
+		if (!bild || !sichtbar(bild)) return;
+
+		const eltern = figur.parentElement.getBoundingClientRect();
+		const stil = getComputedStyle(figur.parentElement);
+		const innen = {
+			links: eltern.left + parseFloat(stil.paddingLeft),
+			rechts: eltern.right - parseFloat(stil.paddingRight),
+		};
+		const b = bild.getBoundingClientRect();
+		const abweichung = Math.abs((b.left + b.width / 2) - (innen.links + innen.rechts) / 2);
+
+		if (abweichung > 4) {
+			befunde.push({
+				art: 'Bild mittig gesetzt, steht aber nicht mittig',
+				wo: beschreibe(figur),
+				mass: `${px(abweichung)} px daneben`,
+			});
+		}
+	});
+
 	/* ------------------------------------------------- 3. Klickbare Flächen */
 	document.querySelectorAll('a[href], button').forEach((el) => {
 		if (!sichtbar(el)) return;

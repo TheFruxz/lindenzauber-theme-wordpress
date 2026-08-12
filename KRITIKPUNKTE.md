@@ -544,3 +544,61 @@ Blöcke, Editor: keine Befunde.
 Prüfwerkzeug, das **kein** Tor in `build.sh` war – ausgerechnet das, das die
 gemeldeten Fehlerklassen abdeckt. Ein Rückfall bei Abständen, Kontrast oder
 Klickflächen hätte den Bau nicht aufgehalten. Jetzt schon.
+
+---
+
+# Neunte Runde – zwei Befunde von der echten Website
+
+Beides gemeldet, nachdem das Theme auf lindenzauber.de lief. Beides ließ sich
+lokal sofort nachstellen – die Prüfungen hatten es nur nicht gesehen.
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 68 | „Die WordPress-Leiste verdeckt (wenn angemeldet) das Menü, wenn im Scroll-Zustand“ | **Erledigt.** Der Kopfbereich klebt oben, die Werkzeugleiste von WordPress liegt fest darüber – beim Scrollen schob sie sich über Marke und Menü. Der Kopfbereich rückt jetzt um ihre Höhe nach unten. |
+| 69 | „Auf der Startseite ist das Blatt nicht mehr zentriert“ | **Erledigt.** Nachgemessen: Das Signet stand bei 1440 px **306 px** zu weit links, bei 768 px 284 px, bei 390 px 113 px. |
+
+## Das Blatt: eine zu grobe Regel
+
+Ursache war eine eigene Regel aus der fünften Runde. Damals hatte der Zierstrich
+unter dem Untertitel keine Breite mehr, weil in einer Flex-Spalte ein
+automatischer Rand das Aufziehen verhindert. Die Abhilfe – *alle* Kinder des
+Kopfbereichs auf `width: 100%` – war eine Nummer zu grob.
+
+Denn ein Bild mit der Ausrichtung „Mitte“ ist bei WordPress `display: table` und
+zentriert sich **gerade dadurch**, dass es nur so breit ist wie sein Inhalt: 124 px
+mit automatischem Rand links und rechts. Auf volle Breite gezwungen, blieb das
+Blatt am linken Rand der Spalte kleben, während die Überschrift darunter weiter
+mittig stand. Genau das war im Bild zu sehen.
+
+Jetzt bekommt die Breite nur noch der Zierstrich, der sie wirklich braucht.
+
+**Warum es niemand bemerkt hat:** Die Prüfung „Abschnitt außermittig“ sieht sich
+Abschnitte an, nicht einzelne Bilder darin. `layout-check.mjs` prüft jetzt
+zusätzlich jedes Bild mit der Ausrichtung „Mitte“ gegen die Mitte seines
+Elternblocks. Gegenprobe mit der alten Regel: meldet den Fehler auf allen drei
+Breiten, mit der genauen Abweichung.
+
+## Die Werkzeugleiste: eine ganze Ansicht ohne Prüfung
+
+Alle bisherigen Prüfungen liefen **abgemeldet**. Die Werkzeugleiste erscheint aber
+nur angemeldet – deshalb hat sie nie jemand zu Gesicht bekommen, weder ich noch
+ein Werkzeug. Ein Fehler, den nur der Betreiber sieht und nie ein Besucher.
+
+Der Versatz kommt aus einer Variablen mit den Höhen, die WordPress selbst
+benutzt: 32 px am Rechner, 46 px unter 782 px Breite, und **0 px unter 600 px** –
+dort lässt WordPress die Leiste mitscrollen, ein Versatz wäre dann falsch.
+Dieselbe Variable versorgt auch das Sprungziel bei Ankerlinks und die Höhe des
+Vollbild-Menüs, damit dessen Ende nicht unter dem Bildschirmrand verschwindet.
+
+Angehängt ist alles an `body.admin-bar` – die Klasse setzt WordPress selbst und
+nur für angemeldete Personen. Für Besucher ändert sich dadurch nichts; genau das
+prüft `admin-check.mjs` jetzt als Gegenprobe mit.
+
+**Neu geprüft** in `admin-check.mjs`, in vier Breiten (1400, 900, 700, 390 px):
+Der Kopfbereich muss unterhalb der Leiste beginnen, und kein Menüpunkt, keine
+Marke, kein Menüknopf darf von ihr verdeckt sein. Dazu abgemeldet die Gegenprobe:
+keine Leiste, Kopfbereich weiter bei 0.
+
+Gegenprobe mit dem alten Stand: **6 Fehler** in den drei größeren Breiten
+(„Leiste endet bei 32, Kopf beginnt bei 0“, sechs verdeckte Menüpunkte), und bei
+390 px korrekt kein Befund, weil die Leiste dort mitscrollt.

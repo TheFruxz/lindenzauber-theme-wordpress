@@ -4,7 +4,7 @@ Theme URI: https://lindenzauber.de/
 Author: Fruxz
 Author URI: https://fruxz.dev/
 Description: Theme für das Märchenfest Lindenzauber in Bassum, veranstaltet vom Mütter-Kinder-Zentrum Bassum e. V. Gestaltung nach dem Plakat: Nachthimmel, Laternenlicht, Lindenbaum und Gold. Alle Inhalte sind mit dem normalen WordPress-Editor bearbeitbar. Es werden keine externen Schriften, Skripte oder Dienste geladen.
-Version: 3.7.0
+Version: 3.7.1
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -71,7 +71,7 @@ html {
 	   und beim Suchen auf der Seite. nav.js misst die tatsächliche Höhe und
 	   schreibt sie nach --lz-kopf; der Rückfallwert gilt nur ohne
 	   JavaScript. */
-	scroll-padding-top: calc(var(--lz-kopf, 4.75rem) + 1rem);
+	scroll-padding-top: calc(var(--lz-kopf, 4.75rem) + var(--lz-leiste, 0px) + 1rem);
 }
 
 body {
@@ -274,9 +274,36 @@ img {
 /* Der Kopfbereich bleibt oben stehen. "sticky" und nicht "fixed": so bleibt
    er im Fluss, liegt beim Laden über dem Kopfbild wie bisher, und es muss
    kein Platzhalter untergeschoben werden, der die Seite verschiebt. */
+/* Die Werkzeugleiste von WordPress liegt fest über der Seite und würde sich
+   beim Scrollen über das Menü schieben. Deshalb rückt der Kopfbereich um ihre
+   Höhe nach unten. Die Klasse "admin-bar" setzt WordPress selbst und nur für
+   angemeldete Personen – für Besucher ändert sich dadurch nichts.
+   Die Höhen sind die von WordPress: 32 px am Rechner, 46 px auf schmalen
+   Fenstern. Unter 600 px lässt WordPress die Leiste mitscrollen, dort ist
+   kein Versatz nötig. */
+:root {
+	--lz-leiste: 0px;
+}
+
+html:has(body.admin-bar) {
+	--lz-leiste: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	html:has(body.admin-bar) {
+		--lz-leiste: 46px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	html:has(body.admin-bar) {
+		--lz-leiste: 0px;
+	}
+}
+
 .site-header {
 	position: sticky;
-	inset-block-start: 0;
+	inset-block-start: var(--lz-leiste, 0px);
 	z-index: 50;
 	border-bottom: 1px solid var(--lz-hairline-soft);
 	background: linear-gradient(180deg, rgba(6, 11, 24, 0.92) 0%, rgba(6, 11, 24, 0.72) 100%);
@@ -522,16 +549,18 @@ body.lz-fest {
 
 	.main-nav {
 		position: fixed;
-		inset: 0;
+		inset: var(--lz-leiste, 0px) 0 0 0;
 		/* Das Menü liegt im Kopfbereich, also gilt diese Zahl nur innerhalb
 		   des Kopfbereichs. Dass das Menü die ganze Seite überdeckt, macht
 		   der Kopfbereich selbst mit seinem z-index: 50. Deshalb steht hier
 		   eine kleine Zahl – Marke und Schließknopf liegen darüber. */
 		z-index: 1;
 		/* 100dvh, weil auf dem Handy die Adressleiste ein- und ausfährt.
-		   Mit 100vh wäre das Ende des Menüs abgeschnitten. */
-		height: 100vh;
-		height: 100dvh;
+		   Mit 100vh wäre das Ende des Menüs abgeschnitten. Angemeldet kommt
+		   die Werkzeugleiste von WordPress oben ab – sonst läge das Ende des
+		   Menüs um deren Höhe unter dem Bildschirmrand. */
+		height: calc(100vh - var(--lz-leiste, 0px));
+		height: calc(100dvh - var(--lz-leiste, 0px));
 		display: flex;
 		flex-direction: column;
 		align-items: center;

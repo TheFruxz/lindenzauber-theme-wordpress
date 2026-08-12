@@ -83,6 +83,78 @@ await s.waitForLoadState('networkidle');
 sagen('Adressregeln erneuern bestätigt', (await s.textContent('.notice')).includes('Adressregeln'));
 sagen('llms.txt danach noch da', (await (await s.request.get(basis + '/llms.txt')).text()).includes('# Lindenzauber'));
 
+/* -------------------------------------------------------------------------
+   Die Website mit der Werkzeugleiste von WordPress.
+
+   Angemeldet legt WordPress eine feste Leiste über die Seite. Der Kopfbereich
+   klebt ebenfalls oben – ohne Versatz schiebt sich die Leiste beim Scrollen
+   über das Menü. Aufgefallen ist das erst auf der echten Website, weil alle
+   bisherigen Prüfungen abgemeldet liefen.
+   ------------------------------------------------------------------------- */
+for (const breite of [1400, 900, 700, 390]) {
+	await s.setViewportSize({ width: breite, height: 900 });
+	await s.goto(basis + '/programm/', { waitUntil: 'networkidle' });
+	await s.evaluate(() => window.scrollTo({ top: 900, behavior: 'instant' }));
+	await s.waitForTimeout(350);
+
+	const lage = await s.evaluate(() => {
+		const leiste = document.querySelector('#wpadminbar');
+		const kopf = document.querySelector('.site-header');
+
+		if (!leiste || !kopf) return null;
+
+		const l = leiste.getBoundingClientRect();
+		const k = kopf.getBoundingClientRect();
+		const punkte = [...document.querySelectorAll('.main-nav a, .nav-toggle, .site-brand')]
+			.filter((el) => el.getBoundingClientRect().width > 0)
+			.map((el) => {
+				const r = el.getBoundingClientRect();
+				return { name: el.textContent.replace(/\s+/g, ' ').trim().slice(0, 18) || el.className, oben: r.top };
+			});
+
+		return {
+			leiste: { unten: l.bottom, fest: getComputedStyle(leiste).position === 'fixed' },
+			kopf: { oben: k.top },
+			verdeckt: punkte.filter((p) => p.oben < l.bottom && l.bottom > 0),
+		};
+	});
+
+	if (!lage) {
+		sagen(`${breite} px: Werkzeugleiste vorhanden`, false, 'nicht gefunden');
+		continue;
+	}
+
+	// Unter 600 px lässt WordPress die Leiste mitscrollen – dann ist sie weg.
+	const stoert = lage.leiste.fest && lage.leiste.unten > 0;
+
+	sagen(
+		`${breite} px: Kopfbereich liegt unter der Werkzeugleiste`,
+		!stoert || lage.kopf.oben >= lage.leiste.unten - 1,
+		`Leiste endet bei ${Math.round(lage.leiste.unten)}, Kopf beginnt bei ${Math.round(lage.kopf.oben)}`
+	);
+	sagen(
+		`${breite} px: nichts vom Menü wird verdeckt`,
+		lage.verdeckt.length === 0,
+		lage.verdeckt.map((p) => p.name).join(', ')
+	);
+}
+
+// Und die Gegenprobe: abgemeldet darf sich nichts verschoben haben.
+const gast = await b.newContext();
+const g = await gast.newPage({ viewport: { width: 1400, height: 900 } });
+await g.goto(basis + '/programm/', { waitUntil: 'networkidle' });
+await g.evaluate(() => window.scrollTo({ top: 900, behavior: 'instant' }));
+await g.waitForTimeout(350);
+const ohne = await g.evaluate(() => ({
+	leiste: !!document.querySelector('#wpadminbar'),
+	kopf: Math.round(document.querySelector('.site-header').getBoundingClientRect().top),
+}));
+sagen('abgemeldet: keine Werkzeugleiste', !ohne.leiste);
+sagen('abgemeldet: Kopfbereich klebt weiter ganz oben', ohne.kopf === 0, ohne.kopf + ' px');
+await gast.close();
+
+await s.setViewportSize({ width: 1400, height: 1000 });
+
 if (bilder) await s.screenshot({ path: bilder + '/einrichtung.png', fullPage: true });
 await b.close();
 console.log(fehler === 0 ? '\nEinrichtungsseite in Ordnung.' : `\n${fehler} Fehler.`);

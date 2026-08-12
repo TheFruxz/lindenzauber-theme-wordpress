@@ -185,12 +185,18 @@
 .wp-block-group.is-style-lz-hero > * {
 	position: relative;
 	z-index: 2;
-	/* WordPress zentriert Blöcke über "margin-inline: auto". In einer
-	   Flex-Spalte verhindert ein automatischer Rand aber, dass sich der
-	   Block auf die Breite zieht – er schrumpft dann auf seinen Inhalt.
-	   Beim Zierstrich, der nur aus einer Maske besteht, hieß das: 0 px
-	   breit und damit unsichtbar. Mit einer gesetzten Breite verhält sich
-	   alles wieder wie im normalen Fluss, die Höchstbreite begrenzt weiter. */
+}
+
+/* WordPress zentriert Blöcke über "margin-inline: auto". In einer Flex-Spalte
+   verhindert ein automatischer Rand aber, dass sich der Block auf die Breite
+   zieht – er schrumpft dann auf seinen Inhalt. Beim Zierstrich, der nur aus
+   einer Maske besteht, hieß das: 0 px breit und damit unsichtbar.
+   Deshalb bekommt genau er eine Breite – und nur er. Eine pauschale Breite
+   für alle Kinder hat das Signet aus der Mitte geschoben: Ein Bild mit der
+   Ausrichtung „Mitte“ ist bei WordPress "display: table" und zentriert sich
+   gerade dadurch, dass es nur so breit ist wie sein Inhalt. Auf volle Breite
+   gezwungen, klebte das Blatt am linken Rand der Spalte. */
+.wp-block-group.is-style-lz-hero > .wp-block-separator {
 	width: 100%;
 }
 
