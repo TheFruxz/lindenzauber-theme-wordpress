@@ -602,3 +602,59 @@ keine Leiste, Kopfbereich weiter bei 0.
 Gegenprobe mit dem alten Stand: **6 Fehler** in den drei größeren Breiten
 („Leiste endet bei 32, Kopf beginnt bei 0“, sechs verdeckte Menüpunkte), und bei
 390 px korrekt kein Befund, weil die Leiste dort mitscrollt.
+
+---
+
+# Zehnte Runde – die Porträts auf dem Handy
+
+| Nr. | Cedrics Punkt | Umsetzung |
+|----|----|----|
+| 70 | „Bei den Erzählern ist dieser Layout-Shift, wo Text teilweise sogar in die Bilder geht. Die ersten Einträge sind gut, doch dann zerfällt es plötzlich“ | **Erledigt.** Nachgemessen bei 390 px: Bea Tilanus' Foto war 416 px hoch, seine Spalte nur 251 – es ragte **165 px** in den Text darunter. Beim Blattfeld der sechsten Stimme war es umgekehrt: die Spalte fiel auf **3 px** zusammen, während das Lindenblatt darin in voller Größe weitergezeichnet wurde und über die Überschrift lief. |
+
+## „Liegt das am Platzhalter dazwischen?“
+
+Naheliegend, aber nein – der Platzhalter war ein Opfer, kein Täter. Betroffen
+war **jedes zweite** Porträt: alle mit der Klasse `lz-bild-rechts`. Weil die
+sechste Stimme zufällig auch dazugehört, sah es nach dem Platzhalter aus.
+
+Die Ursache liegt eine Ebene tiefer. Unter 782 px stapelt WordPress
+Spalten selbst, mit zwei eigenen Regeln:
+
+```css
+.wp-block-columns { flex-wrap: wrap !important; }
+.wp-block-columns > .wp-block-column { flex-basis: 100% !important; }
+```
+
+`flex-basis` meint immer die **Hauptachse**. Solange die Richtung `row` heißt,
+sind das 100 % Breite – gemeint ist: „jede Spalte volle Breite, dadurch bricht
+sie in eine eigene Zeile um“. Das Theme setzte dort aber `flex-direction: column`,
+um das Stapeln selbst zu erzwingen. Damit wurde aus der Breitenangabe eine
+**Höhenangabe**: jede Spalte sollte 100 % der Containerhöhe hoch sein, was sich
+nicht auflösen lässt – und weil `flex-shrink` auf 1 steht, wurden sie
+zusammengedrückt. Mal auf 251 px, mal auf 3 px.
+
+Die eigene Regel war schlicht überflüssig: WordPress stapelt bereits. Sie ist
+raus, die Richtung bleibt waagerecht. Alle sechs Porträts messen jetzt
+identische 416 px – Spalte wie Bild.
+
+Nebenbei mitkorrigiert: `.lz-bild-links` stand nicht in der Liste der
+Ausnahmen. Eine Medienabfrage erhöht die Spezifität nicht, deshalb hätte diese
+Regel die Umstellung ohnehin überstimmt – ein zweiter Weg zum selben Fehler.
+
+## Zwei Prüfungen, die das gefunden hätten
+
+`layout-check.mjs` läuft in 390 px – trotzdem hat es nichts gemeldet, weil
+keine der Prüfungen sich Kästen **ineinander** angesehen hat. Zwei neue:
+
+* **„Inhalt ragt aus seinem Kasten“** – ein Kind, dessen Unterkante über die
+  seines Elternteils hinausgeht, während dort nichts abgeschnitten wird.
+  Bewusst überstehende oder absolut gesetzte Gestaltung bleibt ausgenommen.
+* **„Seitenverhältnis wird nicht eingehalten“** – ein Kasten mit festem
+  Seitenverhältnis, dessen Höhe grob davon abweicht (die Höchsthöhe wird
+  mitgerechnet). Ein flach zusammengefallener Kasten zeichnet seinen Inhalt
+  weiter und legt ihn über das, was folgt.
+
+Gegenprobe mit dem alten `flex-direction: column`: **drei Befunde** – zweimal
+„ragt 165 bzw. 132 px hinaus“, einmal „3 px statt 416 px“. Genau die beiden
+Stellen aus Cedrics Bildern, plus ein drittes Porträt, das noch niemand
+bemerkt hatte.

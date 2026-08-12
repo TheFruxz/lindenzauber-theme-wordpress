@@ -734,11 +734,22 @@ p.is-style-lz-hinweis::before {
 	flex-direction: row;
 }
 
+/* Auf schmalen Fenstern stapelt WordPress die Spalten selbst: es setzt
+   flex-wrap: wrap und flex-basis: 100% !important. Diese Angabe meint aber
+   die *Hauptachse* – und die ist nur waagerecht, solange die Richtung "row"
+   heißt. Hier stand früher "column". Damit wurde aus der Breitenangabe eine
+   Höhenangabe, und die Spalten wurden zusammengedrückt: Bea Tilanus' Foto
+   ragte 165 px über seine Spalte hinaus mitten in den Text darunter, und das
+   Blattfeld der sechsten Stimme blieb 3 px hoch, während das Lindenblatt
+   darin in voller Größe weitergezeichnet wurde und über die Überschrift lief.
+   Betroffen war jedes zweite Porträt – deshalb sahen die ersten gut aus.
+   Die Richtung bleibt jetzt waagerecht; das Stapeln macht WordPress. */
 @media (max-width: 781px) {
 	.wp-block-columns.is-style-lz-portraet,
 	.wp-block-columns.is-style-lz-portraet:nth-of-type(even),
+	.wp-block-columns.is-style-lz-portraet.lz-bild-links,
 	.wp-block-columns.is-style-lz-portraet.lz-bild-rechts {
-		flex-direction: column;
+		flex-direction: row;
 	}
 }
 

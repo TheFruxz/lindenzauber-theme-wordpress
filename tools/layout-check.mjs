@@ -132,6 +132,59 @@ const pruefung = () => {
 		}
 	});
 
+	/* ------------------------------ 2c. Inhalt ragt aus seinem Kasten heraus */
+	// Wenn ein Bild höher wird als die Spalte, in der es steht, legt es sich
+	// über das, was darunter kommt. Auf dem Handy lief so ein Porträtfoto
+	// 165 px weit in den Text des nächsten Absatzes.
+	document.querySelectorAll('.wp-block-column > *, figure > img').forEach((el) => {
+		if (!sichtbar(el)) return;
+
+		const eltern = el.parentElement;
+		const es = getComputedStyle(eltern);
+
+		// Bewusst überstehende Gestaltung ist etwas anderes.
+		if (es.overflow !== 'visible' || getComputedStyle(el).position === 'absolute') return;
+
+		const ueber = el.getBoundingClientRect().bottom - eltern.getBoundingClientRect().bottom;
+
+		if (ueber > 4) {
+			befunde.push({
+				art: 'Inhalt ragt aus seinem Kasten',
+				wo: beschreibe(el),
+				mass: `${px(ueber)} px über ${beschreibe(eltern)} hinaus`,
+			});
+		}
+	});
+
+	/* ------------------------------- 2d. Seitenverhältnis nicht eingehalten */
+	// Ein Kasten mit festem Seitenverhältnis, der trotzdem flach zusammenfällt,
+	// zeichnet seinen Inhalt weiter – das Blattfeld der sechsten Stimme war
+	// 3 px hoch, das Lindenblatt darin lief über die Überschrift darunter.
+	document.querySelectorAll('*').forEach((el) => {
+		const cs = getComputedStyle(el);
+
+		if (cs.aspectRatio === 'auto' || !sichtbar(el)) return;
+
+		const teile = cs.aspectRatio.split('/').map((t) => parseFloat(t));
+		const verhaeltnis = teile.length === 2 ? teile[0] / teile[1] : teile[0];
+
+		if (!verhaeltnis || !isFinite(verhaeltnis)) return;
+
+		const r = el.getBoundingClientRect();
+		const grenze = parseFloat(cs.maxHeight);
+		let erwartet = r.width / verhaeltnis;
+
+		if (isFinite(grenze)) erwartet = Math.min(erwartet, grenze);
+
+		if (Math.abs(r.height - erwartet) > Math.max(8, erwartet * 0.1)) {
+			befunde.push({
+				art: 'Seitenverhältnis wird nicht eingehalten',
+				wo: beschreibe(el),
+				mass: `${px(r.height)} px statt ${px(erwartet)} px`,
+			});
+		}
+	});
+
 	/* ------------------------------------------------- 3. Klickbare Flächen */
 	document.querySelectorAll('a[href], button').forEach((el) => {
 		if (!sichtbar(el)) return;
